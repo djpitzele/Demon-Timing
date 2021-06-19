@@ -6,6 +6,8 @@ using System;
 public class PlayerClass : MonoBehaviour, EntityClass
 {
     public Sprite theSoldier;
+    public GameObject spawner;
+    public GameObject prefab;
     private int curMana;
     private int maxMana;
     private float curHP;
@@ -67,7 +69,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
     void Start()
     {
         Vector3 pos = new Vector3(6, 5, 0);
-        GameObject.Find("Spawner").GetComponent<EnemySpawner>().spawnEnemy(pos, typeof(SoldierCommander), theSoldier);
+        //GameObject.Find("Spawner").GetComponent<EnemySpawner>().spawnEnemy(pos, typeof(SoldierCommander), theSoldier);
+        //spawner.GetComponent<EnemySpawner>().spawnEnemy(prefab);
     }
     
     // Update is called once per frame

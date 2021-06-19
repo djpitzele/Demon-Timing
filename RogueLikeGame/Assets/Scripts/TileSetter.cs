@@ -14,6 +14,7 @@ public class TileSetter : MonoBehaviour
     public Tile floor;
     public Tile pillar;
     public Tilemap tm = new Tilemap();
+    private HashSet<Vector2> pillarSet;
     System.Random r = new System.Random();
     public int getWidth()
     {
@@ -27,6 +28,7 @@ public class TileSetter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pillarSet = new HashSet<Vector2>();
         pillarsLeft = (int)((((width - 1) * (height - 1)) * 0.16) + 0.5);
         Tilemap tm = this.gameObject.GetComponent<Tilemap>();
         //Tile floor = (Tile)Resources.Load("smile");
@@ -36,6 +38,11 @@ public class TileSetter : MonoBehaviour
             genRowPillars(i);
             //Debug.Log(i);
         }
+    }
+    
+    public HashSet<Vector2> getPillars()
+    {
+        return pillarSet;
     }
 
     // Update is called once per frame
@@ -96,6 +103,8 @@ public class TileSetter : MonoBehaviour
                     //tileCost[x][y] = 10000000;
                     streak = 0;
                     pillarsLeft--;
+                    Vector2 temp = new Vector2(v.x, v.y);
+                    pillarSet.Add(temp);
                 }
                 else
                 {
