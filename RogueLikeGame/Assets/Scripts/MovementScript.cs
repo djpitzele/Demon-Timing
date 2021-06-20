@@ -16,7 +16,6 @@ public class MovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(10, 5, 0);
         rb = GetComponent<Rigidbody2D>();
     }
 

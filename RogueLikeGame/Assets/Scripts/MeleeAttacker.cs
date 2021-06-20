@@ -16,9 +16,9 @@ public class MeleeAttacker : MonoBehaviour
     private Grid theGrid;
     private Vector2 offset = new Vector2(0.5f, 0.5f);
     public float meleeSpeed;
-    private HashSet<Vector2> wrongpath;
-    private Vector2 oldPlayerPos;
-    private bool start;
+    //private HashSet<Vector2> wrongpath;
+    private Vector2 oldPlayerPos = new Vector2(-1 ,-1);
+    private Rigidbody2D rbEnemy2d;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,17 +27,16 @@ public class MeleeAttacker : MonoBehaviour
         filter.useLayerMask = true;
         filter.SetLayerMask((LayerMask)3);
         theGrid = thePillarGrid.GetComponent<Grid>();
-        wrongpath = new HashSet<Vector2>();
+       // wrongpath = new HashSet<Vector2>();
         timeTilFind = 0;
-        start = true;
+        rbEnemy2d = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        //TO DO: ONLY ADJACENT SQUARES CAN BE GONE TO
         //Debug.Log(path[0]);
-        if (timeTilFind <= 0 && (ourWorldToCell((Vector2)myPlayer.transform.position) != oldPlayerPos || start))
+        if (timeTilFind <= 0 && (ourWorldToCell((Vector2)myPlayer.transform.position) != oldPlayerPos))
         {
             /*RaycastHit2D[] results = new RaycastHit2D[1];
             int blocksInFront = Physics2D.Linecast(new Vector2(transform.position.x, transform.position.y), new Vector2(myPlayer.transform.position.x, myPlayer.transform.position.y), filter, results);
@@ -52,7 +51,6 @@ public class MeleeAttacker : MonoBehaviour
             Vector2[] posns = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
             HashSet<Vector2> closedList = new HashSet<Vector2>();
             closedList.UnionWith(thePillarGrid.GetComponentInChildren<TileSetter>().getPillars());
-            closedList.UnionWith(wrongpath);
             List<Vector2> openList = new List<Vector2>();
             List<Vector2> curPath = new List<Vector2>();
             Vector3Int temporary = theGrid.WorldToCell(transform.position);
@@ -73,6 +71,7 @@ public class MeleeAttacker : MonoBehaviour
             {
                 int minIndex = -1;
                 int minCost = int.MaxValue;
+                int minG = int.MaxValue;
                 for (int i = 0; i < openList.Count; i++)
                 {
                     curVector = openList[i];
@@ -85,6 +84,13 @@ public class MeleeAttacker : MonoBehaviour
                     {
                         minIndex = i;
                         minCost = h;
+                        minG = g;
+                    }
+                    else if (h == minCost && g < minG)
+                    {
+                        minIndex = i;
+                        minCost = h;
+                        minG = g;
                     }
                 }
 
@@ -92,7 +98,7 @@ public class MeleeAttacker : MonoBehaviour
                 curPath.Add(openList[minIndex]);
                 closedList.Add(openList[minIndex]);
                 curVector = openList[minIndex];
-                openList.RemoveAt(minIndex);
+                //openList.RemoveAt(minIndex);
                 openList.Clear();
                 foreach (Vector2 v in posns)
                 {
@@ -103,17 +109,16 @@ public class MeleeAttacker : MonoBehaviour
                     }
                 }
                // Debug.Log(curPath[0]);
-                if (openList.Count == 0)
+               /* if (openList.Count == 0)
                 {
-                    wrongpath.Add(curPath[curPath.Count - 1]);
-                    Update();
-                    return;
-                }
+                    //wrongpath.Add(curPath[curPath.Count - 1]);
+                    //it was funny here
+                }*/
             }
             if(openList.Count == 0)
             {
                 Debug.Log("boxed like a fish");
-                Destroy(this);
+               // Destroy(this);
             }
             goingTowards = 0;
             path = curPath;
@@ -135,7 +140,10 @@ public class MeleeAttacker : MonoBehaviour
     public void moveTowardsNext()
     {
         Vector2 nextPoint = path[goingTowards];
-        transform.position = Vector2.MoveTowards(transform.position, ourCellToWorld(nextPoint) + offset, meleeSpeed * Time.deltaTime);
+        //Debug.Log(Vector2.MoveTowards(transform.position, ourCellToWorld(nextPoint) + offset, meleeSpeed * Time.fixedDeltaTime));
+        rbEnemy2d.position = Vector2.MoveTowards(transform.position, ourCellToWorld(nextPoint) + offset, meleeSpeed * Time.fixedDeltaTime);
+        //transform.position = Vector2.MoveTowards(transform.position, ourCellToWorld(nextPoint) + offset, meleeSpeed * Time.deltaTime);
+        //rbEnemy2d.AddForce(ourCellToWorld(nextPoint) + offset);
     }
 
     private Vector2 ourCellToWorld(Vector2 v)
@@ -149,5 +157,10 @@ public class MeleeAttacker : MonoBehaviour
         Vector3 newV = new Vector3((int)v.x, (int)v.y, 0);
         Vector3Int temp = theGrid.WorldToCell(newV);
         return (new Vector2(temp.x, temp.y));
+
+    }
+    public void OnCollisionEnter2d(Collision collision)
+    {
+        Debug.Log("wall here");
     }
 }
