@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 207197548}
   - component: {fileID: 207197550}
   - component: {fileID: 207197551}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MainChar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -325,26 +325,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4342715364162345006, guid: 35b724a1292e5df46ab4258579606891,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4342715364162345006, guid: 35b724a1292e5df46ab4258579606891,
-        type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4342715364162345006, guid: 35b724a1292e5df46ab4258579606891,
-        type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4342715364162345006, guid: 35b724a1292e5df46ab4258579606891,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4455546922670808454, guid: 35b724a1292e5df46ab4258579606891,
         type: 3}
       propertyPath: m_RootOrder
@@ -405,16 +385,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoldierCommanderPreFab
       objectReference: {fileID: 0}
+    - target: {fileID: 6309820748959245513, guid: 35b724a1292e5df46ab4258579606891,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7719192470214516064, guid: 35b724a1292e5df46ab4258579606891,
         type: 3}
       propertyPath: myPlayer
       value: 
       objectReference: {fileID: 207197543}
-    - target: {fileID: 7719192470214516064, guid: 35b724a1292e5df46ab4258579606891,
-        type: 3}
-      propertyPath: meleeSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 7719192470214516064, guid: 35b724a1292e5df46ab4258579606891,
         type: 3}
       propertyPath: thePillarGrid
@@ -826,6 +806,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword
       objectReference: {fileID: 0}
+    - target: {fileID: 8300995623662836843, guid: 411ac8f602b134742bf33c2de5b35869,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
@@ -932,6 +917,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   daFloor: {fileID: 11400000, guid: da7cfba2dfb1ef441a05922916acab81, type: 2}
+  spawners: []
+  floorPillars: {fileID: 783083318}
+  spawnersLeft: 6
 --- !u!483693784 &1152286499
 TilemapRenderer:
   m_ObjectHideFlags: 0

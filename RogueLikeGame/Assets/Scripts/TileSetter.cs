@@ -69,9 +69,13 @@ public class TileSetter : MonoBehaviour
             return true;
         }
     }
-    public bool spawnerPossible(int x, int y)
+    public bool spawnerPossible(int x, int y, int spawnersLeft)
     {
         Vector3Int v = new Vector3Int(x, y, 0);
+        if(spawnersLeft == 0)
+        {
+            return false;
+        }
         if(tm.GetTile(v) == pillar)
         {
             return false;
