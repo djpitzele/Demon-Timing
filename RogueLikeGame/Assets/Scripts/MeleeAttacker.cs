@@ -22,6 +22,8 @@ public class MeleeAttacker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myPlayer = GameObject.Find("MainChar");
+        thePillarGrid = GameObject.Find("PillarGrid");
         destination = transform.position;
         filter = new ContactFilter2D();
         filter.useLayerMask = true;

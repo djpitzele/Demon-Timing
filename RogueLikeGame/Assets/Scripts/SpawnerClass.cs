@@ -6,12 +6,11 @@ public class SpawnerClass : MonoBehaviour
 {
     public Sprite sprite;
     public GameObject spawnedEnemy;
-}
-  /*  public SpawnerClass(Sprite spte, GameObject go)
+   public SpawnerClass(Sprite spte, GameObject go)
     {
         sprite = spte;
         spawnedEnemy = go;
-    }
+    }/*
     public Sprite GetSprite()
     {
         return sprite;
@@ -30,4 +29,5 @@ public class SpawnerClass : MonoBehaviour
     {
         
     }
+    */
 }

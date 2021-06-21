@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class MovementScript : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(Input.GetAxis("Reset") != 0)
+        {
+            Scene s = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(s.name);
+        }
         float curMovement = Input.GetAxis("Horizontal");
         if(curMovement > 0)
         {

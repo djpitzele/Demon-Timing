@@ -385,11 +385,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoldierCommanderPreFab
       objectReference: {fileID: 0}
-    - target: {fileID: 6309820748959245513, guid: 35b724a1292e5df46ab4258579606891,
-        type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 7719192470214516064, guid: 35b724a1292e5df46ab4258579606891,
         type: 3}
       propertyPath: myPlayer
@@ -917,9 +912,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   daFloor: {fileID: 11400000, guid: da7cfba2dfb1ef441a05922916acab81, type: 2}
-  spawners: []
+  spritesToMatch:
+  - {fileID: 21300000, guid: 5fd9c638ad37db84da84fc3ca6aa3173, type: 3}
+  enemiesToMatch:
+  - {fileID: 6309820748959245513, guid: 35b724a1292e5df46ab4258579606891, type: 3}
   floorPillars: {fileID: 783083318}
   spawnersLeft: 6
+  AvgMobs: 3
+  waves: 2
 --- !u!483693784 &1152286499
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -1017,7 +1017,7 @@ GameObject:
   - component: {fileID: 1770600165}
   - component: {fileID: 1770600164}
   m_Layer: 6
-  m_Name: FloorTilemap
+  m_Name: FloorGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

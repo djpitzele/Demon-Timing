@@ -7,24 +7,27 @@ public class SpawnerTile : Tile
     // Start is called before the first frame update
     public Sprite sprite;
     public Color color = Color.white;
-    public Matrix4x4 transform = Matrix4x4.identity;
+    public Matrix4x4 transformb = Matrix4x4.identity;
     public GameObject gameobject = null;
     public TileFlags flags = TileFlags.LockColor;
     public List<int> wavesTillSpawn;
     public GameObject spawnedEnemy;
     public ColliderType colliderType = ColliderType.Sprite;
+    private Vector3 pos;
   
     // Start is called before the first frame update
     void Start()
     {
-
+        Debug.Log(wavesTillSpawn);
+        WaveOver();
     }
-    public SpawnerTile(Sprite s, GameObject go, List<int> w)
+    public SpawnerTile(Sprite s, GameObject go, List<int> w, Vector3 v)
     {
         sprite = s;
         spawnedEnemy = go;
         wavesTillSpawn = w;
-
+        pos = v;
+        Start();
     }
 
     // Update is called once per frame
@@ -46,7 +49,7 @@ public class SpawnerTile : Tile
         base.GetTileData(position, tilemap, ref tileData);
         tileData.sprite = this.sprite;
         tileData.color = this.color;
-        tileData.transform = this.transform;
+        tileData.transform = this.transformb;
         tileData.gameObject = this.gameobject;
         tileData.flags = this.flags;
         tileData.colliderType = this.colliderType;
@@ -69,7 +72,7 @@ public class SpawnerTile : Tile
     }
     public void Spawn()
     {
-        Instantiate(spawnedEnemy);
+        Instantiate(spawnedEnemy, pos, Quaternion.identity);
     }
    
 }
