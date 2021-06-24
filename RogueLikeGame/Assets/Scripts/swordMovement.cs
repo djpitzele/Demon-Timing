@@ -12,11 +12,13 @@ public class swordMovement : MonoBehaviour
     private Quaternion normalRotation;
     private Quaternion currentRotation;
     private int facing = 1;
+    private float kb = 100;
     // Start is called before the first frame update
     void Start()
     {
         normalRotation = transform.rotation;
         totalChangePosition = new Vector3(0, -2 * attackPosition.y, 0);
+        GetComponent<PolygonCollider2D>().enabled = false;
     }
 
     // Update is called once per frame
@@ -30,6 +32,7 @@ public class swordMovement : MonoBehaviour
             transform.position = transform.parent.position;
             transform.position += attackPosition;
             currentRotation = new Quaternion(0, 0, 0, 1);
+            GetComponent<PolygonCollider2D>().enabled = true;
         }
         if (attackTime > 0)
         {
@@ -45,6 +48,7 @@ public class swordMovement : MonoBehaviour
             transform.position = transform.parent.position;
             transform.rotation = normalRotation;
             attackTime -= Time.deltaTime;
+            GetComponent<PolygonCollider2D>().enabled = false;
         }
         else
         {
@@ -54,9 +58,10 @@ public class swordMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.TryGetComponent(out EntityClass ec))
+        if (c.gameObject.TryGetComponent(out EntityClass ec) && c.isTrigger)
         {
             ec.getHit(thePlayer.GetComponent<PlayerClass>().getDmg(), "melee");
+            ec.ecgetObject().GetComponent<Rigidbody2D>().AddForce((ec.ecgetObject().transform.position - transform.position) * kb, ForceMode2D.Force);
         }
     }
 }

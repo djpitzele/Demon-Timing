@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerClass : MonoBehaviour
+public class SpawnerClass
 {
     public Sprite sprite;
     public GameObject spawnedEnemy;

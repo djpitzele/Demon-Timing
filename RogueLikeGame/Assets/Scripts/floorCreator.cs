@@ -20,6 +20,8 @@ public class floorCreator : MonoBehaviour
     public int AvgMobs;
     public int waves;
     private int initialSpawnersLeft;
+    public GameObject player;
+    public List<SpawnerTile> spawnerTiles;
     // for funsies
     //private HashSet<Vector2> spawnerSet;
     
@@ -49,7 +51,20 @@ public class floorCreator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (player.GetComponent<PlayerClass>().totalEnemies == 0)
+        {
+            foreach (SpawnerTile t in spawnerTiles)
+            {
+                t.WaveOver();
+            }
+            waves--;
+            if (waves == 0)
+            {
+                player.GetComponent<MovementScript>().resetscene();
+            }
+
+        }
+
     }
     public void genRowSpawners(int curHeight)
     {
@@ -67,7 +82,9 @@ public class floorCreator : MonoBehaviour
                 {
                     //Debug.Log(x);
                     //Debug.Log(((pillarsLeft / (width * height)) * 80000));
-                    tm.SetTile(v, chooseSpawner(v));
+                    SpawnerTile t = chooseSpawner(v);
+                    spawnerTiles.Add(t);
+                    tm.SetTile(v, t);
                     //tileCost[x][y] = 10000000;
                     streak = 0;
                     spawnersLeft--;
@@ -77,12 +94,22 @@ public class floorCreator : MonoBehaviour
             }
         }
     }
-    private Tile chooseSpawner(Vector3Int v)
+    private SpawnerTile chooseSpawner(Vector3Int v)
     {
         //SpawnerClass temp = spawners[r.Next(spawners.Count)];
         SpawnerClass temp = spawners[0];
         Vector3 changedV = floorPillars.gameObject.GetComponentInParent<Grid>().CellToWorld(v);
-        return new SpawnerTile(temp.sprite, temp.spawnedEnemy, genWaves(AvgMobs, waves, spawners.Count), changedV);
+        SpawnerTile t = (SpawnerTile)ScriptableObject.CreateInstance("SpawnerTile");// SpawnerTile(temp.sprite, temp.spawnedEnemy, genWaves(AvgMobs, waves, spawners.Count), changedV);
+        t.sprite = temp.sprite;
+        t.spawnedEnemy = temp.spawnedEnemy;
+        t.wavesTillSpawn = genWaves(AvgMobs, waves, spawners.Count);
+        t.pos = changedV;
+        t.player = player;
+        t.f = this.gameObject;
+
+        t.Start();
+       
+        return t;
     }
     private List<int> genWaves(int a, int w, int s)
     {
@@ -92,10 +119,12 @@ public class floorCreator : MonoBehaviour
         {
             int b = r.Next(1000);
             //CHANGE 1 ON NEXT LINE TO DECREASE CHANCE OF SPAWN
-            if (b > (a * 1) / (w * s))
+            if (b > (a * 500) / (w * s))
             {
+                //Debug.Log(d);
                 timeBetween.Add(d);
                 d = 0;
+                
             }
             else
             {

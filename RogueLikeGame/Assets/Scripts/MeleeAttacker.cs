@@ -9,7 +9,7 @@ public class MeleeAttacker : MonoBehaviour
     public GameObject thePillarGrid;
     //timeTilFind is in seconds
     private float timeTilFind;
-    private Vector3 destination;
+    //private Vector3 destination;
     private ContactFilter2D filter;
     private List<Vector2> path;
     private int goingTowards = 0;
@@ -19,12 +19,13 @@ public class MeleeAttacker : MonoBehaviour
     //private HashSet<Vector2> wrongpath;
     private Vector2 oldPlayerPos = new Vector2(-1 ,-1);
     private Rigidbody2D rbEnemy2d;
+    private Vector2 endPos = new Vector2(-1, -1);
     // Start is called before the first frame update
     void Start()
     {
         myPlayer = GameObject.Find("MainChar");
         thePillarGrid = GameObject.Find("PillarGrid");
-        destination = transform.position;
+        //destination = transform.position;
         filter = new ContactFilter2D();
         filter.useLayerMask = true;
         filter.SetLayerMask((LayerMask)3);
@@ -32,14 +33,16 @@ public class MeleeAttacker : MonoBehaviour
        // wrongpath = new HashSet<Vector2>();
         timeTilFind = 0;
         rbEnemy2d = this.gameObject.GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         //Debug.Log(path[0]);
-        if (timeTilFind <= 0 && (ourWorldToCell((Vector2)myPlayer.transform.position) != oldPlayerPos))
+        if (timeTilFind <= 0 /*&& (ourWorldToCell(myPlayer.transform.position) != oldPlayerPos)*/ && ourWorldToCell(transform.position) != endPos)
         {
+            
             /*RaycastHit2D[] results = new RaycastHit2D[1];
             int blocksInFront = Physics2D.Linecast(new Vector2(transform.position.x, transform.position.y), new Vector2(myPlayer.transform.position.x, myPlayer.transform.position.y), filter, results);
             if(blocksInFront == 0)
@@ -53,15 +56,17 @@ public class MeleeAttacker : MonoBehaviour
             Vector2[] posns = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
             HashSet<Vector2> closedList = new HashSet<Vector2>();
             closedList.UnionWith(thePillarGrid.GetComponentInChildren<TileSetter>().getPillars());
+            path = new List<Vector2>();
             List<Vector2> openList = new List<Vector2>();
             List<Vector2> curPath = new List<Vector2>();
             Vector3Int temporary = theGrid.WorldToCell(transform.position);
             Vector2 startPos = new Vector2(temporary.x, temporary.y);
             Vector3Int temporary2 = theGrid.WorldToCell(myPlayer.transform.position);
-            Vector2 endPos = new Vector2(temporary2.x, temporary2.y);
+            endPos = new Vector2(temporary2.x, temporary2.y);
             oldPlayerPos = endPos;
             Vector2 curVector = new Vector2(-10000, -10000);
             Vector2 tempPosn = ourWorldToCell(transform.position);
+           
             foreach (Vector2 v in posns)
             {
                 if (!(closedList.Contains(tempPosn + v)))
@@ -69,7 +74,9 @@ public class MeleeAttacker : MonoBehaviour
                     openList.Add(tempPosn + v);
                 }
             }
-            while (openList.Count != 0 && curVector != endPos)
+            int j = 0;
+            //THE J = 200 FIXED THE CRASHING, BASICALLY IT WAS LOOPING INFINATELY (why? idk)
+            while ((!(openList.Count == 0 || curVector == endPos)) && j < 200)
             {
                 int minIndex = -1;
                 int minCost = int.MaxValue;
@@ -110,29 +117,45 @@ public class MeleeAttacker : MonoBehaviour
                         openList.Add(curVector + v);
                     }
                 }
-               // Debug.Log(curPath[0]);
-               /* if (openList.Count == 0)
-                {
-                    //wrongpath.Add(curPath[curPath.Count - 1]);
-                    //it was funny here
-                }*/
+                // Debug.Log(curPath[0]);
+                /* if (openList.Count == 0)
+                 {
+                     //wrongpath.Add(curPath[curPath.Count - 1]);
+                     //it was funny here
+                 }*/
+                //Debug.Log(j);
+                j++;
             }
             if(openList.Count == 0)
             {
-                Debug.Log("boxed like a fish");
-               // Destroy(this);
+                //Debug.Log("boxed like a fish");
+                // Destroy(this);
             }
             goingTowards = 0;
             path = curPath;
-            timeTilFind = 0.5f;
+            timeTilFind = .5f;
+            //Debug.Log("Y" + goingTowards + " " + path.Count);
         }
-        if((Vector2)transform.position == ourCellToWorld(path[goingTowards]) + offset && path.Count - 1 != goingTowards)
+        /*else if(ourWorldToCell(transform.position) == endPos)
+        {
+            rbEnemy2d.position = Vector2.MoveTowards(transform.position, myPlayer.transform.position, 0.25f * meleeSpeed * Time.fixedDeltaTime);
+        }*/
+        //Debug.Log(path.Count);
+        Vector3Int updatePos = theGrid.WorldToCell(myPlayer.transform.position);
+        endPos = new Vector2(updatePos.x, updatePos.y);
+        if (path.Count - 1 <= goingTowards)
+        {
+            //Debug.Log("X" + goingTowards + " " + path.Count);
+            goingTowards = 0;
+        }
+        else if (ourWorldToCell(transform.position) == (path[goingTowards]) && path.Count - 1 != goingTowards)
         {
            
             goingTowards++;
         }
         else
         {
+            
             moveTowardsNext();
         }
         timeTilFind -= Time.deltaTime;
@@ -143,7 +166,7 @@ public class MeleeAttacker : MonoBehaviour
     {
         Vector2 nextPoint = path[goingTowards];
         //Debug.Log(Vector2.MoveTowards(transform.position, ourCellToWorld(nextPoint) + offset, meleeSpeed * Time.fixedDeltaTime));
-        rbEnemy2d.position = Vector2.MoveTowards(transform.position, ourCellToWorld(nextPoint) + offset, meleeSpeed * Time.fixedDeltaTime);
+        rbEnemy2d.position = Vector2.MoveTowards(transform.position, ourCellToWorld(nextPoint) + offset, meleeSpeed * Time.deltaTime);
         //transform.position = Vector2.MoveTowards(transform.position, ourCellToWorld(nextPoint) + offset, meleeSpeed * Time.deltaTime);
         //rbEnemy2d.AddForce(ourCellToWorld(nextPoint) + offset);
     }
@@ -163,6 +186,18 @@ public class MeleeAttacker : MonoBehaviour
     }
     public void OnCollisionEnter2d(Collision collision)
     {
-        Debug.Log("wall here");
+        //Debug.Log("wall here");
+    }
+    public void Update()
+    {
+        /*if (Time.deltaTime > 1)
+        {
+            Debug.Log("somebitches" + path[0]);
+        }*/
+        //Debug.Log(Time.deltaTime);
+        if (ourWorldToCell(transform.position) == endPos)
+        {
+            rbEnemy2d.position = Vector2.MoveTowards(transform.position, myPlayer.transform.position, 0.25f * meleeSpeed * Time.fixedDeltaTime);
+        }
     }
 }

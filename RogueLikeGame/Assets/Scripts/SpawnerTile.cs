@@ -13,21 +13,25 @@ public class SpawnerTile : Tile
     public List<int> wavesTillSpawn;
     public GameObject spawnedEnemy;
     public ColliderType colliderType = ColliderType.Sprite;
-    private Vector3 pos;
-  
+    public Vector3 pos;
+    private Vector3 offset = new Vector3(0.5f, 0.5f, 0.5f);
+    public GameObject player;
+    public GameObject f;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        Debug.Log(wavesTillSpawn);
+        //Debug.Log(wavesTillSpawn);
         WaveOver();
+        
     }
-    public SpawnerTile(Sprite s, GameObject go, List<int> w, Vector3 v)
+     public SpawnerTile(Sprite s, GameObject go, List<int> w, Vector3 v, GameObject p)
     {
         sprite = s;
         spawnedEnemy = go;
         wavesTillSpawn = w;
         pos = v;
         Start();
+        player = p;
     }
 
     // Update is called once per frame
@@ -42,6 +46,7 @@ public class SpawnerTile : Tile
             Spawn();
             wavesTillSpawn.RemoveAt(0);
         }*/
+        
 
     }
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
@@ -56,10 +61,13 @@ public class SpawnerTile : Tile
     }
     public void WaveOver()
     {
+        Debug.Log("wave" + player.GetComponent<PlayerClass>().totalEnemies);
+        
         if (wavesTillSpawn.Count == 0)
         {
             return;
         }
+        
         else if (wavesTillSpawn[0] == 0)
         {
             Spawn();
@@ -68,11 +76,15 @@ public class SpawnerTile : Tile
         else
         {
             wavesTillSpawn[0] -= 1;
+            //Debug.Log("Deez" + wavesTillSpawn[0]);
         }
+
     }
     public void Spawn()
     {
-        Instantiate(spawnedEnemy, pos, Quaternion.identity);
+        GameObject temp = Instantiate(spawnedEnemy, pos + offset, Quaternion.identity);
+        temp.GetComponent<EntityClass>().setPlayer(player);
+        player.GetComponent<PlayerClass>().totalEnemies++;
     }
    
 }

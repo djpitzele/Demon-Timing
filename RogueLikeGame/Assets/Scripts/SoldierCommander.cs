@@ -8,27 +8,35 @@ public class SoldierCommander : MonoBehaviour, EntityClass
     private int curMana;
     private int maxMana;
     private float curHP;
-    private float maxHP;
-    int tilAttack = 0;
+    private float maxHP = 10;
+    private float dmg;
+    private float tilAttack = 0;
+    private GameObject player;
     public SoldierCommander(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
-        curMana = maxMana;
+        
         maxHP = theMaxHP;
-        curHP = maxHP;
+        
     }
     // Start is called before the first frame update
     void Start()   
     {
         Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();
-        r.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+        //r.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+        dmg = 10;
+        curMana = maxMana;
+        curHP = maxHP;
     }
-    public void OnCollisionEnter2D(Collision2D c)
+    public void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject == GameObject.Find("MainChar") && tilAttack == 0)
+        if (c.gameObject.TryGetComponent(out PlayerClass ec) && tilAttack <= 0)
         {
-            c.gameObject.GetComponent<PlayerClass>().getHit(1, "melee");
-            tilAttack = 60;
+            ec.getHit(dmg, "melee");
+            c.gameObject.GetComponent<Rigidbody2D>().AddForce((c.gameObject.transform.position - transform.position) * 100, ForceMode2D.Force);
+            c.gameObject.GetComponent<MovementScript>().timeTilmovement += .2f;
+            tilAttack = 1;
+            
         }
     }
     // Update is called once per frame
@@ -36,14 +44,14 @@ public class SoldierCommander : MonoBehaviour, EntityClass
     {
         if(tilAttack > 0)
         {
-            tilAttack--;
+            tilAttack -= Time.deltaTime;
         }
     }
 
-    public void getHit(float dmg, string typeHit)
+    public void getHit(float dm, string typeHit)
     {
-        Debug.Log("soldier got hit for " + dmg);
-        curHP -= dmg;
+        Debug.Log("soldier got hit for " + dm + typeHit);
+        curHP -= dm;
         if (curHP <= 0)
         {
             die();
@@ -51,6 +59,19 @@ public class SoldierCommander : MonoBehaviour, EntityClass
     }
     public void die()
     {
-        Debug.Log("RIP bozo");
+        //Debug.Log("RIP bozo");
+        player.GetComponent<PlayerClass>().totalEnemies--;
+        player.GetComponent<PlayerClass>().totalkills++;
+        Destroy(this.gameObject);
+        
+        
+    }
+    public void setPlayer(GameObject go)
+    {
+        player = go;
+    }
+    public GameObject ecgetObject()
+    {
+        return this.gameObject;
     }
 }

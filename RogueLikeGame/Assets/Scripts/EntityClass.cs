@@ -18,6 +18,8 @@ public interface EntityClass
         }
     }*/
     public void die();
+    public void setPlayer(GameObject go);
+    public GameObject ecgetObject();
     /*public void setCurHP(float hp)
     {
         curHP = hp;

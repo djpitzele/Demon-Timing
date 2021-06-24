@@ -8,11 +8,13 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public Sprite theSoldier;
     public GameObject spawner;
     public GameObject prefab;
-    private int curMana;
-    private int maxMana;
-    private float curHP;
-    private float maxHP;
+    public int curMana;
+    public int maxMana;
+    public float curHP;
+    public float maxHP;
     private float dmg;
+    public int totalEnemies;
+    public int totalkills;
     public PlayerClass(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
@@ -20,10 +22,11 @@ public class PlayerClass : MonoBehaviour, EntityClass
         maxHP = theMaxHP;
         curHP = maxHP;
     }
-    public void getHit(float dmg, string typeHit)
+    public void getHit(float dm, string typeHit)
     {
-        Debug.Log("we got hit for " + dmg);
-        curHP -= dmg;
+        
+        curHP -= dm;
+        Debug.Log("we got hit for " + dm + curHP);
         if (curHP <= 0)
         {
             die();
@@ -31,7 +34,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
     }
     public void die()
     {
-        Debug.Log("RIP bozo");
+        Debug.Log("RIP us");
+        //UI to die
     }
     /*public void melee()
     {
@@ -64,6 +68,10 @@ public class PlayerClass : MonoBehaviour, EntityClass
     {
         return dmg;
     }
+    public GameObject ecgetObject()
+    {
+        return this.gameObject;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -71,6 +79,9 @@ public class PlayerClass : MonoBehaviour, EntityClass
         Vector3 pos = new Vector3(6, 5, 0);
         //GameObject.Find("Spawner").GetComponent<EnemySpawner>().spawnEnemy(pos, typeof(SoldierCommander), theSoldier);
         //spawner.GetComponent<EnemySpawner>().spawnEnemy(prefab);
+        Debug.Log("deez");
+        dmg = 5;
+        totalEnemies = 0;
     }
     
     // Update is called once per frame
@@ -78,5 +89,9 @@ public class PlayerClass : MonoBehaviour, EntityClass
     {
         //DIE SOMETIME
         //Debug.Log(this.getCurHP());
+    }
+     public void setPlayer(GameObject g)
+    {
+        Debug.Log("deez");
     }
 }
