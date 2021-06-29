@@ -56,6 +56,9 @@ public class floorCreator : MonoBehaviour
         camera.GetComponent<Camera>().orthographicSize = (camScaling / 10.0f) * width;
         Vector2[] thePoints = { new Vector2(0, 0), new Vector2(width, 0), new Vector2(width, height), new Vector2(0, height), new Vector2(0, 0) };
         theWalls.GetComponent<EdgeCollider2D>().points = thePoints;
+        if(TryGetComponent<RedDragonFloor>(out RedDragonFloor rdf)) {
+            rdf.changeCamera(camera);
+        }
         StartCoroutine("beAsleep");
     }
 

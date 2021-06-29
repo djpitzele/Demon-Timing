@@ -58,7 +58,7 @@ public class swordMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if(c.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb) && rb.bodyType == RigidbodyType2D.Static && attackTime > totalAttackTime / 2)
+        if(c.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb) && rb.bodyType == RigidbodyType2D.Static && attackTime > totalAttackTime / 2)
         {
             attackTime = -0.1f;
             Invoke("ShortCooldown", .1f);

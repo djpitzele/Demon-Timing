@@ -5,7 +5,7 @@ using UnityEngine;
 public class RedDragonScript : MonoBehaviour
 {
     public List<PipeScript> pipes = new List<PipeScript>();
-    private float timeTilFire = 10;
+    private float timeTilFire = 1;
     private System.Random r;
     public Sprite fired;
     public Sprite Notfired;
@@ -22,12 +22,16 @@ public class RedDragonScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(timeTilFire <= 0)
+        if (pipes.Count == 0)
         {
-            timeTilFire = 5f + r.Next(5);
+            //WE WON, DO SOMETHING COOL
+        }
+        else if(timeTilFire <= 0)
+        {
+            timeTilFire = 8f + r.Next(5);
             pipes[r.Next(pipes.Count)].Fire();
             GetComponent<SpriteRenderer>().sprite = fired;
-            Debug.Log("deez");
+            Debug.Log("fire existed");
             Invoke("ResetFire", 3f);
         }
         else
