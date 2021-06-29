@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class floorCreator : MonoBehaviour
 {
-    public Tile daFloor;
+    public Tile theFloor;
     private List<SpawnerClass> spawners;
     public List<Sprite> spritesToMatch;
     public List<GameObject> enemiesToMatch;
@@ -22,9 +22,14 @@ public class floorCreator : MonoBehaviour
     private int initialSpawnersLeft;
     public GameObject player;
     public List<SpawnerTile> spawnerTiles;
+    private bool startChecking = false;
+    private Vector3 offset = new Vector3(0.5f, 0.5f, 0.5f);
+    public GameObject camera;
+    public float camScaling;
+    public GameObject theWalls;
     // for funsies
     //private HashSet<Vector2> spawnerSet;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,31 +42,34 @@ public class floorCreator : MonoBehaviour
         Vector3Int starter = new Vector3Int(0, 0, 0);
         otherTiles = floorPillars.gameObject.GetComponent<TileSetter>();
         Vector3Int ender = new Vector3Int(otherTiles.getWidth() - 1, otherTiles.getHeight() - 1, 0);
-        tm.BoxFill(ender, daFloor, starter.x, starter.y, ender.x, ender.y);
+        tm.BoxFill(ender, theFloor, starter.x, starter.y, ender.x, ender.y);
         width = otherTiles.getWidth();
         height = otherTiles.getHeight();
+        Debug.Log(width);
         initialSpawnersLeft = spawnersLeft;
         for (int i = 0; i < height; i++)
         {
             genRowSpawners(i);
             //Debug.Log(i);
         }
+        camera.transform.position = new Vector3(width / 2.0f, height / 2.0f, -10);
+        camera.GetComponent<Camera>().orthographicSize = (camScaling / 10.0f) * width;
+        Vector2[] thePoints = { new Vector2(0, 0), new Vector2(width, 0), new Vector2(width, height), new Vector2(0, height), new Vector2(0, 0) };
+        theWalls.GetComponent<EdgeCollider2D>().points = thePoints;
+        StartCoroutine("beAsleep");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.GetComponent<PlayerClass>().totalEnemies == 0)
+        if (startChecking && player.GetComponent<PlayerClass>().totalEnemies == 0 && waves > 0)
         {
             foreach (SpawnerTile t in spawnerTiles)
             {
                 t.WaveOver();
             }
             waves--;
-            if (waves == 0)
-            {
-                player.GetComponent<MovementScript>().resetscene();
-            }
+            
 
         }
 
@@ -94,11 +102,28 @@ public class floorCreator : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator beAsleep()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (i == 1)
+            {
+                foreach (SpawnerTile t in spawnerTiles)
+                {
+                    t.WaveOver();
+                }
+            }
+            yield return new WaitForSecondsRealtime(1f);
+        }
+        startChecking = true;
+    }
+
     private SpawnerTile chooseSpawner(Vector3Int v)
     {
         //SpawnerClass temp = spawners[r.Next(spawners.Count)];
-        SpawnerClass temp = spawners[0];
-        Vector3 changedV = floorPillars.gameObject.GetComponentInParent<Grid>().CellToWorld(v);
+        SpawnerClass temp = spawners[r.Next(spawners.Count)];
+        Vector3 changedV = floorPillars.gameObject.GetComponentInParent<Grid>().CellToWorld(v) + offset;
         SpawnerTile t = (SpawnerTile)ScriptableObject.CreateInstance("SpawnerTile");// SpawnerTile(temp.sprite, temp.spawnedEnemy, genWaves(AvgMobs, waves, spawners.Count), changedV);
         t.sprite = temp.sprite;
         t.spawnedEnemy = temp.spawnedEnemy;
@@ -106,8 +131,6 @@ public class floorCreator : MonoBehaviour
         t.pos = changedV;
         t.player = player;
         t.f = this.gameObject;
-
-        t.Start();
        
         return t;
     }

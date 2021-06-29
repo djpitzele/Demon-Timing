@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Scripting;
 public class SpawnerTile : Tile
 {
     // Start is called before the first frame update
@@ -17,38 +18,7 @@ public class SpawnerTile : Tile
     private Vector3 offset = new Vector3(0.5f, 0.5f, 0.5f);
     public GameObject player;
     public GameObject f;
-    // Start is called before the first frame update
-    public void Start()
-    {
-        //Debug.Log(wavesTillSpawn);
-        WaveOver();
-        
-    }
-     public SpawnerTile(Sprite s, GameObject go, List<int> w, Vector3 v, GameObject p)
-    {
-        sprite = s;
-        spawnedEnemy = go;
-        wavesTillSpawn = w;
-        pos = v;
-        Start();
-        player = p;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        /*if (wavesTillSpawn.Count == 0)
-        {
-            return;
-        }
-        else if (wavesTillSpawn[0] == 0)
-        {
-            Spawn();
-            wavesTillSpawn.RemoveAt(0);
-        }*/
-        
-
-    }
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
         base.GetTileData(position, tilemap, ref tileData);
@@ -61,7 +31,7 @@ public class SpawnerTile : Tile
     }
     public void WaveOver()
     {
-        Debug.Log("wave" + player.GetComponent<PlayerClass>().totalEnemies);
+        //Debug.Log("wave" + player.GetComponent<PlayerClass>().totalEnemies);
         
         if (wavesTillSpawn.Count == 0)
         {
@@ -82,7 +52,7 @@ public class SpawnerTile : Tile
     }
     public void Spawn()
     {
-        GameObject temp = Instantiate(spawnedEnemy, pos + offset, Quaternion.identity);
+        GameObject temp = Instantiate(spawnedEnemy, pos, Quaternion.identity);
         temp.GetComponent<EntityClass>().setPlayer(player);
         player.GetComponent<PlayerClass>().totalEnemies++;
     }

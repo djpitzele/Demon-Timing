@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 public class MovementScript : MonoBehaviour
 {
     //cooldown is the cooldown on the dash
-    float cooldown = 0;
-    float speed = 11f;
-    static double pi = Math.PI;
-    float fpi = Convert.ToSingle(pi);
+    public float cooldown = 0;
+    private float speed = 11f;
+    private static double pi = Math.PI;
+    private float fpi = Convert.ToSingle(pi);
     Rigidbody2D rb;
     //1 = right, -1 = left
     private int facing = 1;
@@ -85,8 +85,9 @@ public class MovementScript : MonoBehaviour
     }
     public void resetscene()
     {
-        Scene s = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(s.name);
+        //Scene s = SceneManager.GetActiveScene();
+        //Scene s = SceneManager.GetSceneByName("Assets/RedDragon");
+        SceneManager.LoadScene(1);
     }
 
     //float xDiff = UnityEngine.Input.GetAxis("Horizontal") * speed;--

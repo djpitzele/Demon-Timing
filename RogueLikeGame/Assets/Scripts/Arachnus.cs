@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class SoldierCommander : MonoBehaviour, EntityClass
+public class Arachnus : MonoBehaviour, EntityClass
 {
     private int curMana;
     private int maxMana = 10;
@@ -11,7 +10,7 @@ public class SoldierCommander : MonoBehaviour, EntityClass
     private float maxHP = 10;
     private float dmg;
     private float tilAttack = 0;
-    public GameObject player;
+    private GameObject player;
     /*public SoldierCommander(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
@@ -20,7 +19,7 @@ public class SoldierCommander : MonoBehaviour, EntityClass
         
     }*/
     // Start is called before the first frame update
-    void Start()   
+    void Start()
     {
         Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();
         //r.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
@@ -37,13 +36,13 @@ public class SoldierCommander : MonoBehaviour, EntityClass
             c.gameObject.GetComponent<Rigidbody2D>().AddForce((c.gameObject.transform.position - transform.position) * 100, ForceMode2D.Force);
             c.gameObject.GetComponent<MovementScript>().timeTilmovement += .2f;
             tilAttack = 1;
-            
+
         }
     }
     // Update is called once per frame
     void Update()
     {
-        if(tilAttack > 0)
+        if (tilAttack > 0)
         {
             tilAttack -= Time.deltaTime;
         }
@@ -64,8 +63,8 @@ public class SoldierCommander : MonoBehaviour, EntityClass
         player.GetComponent<PlayerClass>().totalEnemies--;
         player.GetComponent<PlayerClass>().totalkills++;
         Destroy(this.gameObject);
-        
-        
+
+
     }
     public void setPlayer(GameObject go)
     {

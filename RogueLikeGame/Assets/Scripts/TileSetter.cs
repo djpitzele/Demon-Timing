@@ -8,8 +8,8 @@ using System;
 public class TileSetter : MonoBehaviour
 {
     //public int[][] tileCost;
-    private int width = 18;
-    private int height = 10;
+    public int width;
+    public int height;
     public int pillarsLeft;
     public Tile floor;
     public Tile pillar;
@@ -29,7 +29,7 @@ public class TileSetter : MonoBehaviour
     void Start()
     {
         pillarSet = new HashSet<Vector2>();
-        pillarsLeft = (int)((((width - 1) * (height - 1)) * 0.16) + 0.5);
+        //pillarsLeft = (int)((((width - 1) * (height - 1)) * 0.16) + 0.5);
         Tilemap tm = this.gameObject.GetComponent<Tilemap>();
         //Tile floor = (Tile)Resources.Load("smile");
         //Tile pillar = (Tile)Resources.Load("blackSquare");

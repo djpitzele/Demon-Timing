@@ -12,7 +12,7 @@ public class swordMovement : MonoBehaviour
     private Quaternion normalRotation;
     private Quaternion currentRotation;
     private int facing = 1;
-    private float kb = 100;
+    private float kb = 400;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,10 +58,20 @@ public class swordMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.TryGetComponent(out EntityClass ec) && c.isTrigger)
+        if(c.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb) && rb.bodyType == RigidbodyType2D.Static && attackTime > totalAttackTime / 2)
+        {
+            attackTime = -0.1f;
+            Invoke("ShortCooldown", .1f);
+
+        }
+        else if (c.gameObject.TryGetComponent(out EntityClass ec) && !(c.isTrigger))
         {
             ec.getHit(thePlayer.GetComponent<PlayerClass>().getDmg(), "melee");
             ec.ecgetObject().GetComponent<Rigidbody2D>().AddForce((ec.ecgetObject().transform.position - transform.position) * kb, ForceMode2D.Force);
         }
+    }
+    void ShortCooldown()
+    {
+        attackTime -= .2f;
     }
 }

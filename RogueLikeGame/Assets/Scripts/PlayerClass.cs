@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+
 //TOOK OUT MonoBehaviour from extended, if something breaks this might be it
 public class PlayerClass : MonoBehaviour, EntityClass
 {
@@ -15,6 +17,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     private float dmg;
     public int totalEnemies;
     public int totalkills;
+    public RawImage HitScreen;
     public PlayerClass(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
@@ -24,13 +27,22 @@ public class PlayerClass : MonoBehaviour, EntityClass
     }
     public void getHit(float dm, string typeHit)
     {
-        
-        curHP -= dm;
-        Debug.Log("we got hit for " + dm + curHP);
-        if (curHP <= 0)
+        StartCoroutine("ActivateHit");
+        if(GetComponent<MovementScript>().cooldown <= 0.95f)
         {
-            die();
+            curHP -= dm;
+            Debug.Log("we got hit for " + dm + typeHit + curHP);
+            if (curHP <= 0)
+            {
+                die();
+            }
         }
+    }
+    private IEnumerator ActivateHit()
+    {
+        HitScreen.enabled = true;
+        yield return new WaitForSecondsRealtime(.3f);
+        HitScreen.enabled = false;
     }
     public void die()
     {
@@ -82,6 +94,9 @@ public class PlayerClass : MonoBehaviour, EntityClass
         Debug.Log("deez");
         dmg = 5;
         totalEnemies = 0;
+        HitScreen.enabled = false;
+        DontDestroyOnLoad(transform.gameObject);
+        DontDestroyOnLoad(HitScreen.gameObject.transform.parent);
     }
     
     // Update is called once per frame
