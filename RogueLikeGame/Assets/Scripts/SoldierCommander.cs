@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class SoldierCommander : MonoBehaviour, EntityClass
 {
-    private int curMana;
-    private int maxMana = 10;
     private float curHP;
     private float maxHP = 10;
     private float dmg;
@@ -25,7 +23,6 @@ public class SoldierCommander : MonoBehaviour, EntityClass
         Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();
         //r.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         dmg = 10;
-        curMana = maxMana;
         curHP = maxHP;
         //Debug.Log(curHP);
     }
@@ -51,7 +48,7 @@ public class SoldierCommander : MonoBehaviour, EntityClass
 
     public void getHit(float dm, string typeHit)
     {
-        Debug.Log("soldier got hit for " + dm + typeHit + "--" + curHP);
+        //Debug.Log("soldier got hit for " + dm + typeHit + "--" + curHP);
         curHP -= dm;
         if (curHP <= 0)
         {
