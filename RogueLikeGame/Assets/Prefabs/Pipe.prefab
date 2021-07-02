@@ -152,3 +152,29 @@ MonoBehaviour:
   dragonScript: {fileID: 0}
   floor: {fileID: 0}
   fire: {fileID: 7563031755033074282, guid: 77df5483b6cfb8443b5e605a3a79a3d9, type: 3}
+  timeBetweenFlames: 0.041666668
+  flames:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

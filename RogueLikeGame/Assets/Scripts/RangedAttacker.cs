@@ -202,6 +202,7 @@ public class RangedAttacker : MonoBehaviour
             Debug.Log("somebitches" + path[0]);
         }*/
         //Debug.Log(Time.deltaTime);
+        //Debug.Log(checkLOS(transform.position));
         if(checkLOS(transform.position))
         {
             GetComponent<RangedClass>().attack();
@@ -213,7 +214,12 @@ public class RangedAttacker : MonoBehaviour
     }
     public bool checkLOS(Vector2 v)
     {
-        RaycastHit2D hit = Physics2D.Raycast(v + offset, (Vector2)myPlayer.transform.position - v + offset, shotDistance, LayerMask.GetMask("Pillars"));
+        RaycastHit2D hit = Physics2D.Raycast(v, (Vector2)myPlayer.transform.position - v, shotDistance, LayerMask.GetMask("Pillars"));
+        //Debug.Log((Vector2)myPlayer.transform.position - v + offset);
+        if(hit.collider != null)
+        {
+            //Debug.Log(hit.collider.gameObject.name);
+        }
         return hit.collider == null;
     }
     public bool restPath()

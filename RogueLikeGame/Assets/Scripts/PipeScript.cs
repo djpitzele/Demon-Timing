@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor.Animations;
 
 public class PipeScript : MonoBehaviour, EntityClass
 {
     public RedDragonScript dragonScript;
-    float hp = 60;
-    bool fireon = false;
+    private float hp = 60;
+    private bool fireon = false;
     public floorCreator floor;
     public GameObject fire;
     private int index;
+    public float timeBetweenFlames;
+    private float timeUntilNextFlame;
     public GameObject[] flames = new GameObject[24];
+    public List<Animator> animators;
     //index 0 is the fire, index 1 is itself
     BoxCollider2D[] boxCollider2Ds;
     // Start is called before the first frame update
     void Start()
     {
+        animators = new List<Animator>();
         boxCollider2Ds = GetComponents<BoxCollider2D>();
         for(int i = 1; i <= 24; i++)
         {
@@ -23,13 +28,23 @@ public class PipeScript : MonoBehaviour, EntityClass
             f.SetActive(false);
             f.transform.position += new Vector3(-1 * i, 0, 0);
             flames[i - 1] = f;
+            //f.GetComponent<Animator>().keepAnimatorControllerStateOnDisable = true;
+            animators.Add(f.GetComponent<Animator>());
+
         }
+        timeUntilNextFlame = timeBetweenFlames;
+        index = 0;
+
+        /*foreach(Transform child in transform)
+        {
+            animators.Add(child.gameObject.GetComponent<Animator>());
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (fireon && index % 5 == 0)
+        /*if (fireon && index % 5 == 0)
         {
             flames[index / 5].SetActive(true);
             index++;
@@ -37,6 +52,27 @@ public class PipeScript : MonoBehaviour, EntityClass
         else if (fireon)
         {
             index++;
+        }
+        Debug.Log(index);*/
+        if (fireon)
+        {
+            if(index >= 24)
+            {
+                Invoke("DisableFire", 3f);
+                foreach(Animator a in animators)
+                {
+                    a.SetBool("doneSpawning", true);
+                }
+                index = 0;
+            }
+            timeUntilNextFlame -= Time.deltaTime;
+            if (timeUntilNextFlame <= 0)
+            {
+                flames[index].SetActive(true);
+                timeUntilNextFlame = timeBetweenFlames;
+                index++;
+            }
+            Debug.Log(animators[0].GetBool("doneSpawning"));
         }
     }
     public void getHit(float dm, string typeHit)
@@ -68,8 +104,11 @@ public class PipeScript : MonoBehaviour, EntityClass
     public void Fire()
     {
        fireon = true;
+        foreach (Animator a in animators)
+        {
+            a.SetBool("doneSpawning", false);
+        }
         //transform.localScale *= 2;
-        Invoke("DisableFire", 3f );
     }
     public void DisableFire()
     {

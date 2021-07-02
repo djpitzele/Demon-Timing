@@ -87,7 +87,7 @@ public class MovementScript : MonoBehaviour
     {
         //Scene s = SceneManager.GetActiveScene();
         //Scene s = SceneManager.GetSceneByName("Assets/RedDragon");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     //float xDiff = UnityEngine.Input.GetAxis("Horizontal") * speed;--
