@@ -147,6 +147,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7066767661700882461, guid: c101004898c1db3449b8675687e77cba,
         type: 3}
+    - target: {fileID: 5236128347068822867, guid: d4b40e0e69db6fe40a75e390f573a983,
+        type: 3}
+      propertyPath: floorScript
+      value: 
+      objectReference: {fileID: 1152286498}
     - target: {fileID: 6770593226358016062, guid: d4b40e0e69db6fe40a75e390f573a983,
         type: 3}
       propertyPath: m_RootOrder

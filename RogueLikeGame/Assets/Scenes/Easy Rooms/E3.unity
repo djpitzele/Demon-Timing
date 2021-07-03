@@ -668,7 +668,7 @@ MonoBehaviour:
   player: {fileID: 0}
   spawnerTiles: []
   camera: {fileID: 825041312}
-  camScaling: 3.25
+  camScaling: 5
   theWalls: {fileID: 1131354250}
 --- !u!483693784 &1152286499
 TilemapRenderer:

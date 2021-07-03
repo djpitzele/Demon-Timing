@@ -32,6 +32,10 @@ public class MovementScript : MonoBehaviour
             Destroy(canvas);
             Destroy(this.gameObject);
         }
+        if(Input.GetAxis("Submit") != 0)
+        {
+            GetComponent<PlayerClass>().nextScene();
+        }
         if (timeTilmovement <= 0)
         {
 
@@ -60,7 +64,7 @@ public class MovementScript : MonoBehaviour
             if (cooldown <= 0 && UnityEngine.Input.GetAxis("Jump") == 1)
             {
                 Vector3 mousePos = Input.mousePosition;
-                mousePos = GameObject.Find("Main Camera").GetComponent<Camera>().ScreenToWorldPoint(mousePos);
+                mousePos = Camera.main.ScreenToWorldPoint(mousePos);
                 //Debug.Log(mousePos);
                 rb.MovePosition(Vector3.MoveTowards(transform.position, mousePos, 9));
                 cooldown = 1;
