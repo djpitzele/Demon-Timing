@@ -200,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   cooldown: 1
-  projectile: {fileID: 2406414580408219003, guid: abe2a988698e9fe469f28c67e799490d, type: 3}
-  projSpeed: 40000
+  projectile: {fileID: 2406414580408219003, guid: abe2a988698e9fe469f28c67e799490d,
+    type: 3}
+  projSpeed: 500000
   maxHP: 10

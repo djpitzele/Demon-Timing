@@ -8,6 +8,7 @@ public class MovementScript : MonoBehaviour
 {
     //cooldown is the cooldown on the dash
     public float cooldown = 0;
+    public GameObject canvas;
     private float speed = 11f;
     private static double pi = Math.PI;
     private float fpi = Convert.ToSingle(pi);
@@ -27,7 +28,9 @@ public class MovementScript : MonoBehaviour
         float curMovement = Input.GetAxis("Horizontal");
         if (Input.GetAxis("Reset") != 0)
         {
-            resetscene();
+            SceneManager.LoadScene(0);
+            Destroy(canvas);
+            Destroy(this.gameObject);
         }
         if (timeTilmovement <= 0)
         {
@@ -83,12 +86,12 @@ public class MovementScript : MonoBehaviour
     {
         return facing;
     }
-    public void resetscene()
+    /*public void resetscene()
     {
         //Scene s = SceneManager.GetActiveScene();
         //Scene s = SceneManager.GetSceneByName("Assets/RedDragon");
         SceneManager.LoadScene(2);
-    }
+    }*/
 
     //float xDiff = UnityEngine.Input.GetAxis("Horizontal") * speed;--
     //float yDiff = UnityEngine.Input.GetAxis("Vertical") * speed;

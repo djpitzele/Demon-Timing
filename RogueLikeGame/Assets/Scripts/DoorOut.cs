@@ -21,7 +21,7 @@ public class DoorOut : MonoBehaviour
     {
         if (floor.waves <= 0)
         {
-            floor.player.GetComponent<MovementScript>().resetscene();
+            floor.player.GetComponent<PlayerClass>().nextScene();
         }
     }
 }

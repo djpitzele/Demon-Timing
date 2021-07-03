@@ -214,6 +214,10 @@ public class RangedAttacker : MonoBehaviour
     }
     public bool checkLOS(Vector2 v)
     {
+        if(myPlayer.gameObject == null)
+        {
+            return false;
+        }
         RaycastHit2D hit = Physics2D.Raycast(v, (Vector2)myPlayer.transform.position - v, shotDistance, LayerMask.GetMask("Pillars"));
         //Debug.Log((Vector2)myPlayer.transform.position - v + offset);
         if(hit.collider != null)

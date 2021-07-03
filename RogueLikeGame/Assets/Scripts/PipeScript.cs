@@ -72,7 +72,7 @@ public class PipeScript : MonoBehaviour, EntityClass
                 timeUntilNextFlame = timeBetweenFlames;
                 index++;
             }
-            Debug.Log(animators[0].GetBool("doneSpawning"));
+            //Debug.Log(animators[0].GetBool("doneSpawning"));
         }
     }
     public void getHit(float dm, string typeHit)

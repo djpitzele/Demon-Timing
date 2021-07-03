@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 //TOOK OUT MonoBehaviour from extended, if something breaks this might be it
 public class PlayerClass : MonoBehaviour, EntityClass
@@ -18,6 +19,9 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int totalEnemies;
     public int totalkills;
     public RawImage HitScreen;
+    public List<int> orderScenes;
+    public System.Random r;
+
     public PlayerClass(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
@@ -88,17 +92,45 @@ public class PlayerClass : MonoBehaviour, EntityClass
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 pos = new Vector3(6, 5, 0);
         //GameObject.Find("Spawner").GetComponent<EnemySpawner>().spawnEnemy(pos, typeof(SoldierCommander), theSoldier);
         //spawner.GetComponent<EnemySpawner>().spawnEnemy(prefab);
         Debug.Log("deez");
+        r = new System.Random();
         dmg = 5;
         totalEnemies = 0;
         HitScreen.enabled = false;
+        int numScenes = SceneManager.sceneCountInBuildSettings;
+        List<int> remainingScenes = new List<int>();
+        for(int i = 2; i < numScenes; i++)
+        {
+            remainingScenes.Add(i);
+        }
+        Debug.Log(remainingScenes.Count + "-----------------");
+        orderScenes = new List<int>();
+        while(remainingScenes.Count > 0)
+        {
+            if(r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 2)))
+            {
+                break;
+            }
+            int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
+            orderScenes.Add(sceneIndex);
+            remainingScenes.Remove(sceneIndex);
+        }
+        orderScenes.Add(1);
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(HitScreen.gameObject.transform.parent);
+        Debug.Log(orderScenes.Count);
     }
     
+    public void nextScene()
+    {
+        //Debug.Log(orderScenes[1] + "nuts" + orderScenes[0]);
+        SceneManager.LoadScene(orderScenes[0]);
+        orderScenes.RemoveAt(0);
+        //Debug.Log(orderScendqes.Count+"nutslength");
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -33,6 +33,7 @@ public class floorCreator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("MainChar");
         spawners = new List<SpawnerClass>();
         for (int i = 0; i < spritesToMatch.Count; i++)
         {
@@ -45,15 +46,16 @@ public class floorCreator : MonoBehaviour
         tm.BoxFill(ender, theFloor, starter.x, starter.y, ender.x, ender.y);
         width = otherTiles.getWidth();
         height = otherTiles.getHeight();
-        Debug.Log(width);
+        //Debug.Log(width);
         initialSpawnersLeft = spawnersLeft;
         for (int i = 0; i < height; i++)
         {
             genRowSpawners(i);
             //Debug.Log(i);
         }
+        int larger = Math.Max(width, height);
         camera.transform.position = new Vector3(width / 2.0f, height / 2.0f, -10);
-        camera.GetComponent<Camera>().orthographicSize = (camScaling / 10.0f) * width;
+        camera.GetComponent<Camera>().orthographicSize = (camScaling / 10.0f) * larger;
         Vector2[] thePoints = { new Vector2(0, 0), new Vector2(width, 0), new Vector2(width, height), new Vector2(0, height), new Vector2(0, 0) };
         theWalls.GetComponent<EdgeCollider2D>().points = thePoints;
         if(TryGetComponent<RedDragonFloor>(out RedDragonFloor rdf)) {
@@ -89,7 +91,7 @@ public class floorCreator : MonoBehaviour
                 int x = r.Next(1000);
                 //Debug.Log(streak);
                 //Debug.Log(x);
-                if (x > 950)
+                if (x < 6000 / (width * height))
                 {
                     //Debug.Log(x);
                     //Debug.Log(((pillarsLeft / (width * height)) * 80000));

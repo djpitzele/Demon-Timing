@@ -20,7 +20,7 @@ public class ItemDropper : MonoBehaviour
         
     }
 
-    private void OnDestroy()
+    public void spawnItem()
     {
         if(r.Next(1000) <= (chance * 1000))
         {

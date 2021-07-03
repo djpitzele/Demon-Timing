@@ -60,9 +60,11 @@ public class SoldierCommander : MonoBehaviour, EntityClass
         //Debug.Log("RIP bozo");
         player.GetComponent<PlayerClass>().totalEnemies--;
         player.GetComponent<PlayerClass>().totalkills++;
+        if(TryGetComponent<ItemDropper>(out ItemDropper id))
+        {
+            id.spawnItem();
+        }
         Destroy(this.gameObject);
-        
-        
     }
     public void setPlayer(GameObject go)
     {
