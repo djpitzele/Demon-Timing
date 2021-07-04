@@ -16,11 +16,13 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public float curHP;
     public float maxHP;
     private float dmg;
+    public int gold;
     public int totalEnemies;
     public int totalkills;
     public RawImage HitScreen;
     public List<int> orderScenes;
     public System.Random r;
+    public GameObject theCanvas;
 
     public PlayerClass(int theMaxMana, float theMaxHP)
     {

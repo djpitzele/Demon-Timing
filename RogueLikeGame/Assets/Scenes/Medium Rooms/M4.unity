@@ -322,9 +322,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc737f3136aad7a4ba26ccb296778dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 6
-  height: 4
-  pillarsLeft: 4
+  width: 18
+  height: 10
+  pillarsLeft: 24
   floor: {fileID: 11400000, guid: 3733e0b5e74e64e42a4163ceb0e1a798, type: 2}
   pillar: {fileID: 11400000, guid: db069a568b183bc43987319ec89e27de, type: 2}
   tm: {fileID: 783083318}
@@ -587,16 +587,18 @@ MonoBehaviour:
   theFloor: {fileID: 11400000, guid: da7cfba2dfb1ef441a05922916acab81, type: 2}
   spritesToMatch:
   - {fileID: 21300000, guid: 5fd9c638ad37db84da84fc3ca6aa3173, type: 3}
+  - {fileID: 21300000, guid: d6d1503176de33a46ba4becb7a7766e6, type: 3}
   enemiesToMatch:
   - {fileID: 6309820748959245513, guid: 35b724a1292e5df46ab4258579606891, type: 3}
+  - {fileID: 1569663351199239505, guid: 62886e942ed57b94b9df118fbbdf5a44, type: 3}
   floorPillars: {fileID: 783083318}
-  spawnersLeft: 2
-  AvgMobs: 2
-  waves: 2
+  spawnersLeft: 6
+  AvgMobs: 3
+  waves: 3
   player: {fileID: 0}
   spawnerTiles: []
   camera: {fileID: 825041312}
-  camScaling: 3.75
+  camScaling: 3.25
   theWalls: {fileID: 1131354250}
 --- !u!483693784 &1152286499
 TilemapRenderer:
@@ -684,6 +686,50 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1523205367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1523205369}
+  - component: {fileID: 1523205368}
+  m_Layer: 0
+  m_Name: PlayerSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1523205368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523205367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872db3f7a55667d42a433680bb368743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theCreator: {fileID: 783083319}
+--- !u!4 &1523205369
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523205367}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.719539, y: 3.565839, z: -0.39900327}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1770600163
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,51 +818,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2120516436
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2120516438}
-  - component: {fileID: 2120516437}
-  m_Layer: 0
-  m_Name: PlayerSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2120516437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2120516436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 872db3f7a55667d42a433680bb368743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theCreator: {fileID: 783083319}
---- !u!4 &2120516438
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2120516436}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.719539, y: 3.565839, z: -0.39900327}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2144505655
+--- !u!1001 &2557261649184845657
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -841,7 +843,7 @@ PrefabInstance:
     - target: {fileID: 8297295716170819804, guid: 494c4be8929881b4991455392a5bd9dc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8297295716170819804, guid: 494c4be8929881b4991455392a5bd9dc,
         type: 3}

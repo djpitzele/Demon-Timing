@@ -27,7 +27,7 @@ public class RedDragonScript : MonoBehaviour
         if (pipes.Count == 0 || floorScript.waves <= 0)
         {
             //WE WON, DO SOMETHING COOL
-            GameObject f = GameObject.Find("Canvas").transform.GetChild(4).gameObject;
+            GameObject f = GameObject.Find("Canvas").transform.GetChild(5).gameObject;
             f.GetComponent<Image>().enabled = true;
             f.transform.GetChild(0).gameObject.GetComponent<Text>().enabled = true;
             f.GetComponentsInChildren<Text>()[0].text = "GGs\n" + f.transform.parent.GetChild(2).GetComponent<KillCounter>().timeSpent.ToString();

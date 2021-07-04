@@ -147,7 +147,7 @@ public class floorCreator : MonoBehaviour
         {
             int b = r.Next(1000);
             //CHANGE 1 ON NEXT LINE TO DECREASE CHANCE OF SPAWN
-            if (b > (a * 500) / (w * s))
+            if (b <= (a * 400) / (w * s))
             {
                 //Debug.Log(d);
                 timeBetween.Add(d);

@@ -160,6 +160,14 @@ public class MeleeAttacker : MonoBehaviour
         }
         timeTilFind -= Time.deltaTime;
         //Debug.Log(timeTilFind);
+        if((myPlayer.transform.position.x - transform.position.x) >= 0)
+        {
+            GetComponent<MeleeClass>().setFacing(1);
+        }
+        else
+        {
+            GetComponent<MeleeClass>().setFacing(1);
+        }
     }
 
     public void moveTowardsNext()

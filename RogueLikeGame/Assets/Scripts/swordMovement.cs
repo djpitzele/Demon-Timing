@@ -8,7 +8,7 @@ public class swordMovement : MonoBehaviour
     private float attackTime = 0f;
     private float totalAttackTime = 0.25f;
     private float totalStabTime = 2f;
-    private float stabDistance = 4f;
+    private float stabDistance = 3f;
     private Vector3 stabSwordPos;
     public Vector3 attackPosition = new Vector3(0.6f, 0.8f, 0);
     private Vector3 totalChangePosition;
@@ -45,7 +45,7 @@ public class swordMovement : MonoBehaviour
             isStab = true;
             attackTime = totalStabTime;
             transform.position = transform.parent.position;
-            transform.rotation = Quaternion.identity;
+            //transform.rotation = Quaternion.identity;
             Vector3 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
             Vector3 diff = mousePos - transform.position;
@@ -53,11 +53,20 @@ public class swordMovement : MonoBehaviour
             normalDiff.Normalize();
             stabSwordPos = normalDiff * stabDistance;
             //transform.position += stabSwordPos;
-            Transform mouseTransform = new GameObject().transform;
+            /*Transform mouseTransform = new GameObject().transform;
             mouseTransform.position = mousePos;
-            mouseTransform.rotation = Quaternion.identity;
+            mouseTransform.rotation = Quaternion.identity;*/
             float rot_z = Mathf.Atan2(normalDiff.y, normalDiff.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 45);
+            float offset = thePlayer.GetComponent<MovementScript>().getFacing();
+            if(offset == 1)
+            {
+                offset = -45;
+            }
+            else
+            {
+                offset = -135;
+            }
+            transform.rotation = Quaternion.Euler(0f, 0f, rot_z + offset);
             //transform.LookAt(mouseTransform);
             GetComponent<PolygonCollider2D>().enabled = true;
         }

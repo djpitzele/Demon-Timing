@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arachnus : MonoBehaviour, EntityClass
+public class Arachnus : MonoBehaviour, MeleeClass
 {
     private int curMana;
     private int maxMana = 10;
@@ -19,6 +19,10 @@ public class Arachnus : MonoBehaviour, EntityClass
         
     }*/
     // Start is called before the first frame update
+    public void setFacing(int n)
+    {
+
+    }
     void Start()
     {
         Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();

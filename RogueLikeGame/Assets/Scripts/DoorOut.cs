@@ -9,7 +9,7 @@ public class DoorOut : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = new Vector3(theTiles.width, theTiles.height / 2.0f, 0);
+        transform.position = new Vector3(theTiles.width + 0.35f, theTiles.height / 2.0f, 0);
     }
 
     // Update is called once per frame

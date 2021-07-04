@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SoldierCommander : MonoBehaviour, EntityClass
+public class SoldierCommander : MonoBehaviour, MeleeClass
 {
     private float curHP;
     private float maxHP = 10;
     private float dmg;
     private float tilAttack = 0;
+    //FOR ALL FACINGS: 1 = RIGHT, -1 = LEFT
+    private int facing = 1;
     public GameObject player;
     /*public SoldierCommander(int theMaxMana, float theMaxHP)
     {
@@ -34,7 +36,6 @@ public class SoldierCommander : MonoBehaviour, EntityClass
             c.gameObject.GetComponent<Rigidbody2D>().AddForce((c.gameObject.transform.position - transform.position) * 100, ForceMode2D.Force);
             c.gameObject.GetComponent<MovementScript>().timeTilmovement += .2f;
             tilAttack = 1;
-            
         }
     }
     // Update is called once per frame
@@ -43,6 +44,21 @@ public class SoldierCommander : MonoBehaviour, EntityClass
         if(tilAttack > 0)
         {
             tilAttack -= Time.deltaTime;
+        }
+    }
+
+    public void setFacing(int n)
+    {
+        if(facing == n)
+        {
+            return;
+        }
+        else
+        {
+            Vector3 curScale = transform.localScale;
+            curScale.x *= -1;
+            transform.localScale = curScale;
+            facing = n;
         }
     }
 
