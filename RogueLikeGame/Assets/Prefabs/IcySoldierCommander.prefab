@@ -106,7 +106,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!114 &2506946451698320295
@@ -207,4 +207,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb5ecd4207b89045b36cbc30feccaab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  facing: 1
   player: {fileID: 0}

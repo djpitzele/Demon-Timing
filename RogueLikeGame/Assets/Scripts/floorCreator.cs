@@ -16,7 +16,6 @@ public class floorCreator : MonoBehaviour
     private TileSetter otherTiles;
     public int spawnersLeft;
     private Tilemap tm;
-    System.Random r = new System.Random();
     public int AvgMobs;
     public int waves;
     private int initialSpawnersLeft;
@@ -27,6 +26,7 @@ public class floorCreator : MonoBehaviour
     public GameObject camera;
     public float camScaling;
     public GameObject theWalls;
+    public static System.Random r = new System.Random();
     // for funsies
     //private HashSet<Vector2> spawnerSet;
 
@@ -132,7 +132,7 @@ public class floorCreator : MonoBehaviour
         SpawnerTile t = (SpawnerTile)ScriptableObject.CreateInstance("SpawnerTile");// SpawnerTile(temp.sprite, temp.spawnedEnemy, genWaves(AvgMobs, waves, spawners.Count), changedV);
         t.sprite = temp.sprite;
         t.spawnedEnemy = temp.spawnedEnemy;
-        t.wavesTillSpawn = genWaves(AvgMobs, waves, spawners.Count);
+        t.wavesTillSpawn = genWaves(AvgMobs, waves, initialSpawnersLeft);
         t.pos = changedV;
         t.player = player;
         t.f = this.gameObject;
@@ -145,9 +145,8 @@ public class floorCreator : MonoBehaviour
         List<int> timeBetween = new List<int>();
         for(int i = 0; i < w; i++)
         {
-            int b = r.Next(1000);
             //CHANGE 1 ON NEXT LINE TO DECREASE CHANCE OF SPAWN
-            if (b <= (a * 400) / (w * s))
+            if (r.Next(1000) <= (a * 1000) / s)
             {
                 //Debug.Log(d);
                 timeBetween.Add(d);

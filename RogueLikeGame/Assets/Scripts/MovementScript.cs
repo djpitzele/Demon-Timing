@@ -16,21 +16,30 @@ public class MovementScript : MonoBehaviour
     //1 = right, -1 = left
     private int facing = 1;
     public float timeTilmovement;
+    public GameObject pauseMenu;
+    private float menuCooldown = 0f;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         float curMovement = Input.GetAxis("Horizontal");
-        if (Input.GetAxis("Reset") != 0)
+        if (Input.GetAxis("Reset") != 0 && menuCooldown <= 0)
         {
-            SceneManager.LoadScene(0);
-            Destroy(canvas);
-            Destroy(this.gameObject);
+            if(pauseMenu.activeInHierarchy)
+            {
+                pauseMenu.SetActive(false);
+            }
+            else
+            {
+                pauseMenu.SetActive(true);
+            }
+            menuCooldown = 0.2f;
         }
         if(Input.GetAxis("Submit") != 0)
         {
@@ -83,6 +92,10 @@ public class MovementScript : MonoBehaviour
         if(timeTilmovement > 0)
         {
             timeTilmovement -= Time.fixedDeltaTime;
+        }
+        if(menuCooldown > 0)
+        {
+            menuCooldown -= Time.fixedDeltaTime;
         }
     }
 

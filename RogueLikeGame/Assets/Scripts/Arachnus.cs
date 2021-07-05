@@ -54,7 +54,7 @@ public class Arachnus : MonoBehaviour, MeleeClass
 
     public void getHit(float dm, string typeHit)
     {
-        Debug.Log("soldier got hit for " + dm + typeHit + "--" + curHP);
+        //Debug.Log("soldier got hit for " + dm + typeHit + "--" + curHP);
         curHP -= dm;
         if (curHP <= 0)
         {

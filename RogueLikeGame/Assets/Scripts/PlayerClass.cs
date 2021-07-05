@@ -4,15 +4,12 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+[System.Serializable]
 //TOOK OUT MonoBehaviour from extended, if something breaks this might be it
 public class PlayerClass : MonoBehaviour, EntityClass
 {
-    public Sprite theSoldier;
-    public GameObject spawner;
-    public GameObject prefab;
-    public int curMana;
-    public int maxMana;
+    public float curMana;
+    public float maxMana;
     public float curHP;
     public float maxHP;
     private float dmg;
@@ -21,29 +18,36 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int totalkills;
     public RawImage HitScreen;
     public List<int> orderScenes;
+    public int curSceneIndex = 0;
     public System.Random r;
     public GameObject theCanvas;
 
-    public PlayerClass(int theMaxMana, float theMaxHP)
-    {
-        maxMana = theMaxMana;
-        curMana = maxMana;
-        maxHP = theMaxHP;
-        curHP = maxHP;
-    }
     public void getHit(float dm, string typeHit)
     {
         StartCoroutine("ActivateHit");
         if(GetComponent<MovementScript>().cooldown <= 0.95f)
         {
             curHP -= dm;
-            Debug.Log("we got hit for " + dm + typeHit + curHP);
+            //Debug.Log("we got hit for " + dm + typeHit + curHP);
             if (curHP <= 0)
             {
                 die();
             }
         }
     }
+
+    public SaveGame makeSaveGame()
+    {
+        SaveGame s = new SaveGame();
+        s.curHP = curHP;
+        s.curMana = curMana;
+        s.gold = gold;
+        s.totalKills = totalkills;
+        s.orderScenes = orderScenes;
+        s.curSceneIndex = curSceneIndex;
+        return s;
+    }
+
     private IEnumerator ActivateHit()
     {
         HitScreen.enabled = true;
@@ -97,6 +101,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
         //GameObject.Find("Spawner").GetComponent<EnemySpawner>().spawnEnemy(pos, typeof(SoldierCommander), theSoldier);
         //spawner.GetComponent<EnemySpawner>().spawnEnemy(prefab);
         Debug.Log("deez");
+        curHP = maxHP;
+        curMana = maxMana;
         r = new System.Random();
         dmg = 5;
         totalEnemies = 0;
@@ -107,7 +113,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         {
             remainingScenes.Add(i);
         }
-        Debug.Log(remainingScenes.Count + "-----------------");
+        //Debug.Log(remainingScenes.Count + "-----------------");
         orderScenes = new List<int>();
         while(remainingScenes.Count > 0)
         {
@@ -122,12 +128,13 @@ public class PlayerClass : MonoBehaviour, EntityClass
         orderScenes.Add(1);
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(HitScreen.gameObject.transform.parent);
-        Debug.Log(orderScenes.Count);
+        //Debug.Log(orderScenes.Count);
     }
     
     public void nextScene()
     {
         //Debug.Log(orderScenes[1] + "nuts" + orderScenes[0]);
+        curSceneIndex = orderScenes[0];
         SceneManager.LoadScene(orderScenes[0]);
         orderScenes.RemoveAt(0);
         //Debug.Log(orderScendqes.Count+"nutslength");

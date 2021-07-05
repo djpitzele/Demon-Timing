@@ -10,7 +10,7 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
     private float dmg;
     private float tilAttack = 0;
     //FOR ALL FACINGS: 1 = RIGHT, -1 = LEFT
-    private int facing = 1;
+    public int facing = 1;
     public GameObject player;
     /*public SoldierCommander(int theMaxMana, float theMaxHP)
     {
@@ -28,10 +28,12 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
         curHP = maxHP;
         //Debug.Log(curHP);
     }
-    public void OnTriggerEnter2D(Collider2D c)
+    public void OnTriggerStay2D(Collider2D c)
     {
+        //Debug.Log("still in collider");
         if (c.gameObject.TryGetComponent(out PlayerClass ec) && tilAttack <= 0)
         {
+            Debug.Log("we h it");
             ec.getHit(dmg, "melee");
             c.gameObject.GetComponent<Rigidbody2D>().AddForce((c.gameObject.transform.position - transform.position) * 100, ForceMode2D.Force);
             c.gameObject.GetComponent<MovementScript>().timeTilmovement += .2f;
@@ -45,6 +47,7 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
         {
             tilAttack -= Time.deltaTime;
         }
+        //Debug.Log(tilAttack);
     }
 
     public void setFacing(int n)

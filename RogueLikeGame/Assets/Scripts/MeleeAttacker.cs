@@ -166,7 +166,7 @@ public class MeleeAttacker : MonoBehaviour
         }
         else
         {
-            GetComponent<MeleeClass>().setFacing(1);
+            GetComponent<MeleeClass>().setFacing(-1);
         }
     }
 
@@ -203,9 +203,9 @@ public class MeleeAttacker : MonoBehaviour
             Debug.Log("somebitches" + path[0]);
         }*/
         //Debug.Log(Time.deltaTime);
-        if (ourWorldToCell(transform.position) == endPos)
+        /*if (ourWorldToCell(transform.position) == endPos)
         {
             rbEnemy2d.position = Vector2.MoveTowards(transform.position, myPlayer.transform.position, 0.25f * meleeSpeed * Time.fixedDeltaTime);
-        }
+        }*/
     }
 }

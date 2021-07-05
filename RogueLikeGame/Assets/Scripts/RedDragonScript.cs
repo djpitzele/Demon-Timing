@@ -47,7 +47,7 @@ public class RedDragonScript : MonoBehaviour
             timeTilFire = 8f + r.Next(5);
             pipes[r.Next(pipes.Count)].Fire();
             GetComponent<SpriteRenderer>().sprite = fired;
-            Debug.Log("fire existed");
+            //Debug.Log("fire existed");
             Invoke("ResetFire", 3f);
         }
         else
