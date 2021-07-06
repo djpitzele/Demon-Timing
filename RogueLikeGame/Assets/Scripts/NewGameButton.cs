@@ -31,12 +31,13 @@ public class NewGameButton : MonoBehaviour
         pc.curMana = SaveGame.current.curMana;
         pc.gold = SaveGame.current.gold;
         pc.totalkills = SaveGame.current.totalKills;
-        pc.orderScenes = SaveGame.current.orderScenes;
         pc.curSceneIndex = SaveGame.current.curSceneIndex;
         GameObject p = Instantiate(playerPrefab);
+        pc.orderScenes = SaveGame.current.orderScenes;
         p.name = "MainChar";
         c.name = "Canvas";
         c.GetComponentsInChildren<QuitScript>()[0].player = p.GetComponent<PlayerClass>();
+        c.GetComponentsInChildren<RestartScript>()[0].myPlayer = p;
     }
 
     public void loadGame()

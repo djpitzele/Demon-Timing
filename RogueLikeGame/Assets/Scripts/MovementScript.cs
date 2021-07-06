@@ -16,32 +16,54 @@ public class MovementScript : MonoBehaviour
     //1 = right, -1 = left
     private int facing = 1;
     public float timeTilmovement;
-    private float menuCooldown = 0f;
+    private int menuCooldown = 0;
     public GameObject pauseMenu;
+    private float esc;
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu = canvas.transform.GetChild(6).gameObject;
         rb = GetComponent<Rigidbody2D>();
         pauseMenu.SetActive(false);
+        pauseMenu = canvas.transform.GetChild(6).gameObject;
+    }
+
+    private void Update()
+    {
+        if (esc != 0 && menuCooldown <= 0)
+        {
+            if(pauseMenu.activeInHierarchy)
+            {
+                pauseMenu.SetActive(false);
+                Time.timeScale = 1;
+            }
+            else
+            {
+                pauseMenu.SetActive(true);
+                Time.timeScale = 0;
+                esc = 0;
+            }
+            menuCooldown = 200;
+        }
+        else
+        {
+            esc = Input.GetAxis("Reset");
+        }
+        if(Time.timeScale == 0)
+        {
+            esc = 0f;
+        }
+        if (menuCooldown > 0)
+        {
+            menuCooldown--;
+        }
+        Debug.Log(Input.GetAxis("Reset") + " " + esc);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         float curMovement = Input.GetAxis("Horizontal");
-        if (Input.GetAxis("Reset") != 0 && menuCooldown <= 0)
-        {
-            if(pauseMenu.activeInHierarchy)
-            {
-                pauseMenu.SetActive(false);
-            }
-            else
-            {
-                pauseMenu.SetActive(true);
-            }
-            menuCooldown = 0.2f;
-        }
         if(Input.GetAxis("Submit") != 0)
         {
             GetComponent<PlayerClass>().nextScene();
@@ -94,15 +116,15 @@ public class MovementScript : MonoBehaviour
         {
             timeTilmovement -= Time.fixedDeltaTime;
         }
-        if(menuCooldown > 0)
-        {
-            menuCooldown -= Time.fixedDeltaTime;
-        }
     }
 
     public int getFacing()
     {
         return facing;
+    }
+    public void freeze(EntityClass[] ecs, MeleeAttacker[] mas, RangedAttacker[] ras, KillCounter kc)
+    {
+       
     }
     /*public void resetscene()
     {

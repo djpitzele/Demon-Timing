@@ -117,6 +117,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         dmg = 5;
         totalEnemies = 0;
         HitScreen = theCanvas.transform.GetChild(3).gameObject.GetComponent<RawImage>();
+        theCanvas.transform.GetChild(4).gameObject.GetComponent<Text>().text = "Gold: " + gold;
         HitScreen.enabled = false;
         int numScenes = SceneManager.sceneCountInBuildSettings;
         List<int> remainingScenes = new List<int>();
