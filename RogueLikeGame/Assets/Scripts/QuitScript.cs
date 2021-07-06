@@ -42,6 +42,8 @@ public class QuitScript : MonoBehaviour
 
     public void doClickDoNotSave()
     {
+        SaveGame.current = new SaveGame();
+        SaveLoad.Save();
         //Debug.Log("stop the game");
         Application.Quit();
     }

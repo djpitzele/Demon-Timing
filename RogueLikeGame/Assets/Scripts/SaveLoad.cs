@@ -13,6 +13,10 @@ public class SaveLoad : MonoBehaviour
     {
         //DONT FORGET TO SET SaveGame.current RIGHT BEFORE SAVING
         BinaryFormatter bf = new BinaryFormatter();
+        if(File.Exists(Application.persistentDataPath + "/savedGame.dt"))
+        {
+            File.Delete(Application.persistentDataPath + "/savedGame.dt");
+        }
         FileStream file = File.Create(Application.persistentDataPath + "/savedGame.dt");
         bf.Serialize(file, SaveGame.current);
         file.Close();

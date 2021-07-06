@@ -10,8 +10,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
 {
     public float curMana;
     public float maxMana;
-    public float curHP;
     public float maxHP;
+    public float curHP;
     private float dmg;
     public int gold;
     public int totalEnemies;
@@ -34,6 +34,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
                 die();
             }
         }
+        theCanvas.transform.GetChild(0).GetComponent<HealthCheck>().updateHealth(this);
     }
 
     public SaveGame makeSaveGame()
@@ -45,6 +46,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         s.totalKills = totalkills;
         s.orderScenes = orderScenes;
         s.curSceneIndex = curSceneIndex;
+        s.time = theCanvas.GetComponentsInChildren<KillCounter>()[0].timeSpent;
         return s;
     }
 
@@ -101,15 +103,24 @@ public class PlayerClass : MonoBehaviour, EntityClass
         //GameObject.Find("Spawner").GetComponent<EnemySpawner>().spawnEnemy(pos, typeof(SoldierCommander), theSoldier);
         //spawner.GetComponent<EnemySpawner>().spawnEnemy(prefab);
         Debug.Log("deez");
-        curHP = maxHP;
-        curMana = maxMana;
+        //curHP = maxHP;
+        if(curHP == 0)
+        {
+            curHP = maxHP;
+        }
+        //curMana = maxMana;
+        if (curMana == 0)
+        {
+            curMana = maxMana;
+        }
         r = new System.Random();
         dmg = 5;
         totalEnemies = 0;
+        HitScreen = theCanvas.transform.GetChild(3).gameObject.GetComponent<RawImage>();
         HitScreen.enabled = false;
         int numScenes = SceneManager.sceneCountInBuildSettings;
         List<int> remainingScenes = new List<int>();
-        for(int i = 2; i < numScenes; i++)
+        for(int i = 3; i < numScenes; i++)
         {
             remainingScenes.Add(i);
         }
@@ -117,7 +128,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         orderScenes = new List<int>();
         while(remainingScenes.Count > 0)
         {
-            if(r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 2)))
+            if(r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 3)))
             {
                 break;
             }
@@ -125,9 +136,11 @@ public class PlayerClass : MonoBehaviour, EntityClass
             orderScenes.Add(sceneIndex);
             remainingScenes.Remove(sceneIndex);
         }
-        orderScenes.Add(1);
+        orderScenes.Add(2);
+        theCanvas.transform.GetChild(0).GetComponent<Text>().text = curHP.ToString();
         DontDestroyOnLoad(transform.gameObject);
-        DontDestroyOnLoad(HitScreen.gameObject.transform.parent);
+        DontDestroyOnLoad(theCanvas);
+        SceneManager.LoadScene(curSceneIndex);
         //Debug.Log(orderScenes.Count);
     }
     

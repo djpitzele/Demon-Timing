@@ -5,21 +5,12 @@ using UnityEngine.UI;
 
 public class HealthCheck : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject deathscreen;
-    // Start is called before the first frame update
-    void Start()
+    public void updateHealth(PlayerClass pc)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        GetComponent<Text>().text = player.GetComponent<PlayerClass>().curHP.ToString();
-        if(player.GetComponent<PlayerClass>().curHP <= 0)
+        GetComponent<Text>().text = pc.curHP.ToString();
+        if (pc.curHP <= 0)
         {
-            deathscreen.GetComponent<Image>().enabled = true;
+            transform.parent.GetChild(1).GetComponent<Image>().enabled = true;
         }
     }
 }

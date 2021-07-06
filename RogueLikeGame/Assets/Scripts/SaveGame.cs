@@ -13,7 +13,8 @@ public class SaveGame
     public int gold;
     public int totalKills;
     public List<int> orderScenes;
-    public int curSceneIndex;
+    public int curSceneIndex = 1;
+    public float time;
 
     private void Start()
     {

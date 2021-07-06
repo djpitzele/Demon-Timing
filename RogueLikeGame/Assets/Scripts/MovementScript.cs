@@ -16,11 +16,12 @@ public class MovementScript : MonoBehaviour
     //1 = right, -1 = left
     private int facing = 1;
     public float timeTilmovement;
-    public GameObject pauseMenu;
     private float menuCooldown = 0f;
+    public GameObject pauseMenu;
     // Start is called before the first frame update
     void Start()
     {
+        pauseMenu = canvas.transform.GetChild(6).gameObject;
         rb = GetComponent<Rigidbody2D>();
         pauseMenu.SetActive(false);
     }

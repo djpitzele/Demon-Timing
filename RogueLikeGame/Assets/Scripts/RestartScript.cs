@@ -15,7 +15,7 @@ public class RestartScript : MonoBehaviour
 
     public void doClick()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         Destroy(this.transform.parent.parent.gameObject);
         Destroy(myPlayer);
     }
