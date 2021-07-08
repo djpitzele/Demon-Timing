@@ -15,8 +15,6 @@ public class SaveGame
     public List<int> orderScenes;
     public int curSceneIndex = 1;
     public float time;
+    public int curShade;
 
-    private void Start()
-    {
-    }
 }

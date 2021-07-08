@@ -21,6 +21,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int curSceneIndex = 0;
     public System.Random r;
     public GameObject theCanvas;
+    public int curShade;
 
     public void getHit(float dm, string typeHit)
     {
@@ -47,6 +48,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         s.orderScenes = orderScenes;
         s.curSceneIndex = curSceneIndex;
         s.time = theCanvas.GetComponentsInChildren<KillCounter>()[0].timeSpent;
+        s.curShade = curShade;
         return s;
     }
 
@@ -59,7 +61,14 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public void die()
     {
         Debug.Log("RIP us");
+        PermVar.current.Shade += curShade;
+        curShade = 0;
+        Invoke("goToLobby", 3f);
         //UI to die
+    }
+    public void goToLobby()
+    {
+        SceneManager.LoadScene(1);
     }
     /*public void melee()
     {
@@ -90,7 +99,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
 
     public float getDmg()
     {
-        return dmg;
+        return dmg * (1 + PermVar.current.meleeBuff);
     }
     public GameObject ecgetObject()
     {

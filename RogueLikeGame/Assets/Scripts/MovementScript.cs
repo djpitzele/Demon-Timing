@@ -9,7 +9,7 @@ public class MovementScript : MonoBehaviour
     //cooldown is the cooldown on the dash
     public float cooldown = 0;
     public GameObject canvas;
-    private float speed = 11f;
+    public float speed = 11f;
     private static double pi = Math.PI;
     private float fpi = Convert.ToSingle(pi);
     Rigidbody2D rb;
@@ -57,14 +57,14 @@ public class MovementScript : MonoBehaviour
         {
             menuCooldown--;
         }
-        Debug.Log(Input.GetAxis("Reset") + " " + esc);
+        //Debug.Log(Input.GetAxis("Reset") + " " + esc);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         float curMovement = Input.GetAxis("Horizontal");
-        if(Input.GetAxis("Submit") != 0)
+        if(Input.GetAxis("Fire2") != 0)
         {
             GetComponent<PlayerClass>().nextScene();
         }
@@ -125,6 +125,16 @@ public class MovementScript : MonoBehaviour
     public void freeze(EntityClass[] ecs, MeleeAttacker[] mas, RangedAttacker[] ras, KillCounter kc)
     {
        
+    }
+    public void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collision.gameObject.TryGetComponent<NPClass>(out NPClass nc))
+        {
+            if (Input.GetAxis("Submit")!= 0)
+            {
+                nc.Interact();
+            }
+        }
     }
     /*public void resetscene()
     {

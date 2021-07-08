@@ -23,6 +23,11 @@ public class NewGameButton : MonoBehaviour
         {
             File.Delete(Application.persistentDataPath + "/savedGame.dt");
         }
+        if (File.Exists(Application.persistentDataPath + "/PermVar.dt"))
+        {
+            File.Delete(Application.persistentDataPath + "/PermVar.dt");
+        }
+        PermVar.Reset();
         GameObject c = Instantiate(canvasPrefab);
         playerPrefab.GetComponent<PlayerClass>().theCanvas = c;
         playerPrefab.GetComponent<MovementScript>().canvas = c;
@@ -32,6 +37,7 @@ public class NewGameButton : MonoBehaviour
         pc.gold = SaveGame.current.gold;
         pc.totalkills = SaveGame.current.totalKills;
         pc.curSceneIndex = SaveGame.current.curSceneIndex;
+        pc.curShade = SaveGame.current.curShade;
         GameObject p = Instantiate(playerPrefab);
         pc.orderScenes = SaveGame.current.orderScenes;
         p.name = "MainChar";
@@ -55,6 +61,7 @@ public class NewGameButton : MonoBehaviour
         pc.totalkills = SaveGame.current.totalKills;
         pc.orderScenes = SaveGame.current.orderScenes;
         pc.curSceneIndex = SaveGame.current.curSceneIndex;
+        pc.curSceneIndex = SaveGame.current.curShade;
         GameObject p = Instantiate(playerPrefab);
         p.name = "MainChar";
         c.name = "Canvas";

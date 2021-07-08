@@ -43,6 +43,7 @@ public class QuitScript : MonoBehaviour
     public void doClickDoNotSave()
     {
         SaveGame.current = new SaveGame();
+        PermVar.Reset();
         SaveLoad.Save();
         //Debug.Log("stop the game");
         Application.Quit();

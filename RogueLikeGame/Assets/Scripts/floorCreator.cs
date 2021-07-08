@@ -28,11 +28,12 @@ public class floorCreator : MonoBehaviour
     public GameObject theWalls;
     public static System.Random r = new System.Random();
     // for funsies
-    //private HashSet<Vector2> spawnerSet;
+    //private HashSet<Vector2> spawnerSet;ev
 
     // Start is called before the first frame update
     void Start()
     {
+        camera =  Camera.main.gameObject;
         player = GameObject.Find("MainChar");
         spawners = new List<SpawnerClass>();
         for (int i = 0; i < spritesToMatch.Count; i++)
@@ -57,6 +58,7 @@ public class floorCreator : MonoBehaviour
         camera.transform.position = new Vector3(width / 2.0f, height / 2.0f, -10);
         camera.GetComponent<Camera>().orthographicSize = (camScaling / 10.0f) * larger;
         Vector2[] thePoints = { new Vector2(0, 0), new Vector2(width, 0), new Vector2(width, height), new Vector2(0, height), new Vector2(0, 0) };
+        theWalls = GameObject.Find("Walls");
         theWalls.GetComponent<EdgeCollider2D>().points = thePoints;
         if(TryGetComponent<RedDragonFloor>(out RedDragonFloor rdf)) {
             rdf.changeCamera(camera);

@@ -33,6 +33,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Medium Rooms/M3.unity
     guid: 3374ff791a9fba34c80bcc0828fb6c44
   - enabled: 1
-    path: Assets/Scenes/Medium Rooms/M4.unity
+    path: Assets/Scenes/Easy Rooms/E4.unity
     guid: 11efef4ef2085254eaeb04e4d88bcca8
   m_configObjects: {}
