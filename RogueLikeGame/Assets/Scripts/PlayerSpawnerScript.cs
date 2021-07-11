@@ -9,7 +9,9 @@ public class PlayerSpawnerScript : MonoBehaviour
     void Start()
     {
         Vector2 pos = new Vector2(1, theCreator.height / 2.0f);
-        GameObject.Find("MainChar").transform.position = new Vector3(pos.x, pos.y, 0);
+        GameObject g = GameObject.Find("MainChar");
+        g.transform.position = new Vector3(pos.x, pos.y, 0);
+        g.GetComponent<PlayerClass>().theCanvas.GetComponent<Canvas>().worldCamera = Camera.main;
     }
 
     // Update is called once per frame

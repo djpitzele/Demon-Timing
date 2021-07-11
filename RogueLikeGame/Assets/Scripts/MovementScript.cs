@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MovementScript : MonoBehaviour
 {
@@ -18,10 +19,15 @@ public class MovementScript : MonoBehaviour
     public float timeTilmovement;
     private int menuCooldown = 0;
     public GameObject pauseMenu;
+    public GameObject interaction;
     private float esc;
+    private float cooldown2;
     // Start is called before the first frame update
     void Start()
+
     {
+        interaction = canvas.transform.Find("Interaction").gameObject;
+        interaction.SetActive(false);
         pauseMenu = canvas.transform.GetChild(6).gameObject;
         rb = GetComponent<Rigidbody2D>();
         pauseMenu.SetActive(false);
@@ -122,17 +128,29 @@ public class MovementScript : MonoBehaviour
     {
         return facing;
     }
-    public void freeze(EntityClass[] ecs, MeleeAttacker[] mas, RangedAttacker[] ras, KillCounter kc)
+    public void OnTriggerStay2D(Collider2D collision)
     {
-       
-    }
-    public void OnCollisionStay2D(Collision2D collision)
-    {
-        if(collision.gameObject.TryGetComponent<NPClass>(out NPClass nc))
+        cooldown2 -= Time.deltaTime;
+        //Debug.Log("deezgd");
+        if (collision.gameObject.TryGetComponent<NPClass>(out NPClass nc))
         {
-            if (Input.GetAxis("Submit")!= 0)
+            //Debug.Log("deezg");
+            if (Input.GetAxis("Submit") != 0 && cooldown2 <= 0)
             {
-                nc.Interact();
+                Interaction i = nc.Interact();
+                if (i != null)
+                {
+                    interaction.SetActive(true);
+                    interaction.GetComponent<Image>().sprite = i.theSprite;
+                    interaction.GetComponentsInChildren<Text>()[0].text = i.message;
+                    Debug.Log(i.message);
+                    cooldown2 = 0.4f;
+                }
+                else
+                {
+                    interaction.SetActive(false);
+                    cooldown2 = 0.4f;
+                }
             }
         }
     }

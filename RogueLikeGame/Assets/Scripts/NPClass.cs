@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface NPClass
 {
-    public void Interact();
+    public Interaction Interact();
     
 }

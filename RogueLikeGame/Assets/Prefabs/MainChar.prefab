@@ -117,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: 0
   canvas: {fileID: 4771547304454793974, guid: 7bed699708fe5e243b94efa524dd9834, type: 3}
+  speed: 11
   timeTilmovement: 0
   pauseMenu: {fileID: 0}
 --- !u!114 &2682160601891282900
@@ -133,8 +134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curMana: 100
   maxMana: 100
-  curHP: 100000
   maxHP: 100000
+  curHP: 100000
   gold: 0
   totalEnemies: 0
   totalkills: 0
@@ -142,6 +143,7 @@ MonoBehaviour:
   orderScenes: 
   curSceneIndex: 0
   theCanvas: {fileID: 0}
+  curShade: 0
 --- !u!50 &2682160601891282898
 Rigidbody2D:
   serializedVersion: 4
@@ -160,7 +162,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &2682160601891282899
