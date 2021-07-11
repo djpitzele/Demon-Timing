@@ -33,7 +33,7 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
         //Debug.Log("still in collider");
         if (c.gameObject.TryGetComponent(out PlayerClass ec) && tilAttack <= 0)
         {
-            Debug.Log("we h it");
+            //Debug.Log("we h it");
             ec.getHit(dmg, "melee");
             c.gameObject.GetComponent<Rigidbody2D>().AddForce((c.gameObject.transform.position - transform.position) * 100, ForceMode2D.Force);
             c.gameObject.GetComponent<MovementScript>().timeTilmovement += .2f;

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5046333190127238775}
   m_Layer: 0
   m_Name: GoldStack
-  m_TagString: Untagged
+  m_TagString: GoldStack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

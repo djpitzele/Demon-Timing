@@ -76,6 +76,11 @@ public class floorCreator : MonoBehaviour
                 t.WaveOver();
             }
             waves--;
+            if(waves == 0)
+            {
+                player.GetComponent<PlayerClass>().curShade += 1;
+                player.GetComponent<PlayerClass>().theCanvas.GetComponentsInChildren<ShadeScript>()[0].updateShade();
+            }
             
 
         }

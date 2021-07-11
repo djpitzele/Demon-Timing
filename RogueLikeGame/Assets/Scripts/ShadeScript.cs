@@ -11,23 +11,27 @@ public class ShadeScript : MonoBehaviour
         
     }
 
-    public IEnumerator updateShade()
+    public void updateShade()
     {
         GetComponent<Text>().enabled = true;
         transform.parent.Find("Gold").GetComponent<Text>().enabled = false;
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Lobby")
-        {
-            GetComponent<Text>().text = "Shade: " + (PermVar.current.Shade + transform.parent.Find("Pause Menu").GetComponentsInChildren<RestartScript>()[0].myPlayer.GetComponent<PlayerClass>().curShade);
-        }
-        else
-        {
-            yield return new WaitForSeconds(3f);
-            GetComponent<Text>().enabled = false;
-        }
+        GetComponent<Text>().text = "Shade: " + (transform.parent.Find("Pause Menu").GetComponentsInChildren<RestartScript>()[0].myPlayer.GetComponent<PlayerClass>().curShade);
+        Invoke("DisableText", 3f);
+        
+    }
+    public void updateShadeLobby()
+    {
+        GetComponent<Text>().enabled = true;
+        transform.parent.Find("Gold").GetComponent<Text>().enabled = false;
+        GetComponent<Text>().text = "Shade: " + (PermVar.current.Shade + transform.parent.Find("Pause Menu").GetComponentsInChildren<RestartScript>()[0].myPlayer.GetComponent<PlayerClass>().curShade);
     }
     // Update is called once per frame
     void Update()
     {
         
+    }
+    public void DisableText()
+    {
+        GetComponent<Text>().enabled = false;
     }
 }

@@ -158,7 +158,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &7601942248837901936
 MonoBehaviour:
@@ -613,6 +613,7 @@ GameObject:
   - component: {fileID: 7601942248053976850}
   - component: {fileID: 7601942248053976848}
   - component: {fileID: 7601942248053976851}
+  - component: {fileID: 538783900473253638}
   m_Layer: 5
   m_Name: Gold
   m_TagString: Untagged
@@ -681,6 +682,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Gold: 0'
+--- !u!114 &538783900473253638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601942248053976861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb4aa43dce7dfd4c91fd7aed1632ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7601942248099090731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,11 +1896,11 @@ RectTransform:
   m_Father: {fileID: 7601942248837901942}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &3119191070312905973
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1909,7 +1922,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.19281597, g: 0.0031594948, b: 0.6698113, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1918,10 +1931,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 26
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1929,7 +1942,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: sHADE
 --- !u!114 &8890260899883688065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1949,6 +1962,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7601942248837901942}
     m_Modifications:
+    - target: {fileID: 403357698289063170, guid: 00a4bc71f69e4064faab544d465d8c45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1662512205718882668, guid: 00a4bc71f69e4064faab544d465d8c45,
         type: 3}
       propertyPath: m_Enabled
@@ -2108,6 +2126,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Interaction
+      objectReference: {fileID: 0}
+    - target: {fileID: 7012425028487122990, guid: 00a4bc71f69e4064faab544d465d8c45,
+        type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7012425028487122990, guid: 00a4bc71f69e4064faab544d465d8c45,
         type: 3}

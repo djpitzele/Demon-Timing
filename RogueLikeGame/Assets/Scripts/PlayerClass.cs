@@ -19,7 +19,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public RawImage HitScreen;
     public List<int> orderScenes;
     public int curSceneIndex = 0;
-    public System.Random r;
+    public System.Random r = new System.Random();
     public GameObject theCanvas;
     public int curShade;
 
@@ -68,7 +68,10 @@ public class PlayerClass : MonoBehaviour, EntityClass
     }
     public void goToLobby()
     {
-        SceneManager.LoadScene(1);
+        theCanvas.GetComponentsInChildren<RestartScript>()[0].doClick();
+        theCanvas.transform.Find("Death").GetComponent<Image>().enabled = false;
+       
+
     }
     /*public void melee()
     {
@@ -122,7 +125,6 @@ public class PlayerClass : MonoBehaviour, EntityClass
         {
             curMana = maxMana;
         }
-        r = new System.Random();
         dmg = 5;
         totalEnemies = 0;
         HitScreen = theCanvas.transform.GetChild(3).gameObject.GetComponent<RawImage>();
@@ -148,10 +150,13 @@ public class PlayerClass : MonoBehaviour, EntityClass
         }
         orderScenes.Add(2);
         theCanvas.transform.GetChild(0).GetComponent<Text>().text = curHP.ToString();
-        theCanvas.transform.GetComponentsInChildren<ShadeScript>()[0].updateShade();
+        
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);
+        Debug.Log("deez2");
+        Debug.Log(theCanvas.GetComponentsInChildren<ShadeScript>()[0] == null);
+        theCanvas.GetComponentsInChildren<ShadeScript>()[0].updateShadeLobby();
         //Debug.Log(orderScenes.Count);
     }
     
@@ -167,6 +172,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     // Update is called once per frame
     void Update()
     {
+
         //DIE SOMETIME
         //Debug.Log(this.getCurHP());
     }
