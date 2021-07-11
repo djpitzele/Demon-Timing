@@ -148,6 +148,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         }
         orderScenes.Add(2);
         theCanvas.transform.GetChild(0).GetComponent<Text>().text = curHP.ToString();
+        theCanvas.transform.GetComponentsInChildren<ShadeScript>()[0].updateShade();
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);

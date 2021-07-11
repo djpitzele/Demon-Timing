@@ -38,13 +38,13 @@ public class BuyMenuScript : MonoBehaviour
 
             foreach (UnityAction ua in purchaseActions)
             {
-
                 GameObject g = Instantiate(Option);
                 Button b = g.GetComponent<Button>();
                 RectTransform r = g.GetComponent<RectTransform>();
                 b.gameObject.transform.SetParent(transform.parent, false);
+                //was adding 400 for no reason, so we subtract 400
+                r.localPosition = new Vector3(transform.parent.gameObject.GetComponent<RectTransform>().rect.width * ((i + 1) / 4f) - 400, r.localPosition.y, 0);
                 Debug.Log(r.localPosition);
-                r.localPosition = new Vector3(transform.parent.gameObject.GetComponent<RectTransform>().rect.width * ((i + 1) / 4f), r.localPosition.y, 0);
                 r.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, transform.parent.gameObject.GetComponent<RectTransform>().rect.height * 0.8f);
                 r.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, transform.parent.gameObject.GetComponent<RectTransform>().rect.width / ((float)purchaseActions.Count + 2));
                 //r.localScale = new Vector3(Screen.width / 3f, Screen.height * 0.8f, 1);

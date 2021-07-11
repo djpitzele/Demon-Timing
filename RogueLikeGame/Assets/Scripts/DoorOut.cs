@@ -23,5 +23,9 @@ public class DoorOut : MonoBehaviour
         {
             floor.player.GetComponent<PlayerClass>().nextScene();
         }
+        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Lobby")
+        {
+            floor.player.GetComponent<PlayerClass>().theCanvas.transform.Find("Shade").GetComponent<UnityEngine.UI.Text>().enabled = false;
+        }
     }
 }
