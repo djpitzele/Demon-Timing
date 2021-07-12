@@ -585,6 +585,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theFloor: {fileID: 11400000, guid: da7cfba2dfb1ef441a05922916acab81, type: 2}
+  topWallTile: {fileID: 0}
+  rightWallTile: {fileID: 0}
+  leftWallTile: {fileID: 0}
+  botWallTile: {fileID: 0}
   spritesToMatch:
   - {fileID: 21300000, guid: 5fd9c638ad37db84da84fc3ca6aa3173, type: 3}
   enemiesToMatch:
@@ -880,12 +884,12 @@ PrefabInstance:
     - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
         type: 3}
       propertyPath: AvgMobs
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
         type: 3}
       propertyPath: camScaling
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
         type: 3}

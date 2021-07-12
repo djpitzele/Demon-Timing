@@ -21,13 +21,15 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int curSceneIndex = 0;
     public System.Random r = new System.Random();
     public GameObject theCanvas;
+    public GameObject pauseMenu;
     public int curShade;
+    public bool dead = false;
 
     public void getHit(float dm, string typeHit)
     {
-        StartCoroutine("ActivateHit");
-        if(GetComponent<MovementScript>().cooldown <= 0.95f)
+        if(!dead && GetComponent<MovementScript>().cooldown <= 0.95f)
         {
+            StartCoroutine("ActivateHit");
             curHP -= dm;
             //Debug.Log("we got hit for " + dm + typeHit + curHP);
             if (curHP <= 0)
@@ -63,15 +65,16 @@ public class PlayerClass : MonoBehaviour, EntityClass
         Debug.Log("RIP us");
         PermVar.current.Shade += curShade;
         curShade = 0;
+        dead = true;
         Invoke("goToLobby", 3f);
         //UI to die
     }
     public void goToLobby()
     {
-        theCanvas.GetComponentsInChildren<RestartScript>()[0].doClick();
+        pauseMenu.SetActive(true);
         theCanvas.transform.Find("Death").GetComponent<Image>().enabled = false;
-       
-
+        dead = false;
+        theCanvas.GetComponentsInChildren<RestartScript>()[0].doClick();
     }
     /*public void melee()
     {
@@ -130,6 +133,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         HitScreen = theCanvas.transform.GetChild(3).gameObject.GetComponent<RawImage>();
         theCanvas.transform.GetChild(4).gameObject.GetComponent<Text>().text = "Gold: " + gold;
         HitScreen.enabled = false;
+        pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
         int numScenes = SceneManager.sceneCountInBuildSettings;
         List<int> remainingScenes = new List<int>();
         for(int i = 3; i < numScenes; i++)
@@ -155,7 +159,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);
         Debug.Log("deez2");
-        Debug.Log(theCanvas.GetComponentsInChildren<ShadeScript>()[0] == null);
+        //Debug.Log(theCanvas.GetComponentsInChildren<ShadeScript>()[0] == null);
         theCanvas.GetComponentsInChildren<ShadeScript>()[0].updateShadeLobby();
         //Debug.Log(orderScenes.Count);
     }

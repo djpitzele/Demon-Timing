@@ -7,6 +7,10 @@ using UnityEngine.Tilemaps;
 public class floorCreator : MonoBehaviour
 {
     public Tile theFloor;
+    public Tile topWallTile;
+    public Tile rightWallTile;
+    public Tile leftWallTile;
+    public Tile botWallTile;
     private List<SpawnerClass> spawners;
     public List<Sprite> spritesToMatch;
     public List<GameObject> enemiesToMatch;
@@ -54,6 +58,7 @@ public class floorCreator : MonoBehaviour
             genRowSpawners(i);
             //Debug.Log(i);
         }
+        genWalls();
         int larger = Math.Max(width, height);
         camera.transform.position = new Vector3(width / 2.0f, height / 2.0f, -10);
         camera.GetComponent<Camera>().orthographicSize = (camScaling / 10.0f) * larger;
@@ -63,6 +68,7 @@ public class floorCreator : MonoBehaviour
         if(TryGetComponent<RedDragonFloor>(out RedDragonFloor rdf)) {
             rdf.changeCamera(camera);
         }
+      
         StartCoroutine("beAsleep");
     }
 
@@ -88,7 +94,6 @@ public class floorCreator : MonoBehaviour
     }
     public void genRowSpawners(int curHeight)
     {
-        int streak = 0;
         //float totalPillars = pillarsLeft;
         for (int i = 0; i < width; i++)
         {
@@ -106,7 +111,6 @@ public class floorCreator : MonoBehaviour
                     spawnerTiles.Add(t);
                     tm.SetTile(v, t);
                     //tileCost[x][y] = 10000000;
-                    streak = 0;
                     spawnersLeft--;
                     Vector2 temp = new Vector2(v.x, v.y);
                     //spawnerSet.Add(temp);
@@ -114,7 +118,43 @@ public class floorCreator : MonoBehaviour
             }
         }
     }
+    public void genWalls()
+    {
+        Vector3Int[] topWalls = new Vector3Int[width]; 
+        Tile[] topWallTiles = new Tile[width];
+        for (int i = 0; i < width; i++)
+        {
+            topWalls[i] = new Vector3Int(i, height, 0);
+            topWallTiles[i] = topWallTile;
+        }
+        Vector3Int[] botWalls = new Vector3Int[width];
+        Tile[] botWallTiles = new Tile[width];
+        for (int i = 0; i < width; i++)
+        {
+            botWalls[i] = new Vector3Int(i, -1, 0);
+            botWallTiles[i] = botWallTile;
+        }
+        Vector3Int[] leftWalls = new Vector3Int[height];
+        Tile[] leftWallTiles = new Tile[height];
+        for (int i = 0; i < height; i++)
+        {
+            leftWalls[i] = new Vector3Int(-1, i , 0);
+            leftWallTiles[i] = leftWallTile;
+        }
+        Vector3Int[] rightWalls = new Vector3Int[height];
+        Tile[] rightWallTiles = new Tile[height];
+        for (int i = 0; i < height; i++)
+        {
+            rightWalls[i] = new Vector3Int(width, i, 0);
+            rightWallTiles[i] = rightWallTile;
+        }
+        tm.SetTiles(topWalls, topWallTiles);
+        tm.SetTiles(botWalls, botWallTiles);
+        tm.SetTiles(leftWalls, leftWallTiles);
+        tm.SetTiles(rightWalls, rightWallTiles);
 
+      
+    }
     private IEnumerator beAsleep()
     {
         for (int i = 0; i < 2; i++)

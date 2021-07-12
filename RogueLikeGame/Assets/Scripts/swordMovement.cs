@@ -112,7 +112,10 @@ public class swordMovement : MonoBehaviour
                 attackTime = -0.1f;
             }
             ec.getHit(thePlayer.GetComponent<PlayerClass>().getDmg(), "melee");
-            ec.ecgetObject().GetComponent<Rigidbody2D>().AddForce((ec.ecgetObject().transform.position - transform.position) * kb, ForceMode2D.Force);
+            if(ec.ecgetObject().TryGetComponent<Rigidbody2D>(out Rigidbody2D rbb))
+            {
+                rbb.AddForce((ec.ecgetObject().transform.position - transform.position) * kb, ForceMode2D.Force);
+            }
         }
     }
     void ShortCooldown()

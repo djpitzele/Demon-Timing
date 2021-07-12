@@ -120,6 +120,7 @@ MonoBehaviour:
   speed: 11
   timeTilmovement: 0
   pauseMenu: {fileID: 0}
+  interaction: {fileID: 0}
 --- !u!114 &2682160601891282900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,8 +135,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curMana: 100
   maxMana: 100
-  maxHP: 100000
-  curHP: 100000
+  maxHP: 100
+  curHP: 100
   gold: 0
   totalEnemies: 0
   totalkills: 0
@@ -143,6 +144,7 @@ MonoBehaviour:
   orderScenes: 
   curSceneIndex: 0
   theCanvas: {fileID: 0}
+  pauseMenu: {fileID: 0}
   curShade: 0
 --- !u!50 &2682160601891282898
 Rigidbody2D:

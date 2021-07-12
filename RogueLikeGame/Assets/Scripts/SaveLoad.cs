@@ -26,7 +26,7 @@ public class SaveLoad : MonoBehaviour
                 File.Delete(Application.persistentDataPath + "/PermVar.dt");
             }
             FileStream PermFile = File.Create(Application.persistentDataPath + "/PermVar.dt");
-            bf.Serialize(file, PermVar.current);
+            bf.Serialize(PermFile, PermVar.current);
             PermFile.Close();
        
     }

@@ -474,6 +474,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theFloor: {fileID: 11400000, guid: da7cfba2dfb1ef441a05922916acab81, type: 2}
+  topWallTile: {fileID: 11400000, guid: d2c78213ee383014c9d768c7acd4b940, type: 2}
+  rightWallTile: {fileID: 11400000, guid: 27bee67b8d5d5804092c9df392fec93e, type: 2}
+  leftWallTile: {fileID: 11400000, guid: 33508af539df86d4ab352c7e7b56f72c, type: 2}
+  botWallTile: {fileID: 11400000, guid: 07e9a29bd37d9934d9e2598f4f25b8d2, type: 2}
   spritesToMatch:
   - {fileID: 21300000, guid: 5fd9c638ad37db84da84fc3ca6aa3173, type: 3}
   enemiesToMatch:

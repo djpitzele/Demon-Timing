@@ -36,28 +36,11 @@ public class MovementScript : MonoBehaviour
 
     private void Update()
     {
-        if (esc != 0 && menuCooldown <= 0)
+        if (Input.GetAxis("Reset") != 0 && menuCooldown <= 0)
         {
-            if(pauseMenu.activeInHierarchy)
-            {
-                pauseMenu.SetActive(false);
-                Time.timeScale = 1;
-            }
-            else
-            {
                 pauseMenu.SetActive(true);
                 Time.timeScale = 0;
-                esc = 0;
-            }
             menuCooldown = 200;
-        }
-        else
-        {
-            esc = Input.GetAxis("Reset");
-        }
-        if(Time.timeScale == 0)
-        {
-            esc = 0f;
         }
         if (menuCooldown > 0)
         {
@@ -70,10 +53,10 @@ public class MovementScript : MonoBehaviour
     void FixedUpdate()
     {
         float curMovement = Input.GetAxis("Horizontal");
-        if(Input.GetAxis("Fire2") != 0)
+        /*if(Input.GetAxis("Fire2") != 0)
         {
             GetComponent<PlayerClass>().nextScene();
-        }
+        }*/
         if (timeTilmovement <= 0)
         {
 

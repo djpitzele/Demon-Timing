@@ -15,7 +15,7 @@ public class ShadeScript : MonoBehaviour
     {
         GetComponent<Text>().enabled = true;
         transform.parent.Find("Gold").GetComponent<Text>().enabled = false;
-        GetComponent<Text>().text = "Shade: " + (transform.parent.Find("Pause Menu").GetComponentsInChildren<RestartScript>()[0].myPlayer.GetComponent<PlayerClass>().curShade);
+        GetComponent<Text>().text = "Shade: " + (PermVar.current.Shade + transform.parent.Find("Pause Menu").GetComponentsInChildren<RestartScript>()[0].myPlayer.GetComponent<PlayerClass>().curShade);
         Invoke("DisableText", 3f);
         
     }

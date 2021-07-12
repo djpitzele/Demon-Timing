@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 6770593226358016062, guid: d4b40e0e69db6fe40a75e390f573a983,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6770593226358016062, guid: d4b40e0e69db6fe40a75e390f573a983,
         type: 3}
@@ -241,6 +241,12 @@ PrefabInstance:
       propertyPath: AvgMobs
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
+        type: 3}
+      propertyPath: theFloor
+      value: 
+      objectReference: {fileID: 11400000, guid: ba636a147f9f49742bc0fac5cfff76fb,
+        type: 2}
     - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
         type: 3}
       propertyPath: spawnersLeft
@@ -528,7 +534,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &783083315
 GameObject:
@@ -927,6 +933,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theFloor: {fileID: 11400000, guid: ba636a147f9f49742bc0fac5cfff76fb, type: 2}
+  topWallTile: {fileID: 0}
+  rightWallTile: {fileID: 0}
+  leftWallTile: {fileID: 0}
+  botWallTile: {fileID: 0}
   spritesToMatch:
   - {fileID: 21300000, guid: 62a12c0dfe635514699f4f2586a43461, type: 3}
   - {fileID: 21300000, guid: 5fd9c638ad37db84da84fc3ca6aa3173, type: 3}
@@ -1407,7 +1417,7 @@ Transform:
   m_Children:
   - {fileID: 1152286497}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1900845736
 GameObject:
@@ -1451,7 +1461,7 @@ Transform:
   m_Children:
   - {fileID: 783083316}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2032248583
 PrefabInstance:

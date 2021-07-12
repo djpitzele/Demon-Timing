@@ -37,6 +37,8 @@ public class ShadyFigure : MonoBehaviour, NPClass
             //Debug.Log("shady" + bms.purchaseActions.Count);
             bms.labels = new List<string>();
             bms.labels.Add("melee attack up");
+            bms.costs = new List<string>();
+            bms.costs.Add(FindCost().ToString() + " Shade");
             bms.gameObject.SetActive(true);
             
 
@@ -46,23 +48,28 @@ public class ShadyFigure : MonoBehaviour, NPClass
             interactions = 0;
             bms.labels = new List<string>();
             bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
+            bms.costs = new List<string>();
             bms.gameObject.SetActive(false);
-           
+            bms.destroyAllOptions();
 
         }
         return null;
     }
     public void UpMelee()
     {
-        if(PermVar.current.Shade > FindCost())
+        if(PermVar.current.Shade >= FindCost())
         {
-            PermVar.setCurrent(PermVar.current.Shade -= FindCost(), PermVar.current.meleeBuff += .1f);
+            //PermVar.setCurrent(PermVar.current.Shade -= FindCost(), PermVar.current.meleeBuff += .1f);
+            PermVar.current.Shade -= FindCost();
+            PermVar.current.meleeBuff += 0.1f;
+            bms.transform.parent.GetComponentsInChildren<ShadeScript>()[0].updateShadeLobby();
+            bms.options[0].gameObject.GetComponentsInChildren<UnityEngine.UI.Text>()[1].text = FindCost().ToString() + " Shade";
         }
         
-        if(TryGetComponent<Animator>(out Animator a) && a.GetBool("Talking"))
+       /* if(TryGetComponent<Animator>(out Animator a) && a.GetBool("Talking"))
         {
             a.SetBool("Talking", true);
-        }
+        }*/
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -76,11 +83,15 @@ public class ShadyFigure : MonoBehaviour, NPClass
         if (collision.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pc))
         {
             inRange = false;
+            bms.transform.parent.Find("Interaction").gameObject.SetActive(false);
+            bms.gameObject.SetActive(false);
+            bms.destroyAllOptions();
+            interactions = 0;
         }
     }
 
     private int FindCost()
     {
-        return (int)Math.Pow((PermVar.current.meleeBuff / .1f), 1.42f);
+        return 1 + (int)Math.Pow((PermVar.current.meleeBuff / .1f), 1.62f);
     }
 }

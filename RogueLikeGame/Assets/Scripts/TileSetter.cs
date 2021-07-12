@@ -30,7 +30,7 @@ public class TileSetter : MonoBehaviour
     {
         pillarSet = new HashSet<Vector2>();
         //pillarsLeft = (int)((((width - 1) * (height - 1)) * 0.16) + 0.5);
-        Tilemap tm = this.gameObject.GetComponent<Tilemap>();
+        Tilemap tm = GetComponent<Tilemap>();
         //Tile floor = (Tile)Resources.Load("smile");
         //Tile pillar = (Tile)Resources.Load("blackSquare");
         for(int i = 0; i < height; i++)

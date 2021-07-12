@@ -14,7 +14,7 @@ public class ClosePauseMenu : MonoBehaviour
     // Update is called once per frame
     public void closePause()
     {
-        transform.parent.gameObject.SetActive(false);
         Time.timeScale = 1f;
+        transform.parent.gameObject.SetActive(false);
     }
 }

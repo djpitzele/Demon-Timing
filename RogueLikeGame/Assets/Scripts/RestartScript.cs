@@ -29,7 +29,7 @@ public class RestartScript : MonoBehaviour
         pc.curSceneIndex = 1;
         GameObject p = Instantiate(playerPrefab);
         p.name = "MainChar";
-        c.name = "Canvasbb";
+        c.name = "Canvas";
         c.GetComponentsInChildren<QuitScript>()[0].player = p.GetComponent<PlayerClass>();
         c.GetComponentsInChildren<RestartScript>()[0].myPlayer = p;
         c.GetComponentsInChildren<KillCounter>()[0].timeSpent = 0f;

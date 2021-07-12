@@ -27,7 +27,7 @@ public class NewGameButton : MonoBehaviour
         {
             File.Delete(Application.persistentDataPath + "/PermVar.dt");
         }
-        PermVar.Reset();
+        PermVar.current = new PermVar();
         GameObject c = Instantiate(canvasPrefab);
         playerPrefab.GetComponent<PlayerClass>().theCanvas = c;
         playerPrefab.GetComponent<MovementScript>().canvas = c;
@@ -48,24 +48,28 @@ public class NewGameButton : MonoBehaviour
 
     public void loadGame()
     {
-        SaveLoad.Load();
-        GameObject c = Instantiate(canvasPrefab);
-        playerPrefab.GetComponent<PlayerClass>().theCanvas = c;
-        playerPrefab.GetComponent<MovementScript>().canvas = c;
-        PlayerClass pc = playerPrefab.GetComponent<PlayerClass>();
-        c.GetComponentsInChildren<KillCounter>()[0].timeSpent = SaveGame.current.time;
-        c.transform.GetChild(4).GetComponent<Text>().text = "Gold: " + SaveGame.current.gold;
-        pc.curHP = SaveGame.current.curHP;
-        pc.curMana = SaveGame.current.curMana;
-        pc.gold = SaveGame.current.gold;
-        pc.totalkills = SaveGame.current.totalKills;
-        pc.orderScenes = SaveGame.current.orderScenes;
-        pc.curSceneIndex = SaveGame.current.curSceneIndex;
-        pc.curSceneIndex = SaveGame.current.curShade;
-        GameObject p = Instantiate(playerPrefab);
-        p.name = "MainChar";
-        c.name = "Canvas";
-        c.GetComponentsInChildren<QuitScript>()[0].player = p.GetComponent<PlayerClass>();
+        if(File.Exists(Application.persistentDataPath + "/savedGame.dt"))
+        {
+            SaveLoad.Load();
+            GameObject c = Instantiate(canvasPrefab);
+            playerPrefab.GetComponent<PlayerClass>().theCanvas = c;
+            playerPrefab.GetComponent<MovementScript>().canvas = c;
+            PlayerClass pc = playerPrefab.GetComponent<PlayerClass>();
+            c.GetComponentsInChildren<KillCounter>()[0].timeSpent = SaveGame.current.time;
+            c.transform.GetChild(4).GetComponent<Text>().text = "Gold: " + SaveGame.current.gold;
+            pc.curHP = SaveGame.current.curHP;
+            pc.curMana = SaveGame.current.curMana;
+            pc.gold = SaveGame.current.gold;
+            pc.totalkills = SaveGame.current.totalKills;
+            pc.orderScenes = SaveGame.current.orderScenes;
+            pc.curSceneIndex = SaveGame.current.curSceneIndex;
+            pc.curShade = SaveGame.current.curShade;
+            GameObject p = Instantiate(playerPrefab);
+            p.name = "MainChar";
+            c.name = "Canvas";
+            c.GetComponentsInChildren<QuitScript>()[0].player = p.GetComponent<PlayerClass>();
+            c.GetComponentsInChildren<ShadeScript>()[0].updateShade();
+        }
     }
 
     // Update is called once per frame
