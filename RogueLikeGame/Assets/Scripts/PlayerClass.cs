@@ -10,7 +10,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
 {
     public float curMana;
     public float maxMana;
-    public float maxHP;
+    public float maxHP = 100;
     public float curHP;
     private float dmg;
     public int gold;
@@ -24,7 +24,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public GameObject pauseMenu;
     public int curShade;
     public bool dead = false;
-
+    
     public void getHit(float dm, string typeHit)
     {
         if(!dead && GetComponent<MovementScript>().cooldown <= 0.95f)
@@ -38,6 +38,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
             }
         }
         theCanvas.transform.GetChild(0).GetComponent<HealthCheck>().updateHealth(this);
+        //Debug.Log(curHP);
     }
 
     public SaveGame makeSaveGame()
@@ -119,12 +120,12 @@ public class PlayerClass : MonoBehaviour, EntityClass
         //spawner.GetComponent<EnemySpawner>().spawnEnemy(prefab);
         Debug.Log("deez");
         //curHP = maxHP;
-        if(curHP == 0)
+        if(curHP <= 0)
         {
             curHP = maxHP;
         }
         //curMana = maxMana;
-        if (curMana == 0)
+        if (curMana <= 0)
         {
             curMana = maxMana;
         }

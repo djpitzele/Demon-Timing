@@ -14,10 +14,12 @@ public class NewGameButton : MonoBehaviour
     {
         GetComponent<Button>().onClick.AddListener(createNewGame);
         ContinueButton.GetComponent<Button>().onClick.AddListener(loadGame);
+        
     }
 
     public void createNewGame()
     {
+        PermVar.current = new PermVar();
         SaveGame.current = new SaveGame();
         if (File.Exists(Application.persistentDataPath + "/savedGame.dt"))
         {
@@ -27,19 +29,22 @@ public class NewGameButton : MonoBehaviour
         {
             File.Delete(Application.persistentDataPath + "/PermVar.dt");
         }
-        PermVar.current = new PermVar();
+        GameObject go = Instantiate(playerPrefab);
         GameObject c = Instantiate(canvasPrefab);
-        playerPrefab.GetComponent<PlayerClass>().theCanvas = c;
-        playerPrefab.GetComponent<MovementScript>().canvas = c;
-        PlayerClass pc = playerPrefab.GetComponent<PlayerClass>();
+        go.GetComponent<PlayerClass>().theCanvas = c;
+        go.GetComponent<MovementScript>().canvas = c;
+        PlayerClass pc = go.GetComponent<PlayerClass>();
         pc.curHP = SaveGame.current.curHP;
         pc.curMana = SaveGame.current.curMana;
         pc.gold = SaveGame.current.gold;
         pc.totalkills = SaveGame.current.totalKills;
         pc.curSceneIndex = SaveGame.current.curSceneIndex;
         pc.curShade = SaveGame.current.curShade;
-        GameObject p = Instantiate(playerPrefab);
-        pc.orderScenes = SaveGame.current.orderScenes;
+        GameObject p = Instantiate(go);
+        Debug.Log(p == go);
+        playerPrefab = go;
+        Destroy(go);
+        p.GetComponent<PlayerClass>().orderScenes = SaveGame.current.orderScenes;
         p.name = "MainChar";
         c.name = "Canvas";
         c.GetComponentsInChildren<QuitScript>()[0].player = p.GetComponent<PlayerClass>();
@@ -48,13 +53,14 @@ public class NewGameButton : MonoBehaviour
 
     public void loadGame()
     {
-        if(File.Exists(Application.persistentDataPath + "/savedGame.dt"))
+        if(File.Exists(Application.persistentDataPath + "/savedGame.dt") || File.Exists(Application.persistentDataPath + "/PermVar.dt"))
         {
             SaveLoad.Load();
+            GameObject go = Instantiate(playerPrefab);
             GameObject c = Instantiate(canvasPrefab);
-            playerPrefab.GetComponent<PlayerClass>().theCanvas = c;
-            playerPrefab.GetComponent<MovementScript>().canvas = c;
-            PlayerClass pc = playerPrefab.GetComponent<PlayerClass>();
+            go.GetComponent<PlayerClass>().theCanvas = c;
+            go.GetComponent<MovementScript>().canvas = c;
+            PlayerClass pc = go.GetComponent<PlayerClass>();
             c.GetComponentsInChildren<KillCounter>()[0].timeSpent = SaveGame.current.time;
             c.transform.GetChild(4).GetComponent<Text>().text = "Gold: " + SaveGame.current.gold;
             pc.curHP = SaveGame.current.curHP;
@@ -64,10 +70,13 @@ public class NewGameButton : MonoBehaviour
             pc.orderScenes = SaveGame.current.orderScenes;
             pc.curSceneIndex = SaveGame.current.curSceneIndex;
             pc.curShade = SaveGame.current.curShade;
-            GameObject p = Instantiate(playerPrefab);
+            GameObject p = Instantiate(go);
+            Debug.Log(p == go);
+            Destroy(go);
             p.name = "MainChar";
             c.name = "Canvas";
             c.GetComponentsInChildren<QuitScript>()[0].player = p.GetComponent<PlayerClass>();
+            c.GetComponentsInChildren<RestartScript>()[0].myPlayer = p;
             c.GetComponentsInChildren<ShadeScript>()[0].updateShade();
         }
     }

@@ -526,6 +526,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 7395427581806553128, guid: 5160b3e0a4944574c8240441f6e64d7f,
     type: 3}
+  initialPlayerPrefab: {fileID: 7395427581806553128, guid: 5160b3e0a4944574c8240441f6e64d7f,
+    type: 3}
   canvasPrefab: {fileID: 4771547304454793974, guid: 7bed699708fe5e243b94efa524dd9834,
     type: 3}
   ContinueButton: {fileID: 972387082}
