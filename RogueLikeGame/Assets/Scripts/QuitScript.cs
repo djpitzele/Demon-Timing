@@ -10,8 +10,8 @@ public class QuitScript : MonoBehaviour
     void Start()
     {
         GetComponent<Button>().onClick.AddListener(doClick);
-        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(doClickSave);
-        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(doClickDoNotSave);
+        transform.Find("Save").GetComponent<Button>().onClick.AddListener(doClickSave);
+        transform.Find("Do Not Save").GetComponent<Button>().onClick.AddListener(doClickDoNotSave);
     }
 
     public void doClick()
@@ -30,7 +30,7 @@ public class QuitScript : MonoBehaviour
         }
         GetComponent<Image>().enabled = false;
         GetComponent<Button>().enabled = false;
-        this.transform.GetChild(0).GetComponent<Text>().enabled = false;
+        this.transform.Find("Text").GetComponent<Text>().enabled = false;
     }
 
     public void doClickSave()

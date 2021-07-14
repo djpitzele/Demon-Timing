@@ -10,7 +10,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
 {
     public float curMana;
     public float maxMana;
-    public float maxHP = 100;
+    public float maxHP;
     public float curHP;
     private float dmg;
     public int gold;
@@ -37,7 +37,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
                 die();
             }
         }
-        theCanvas.transform.GetChild(0).GetComponent<HealthCheck>().updateHealth(this);
+        theCanvas.transform.Find("Health").GetComponent<HealthCheck>().updateHealth(this);
         //Debug.Log(curHP);
     }
 
@@ -131,8 +131,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
         }
         dmg = 5;
         totalEnemies = 0;
-        HitScreen = theCanvas.transform.GetChild(3).gameObject.GetComponent<RawImage>();
-        theCanvas.transform.GetChild(4).gameObject.GetComponent<Text>().text = "Gold: " + gold;
+        HitScreen = theCanvas.transform.Find("RedHit").gameObject.GetComponent<RawImage>();
+        theCanvas.transform.Find("Gold").gameObject.GetComponent<Text>().text = "Gold: " + gold;
         HitScreen.enabled = false;
         pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
         int numScenes = SceneManager.sceneCountInBuildSettings;
@@ -154,8 +154,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
             remainingScenes.Remove(sceneIndex);
         }
         orderScenes.Add(2);
-        theCanvas.transform.GetChild(0).GetComponent<Text>().text = curHP.ToString();
-        
+        theCanvas.transform.Find("Health").GetComponent<HealthCheck>().updateHealth(this);
+        theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);

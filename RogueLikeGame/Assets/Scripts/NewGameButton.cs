@@ -62,9 +62,11 @@ public class NewGameButton : MonoBehaviour
             go.GetComponent<MovementScript>().canvas = c;
             PlayerClass pc = go.GetComponent<PlayerClass>();
             c.GetComponentsInChildren<KillCounter>()[0].timeSpent = SaveGame.current.time;
-            c.transform.GetChild(4).GetComponent<Text>().text = "Gold: " + SaveGame.current.gold;
+            c.transform.Find("Gold").GetComponent<Text>().text = "Gold: " + SaveGame.current.gold;
             pc.curHP = SaveGame.current.curHP;
+            pc.maxHP = 100 + PermVar.current.healthBuff;
             pc.curMana = SaveGame.current.curMana;
+            pc.maxMana = 100 + PermVar.current.manaBuff;
             pc.gold = SaveGame.current.gold;
             pc.totalkills = SaveGame.current.totalKills;
             pc.orderScenes = SaveGame.current.orderScenes;

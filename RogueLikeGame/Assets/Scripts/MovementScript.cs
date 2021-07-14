@@ -13,7 +13,7 @@ public class MovementScript : MonoBehaviour
     public float speed = 11f;
     private static double pi = Math.PI;
     private float fpi = Convert.ToSingle(pi);
-    Rigidbody2D rb;
+    public Rigidbody2D rb;
     //1 = right, -1 = left
     private int facing = 1;
     public float timeTilmovement;
@@ -24,14 +24,13 @@ public class MovementScript : MonoBehaviour
     private float cooldown2;
     // Start is called before the first frame update
     void Start()
-
     {
         interaction = canvas.transform.Find("Interaction").gameObject;
         interaction.SetActive(false);
-        pauseMenu = canvas.transform.GetChild(6).gameObject;
+        pauseMenu = canvas.transform.Find("Pause Menu").gameObject;
         rb = GetComponent<Rigidbody2D>();
         pauseMenu.SetActive(false);
-        pauseMenu = canvas.transform.GetChild(6).gameObject;
+        //pauseMenu = canvas.transform.Find("PauseMenu").gameObject;
     }
 
     private void Update()
@@ -67,7 +66,7 @@ public class MovementScript : MonoBehaviour
                     Vector3 curScale = transform.localScale;
                     curScale.x *= -1;
                     transform.localScale = curScale;
-                    transform.GetChild(0).gameObject.GetComponent<swordMovement>().attackPosition.x *= -1;
+                    transform.Find("Sword").gameObject.GetComponent<swordMovement>().attackPosition.x *= -1;
                 }
                 facing = 1;
             }
@@ -78,7 +77,7 @@ public class MovementScript : MonoBehaviour
                     Vector3 curScale = transform.localScale;
                     curScale.x *= -1;
                     transform.localScale = curScale;
-                    transform.GetChild(0).gameObject.GetComponent<swordMovement>().attackPosition.x *= -1;
+                    transform.Find("Sword").gameObject.GetComponent<swordMovement>().attackPosition.x *= -1;
                 }
                 facing = -1;
             }
@@ -93,6 +92,7 @@ public class MovementScript : MonoBehaviour
             else
             {
                 Vector3 changes = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+                //Debug.Log(rb == null);
                 rb.MovePosition(transform.position + changes * speed * Time.deltaTime);
             }
         }

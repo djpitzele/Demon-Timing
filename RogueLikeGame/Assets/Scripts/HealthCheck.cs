@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class HealthCheck : MonoBehaviour
 {
     public void updateHealth(PlayerClass pc)
     {
-        GetComponent<Text>().text = pc.curHP.ToString();
+        transform.Find("HealthText").GetComponent<Text>().text = pc.curHP.ToString();
+        transform.Find("HealthBar").GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (Convert.ToSingle(pc.curHP) / pc.maxHP) * 200);
         if (pc.curHP <= 0)
         {
-            transform.parent.GetChild(1).GetComponent<Image>().enabled = true;
+            transform.parent.Find("Death").GetComponent<Image>().enabled = true;
         }
     }
 }
