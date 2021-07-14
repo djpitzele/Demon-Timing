@@ -16,5 +16,6 @@ public class SaveGame
     public int curSceneIndex = 1;
     public float time;
     public int curShade;
+    public int[] spells = new int[3];
 
 }

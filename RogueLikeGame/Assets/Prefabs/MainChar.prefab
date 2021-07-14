@@ -118,9 +118,13 @@ MonoBehaviour:
   cooldown: 0
   canvas: {fileID: 4771547304454793974, guid: 7bed699708fe5e243b94efa524dd9834, type: 3}
   speed: 11
+  rb: {fileID: 0}
   timeTilmovement: 0
   pauseMenu: {fileID: 0}
   interaction: {fileID: 0}
+  spell: {fileID: 4771514571232568551, guid: 63bece5d89593844fb7519923d56047b, type: 3}
+  manaUsed: 5
+  pc: {fileID: 0}
 --- !u!114 &2682160601891282900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,6 +150,8 @@ MonoBehaviour:
   theCanvas: {fileID: 0}
   pauseMenu: {fileID: 0}
   curShade: 0
+  dead: 0
+  spells: 000000000000000000000000
 --- !u!50 &2682160601891282898
 Rigidbody2D:
   serializedVersion: 4

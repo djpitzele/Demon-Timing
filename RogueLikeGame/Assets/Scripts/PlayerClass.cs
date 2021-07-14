@@ -24,6 +24,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public GameObject pauseMenu;
     public int curShade;
     public bool dead = false;
+    public int[] spells = new int[3];
     
     public void getHit(float dm, string typeHit)
     {

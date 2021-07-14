@@ -22,9 +22,13 @@ public class MovementScript : MonoBehaviour
     public GameObject interaction;
     private float esc;
     private float cooldown2;
+    public GameObject spell;
+    public int manaUsed = 5;
+    public PlayerClass pc;
     // Start is called before the first frame update
     void Start()
     {
+        pc = GetComponent<PlayerClass>();
         interaction = canvas.transform.Find("Interaction").gameObject;
         interaction.SetActive(false);
         pauseMenu = canvas.transform.Find("Pause Menu").gameObject;
@@ -46,6 +50,7 @@ public class MovementScript : MonoBehaviour
             menuCooldown--;
         }
         //Debug.Log(Input.GetAxis("Reset") + " " + esc);
+        manaUsed = (int)Math.Min(GetComponent<PlayerClass>().maxMana, Math.Max((manaUsed + (int)Input.mouseScrollDelta.y * 5), 0));
     }
 
     // Update is called once per frame
@@ -105,6 +110,20 @@ public class MovementScript : MonoBehaviour
         {
             timeTilmovement -= Time.fixedDeltaTime;
         }
+        if(Input.GetAxis("Spell1") != 0)
+        {
+            UseSpell(pc.spells[0]);
+        }
+        if (Input.GetAxis("Spell2") != 0)
+        {
+            UseSpell(pc.spells[1]);
+        }
+        if (Input.GetAxis("Spell3") != 0)
+        {
+            UseSpell(pc.spells[2]);
+        }
+
+        // Debug.Log(manaUsed.ToString() + " " + Input.mouseScrollDelta); 
     }
 
     public int getFacing()
@@ -136,6 +155,16 @@ public class MovementScript : MonoBehaviour
                 }
             }
         }
+    }
+    void UseSpell(int i)
+    {
+        Debug.Log(i);
+        GameObject g = Instantiate(spell);
+        g.GetComponent<Spells>().Start2();
+        g.GetComponent<Spells>().createSpell(i, manaUsed);
+        g.GetComponent<Spells>().pc = pc;
+        GetComponent<PlayerClass>().curMana -= manaUsed;
+        canvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(GetComponent<PlayerClass>());
     }
     /*public void resetscene()
     {
