@@ -22,6 +22,7 @@ public class MovementScript : MonoBehaviour
     public GameObject interaction;
     private float esc;
     private float cooldown2;
+    private float cooldown3;
     public GameObject spell;
     public int manaUsed = 5;
     public PlayerClass pc;
@@ -35,6 +36,7 @@ public class MovementScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         pauseMenu.SetActive(false);
         //pauseMenu = canvas.transform.Find("PauseMenu").gameObject;
+        canvas.transform.Find("ManaUsage").GetComponent<ManaUsageScript>().updateMana(this, pc);
     }
 
     private void Update()
@@ -50,7 +52,12 @@ public class MovementScript : MonoBehaviour
             menuCooldown--;
         }
         //Debug.Log(Input.GetAxis("Reset") + " " + esc);
-        manaUsed = (int)Math.Min(GetComponent<PlayerClass>().maxMana, Math.Max((manaUsed + (int)Input.mouseScrollDelta.y * 5), 0));
+        if(Input.mouseScrollDelta.y != 0)
+        {
+            manaUsed = (int)Math.Min(GetComponent<PlayerClass>().maxMana, Math.Max((manaUsed + (int)Input.mouseScrollDelta.y * 5), 0));
+            canvas.transform.Find("ManaUsage").GetComponent<ManaUsageScript>().updateMana(this, pc);
+        }
+       
     }
 
     // Update is called once per frame
@@ -110,18 +117,29 @@ public class MovementScript : MonoBehaviour
         {
             timeTilmovement -= Time.fixedDeltaTime;
         }
-        if(Input.GetAxis("Spell1") != 0)
+        if (cooldown3 <= 0)
         {
-            UseSpell(pc.spells[0]);
+            if (Input.GetAxis("Spell1") != 0)
+            {
+                UseSpell(pc.spells[0]);
+                cooldown3 = .2f;
+            }
+            if (Input.GetAxis("Spell2") != 0)
+            {
+                UseSpell(pc.spells[1]);
+                cooldown3 = .2f;
+            }
+            if (Input.GetAxis("Spell3") != 0)
+            {
+                UseSpell(pc.spells[2]);
+                cooldown3 = .2f;
+            }
         }
-        if (Input.GetAxis("Spell2") != 0)
+        else
         {
-            UseSpell(pc.spells[1]);
+            cooldown3 -= Time.fixedDeltaTime;
         }
-        if (Input.GetAxis("Spell3") != 0)
-        {
-            UseSpell(pc.spells[2]);
-        }
+
 
         // Debug.Log(manaUsed.ToString() + " " + Input.mouseScrollDelta); 
     }
@@ -145,7 +163,7 @@ public class MovementScript : MonoBehaviour
                     interaction.SetActive(true);
                     interaction.GetComponent<Image>().sprite = i.theSprite;
                     interaction.GetComponentsInChildren<Text>()[0].text = i.message;
-                    Debug.Log(i.message);
+                    //Debug.Log(i.message);
                     cooldown2 = 0.4f;
                 }
                 else
@@ -158,7 +176,7 @@ public class MovementScript : MonoBehaviour
     }
     void UseSpell(int i)
     {
-        Debug.Log(i);
+        //Debug.Log(i);
         GameObject g = Instantiate(spell);
         g.GetComponent<Spells>().Start2();
         g.GetComponent<Spells>().createSpell(i, manaUsed);
