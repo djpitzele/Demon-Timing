@@ -30,7 +30,6 @@ public class StackDrop : MonoBehaviour
             pc.theCanvas.transform.Find("Gold").gameObject.GetComponent<UnityEngine.UI.Text>().enabled = true;
             pc.theCanvas.GetComponentsInChildren<ShadeScript>()[0].DisableText();
             pc.gold += value;
-            pc.theCanvas.transform.Find("Gold").gameObject.GetComponent<UnityEngine.UI.Text>().text = "Gold: " + pc.gold;
             pc.theCanvas.GetComponentsInChildren<GoldUI>()[0].Invoke("DisableGold", 3f);
             Destroy(this.gameObject);
         }

@@ -8,12 +8,13 @@ using UnityEngine.SceneManagement;
 //TOOK OUT MonoBehaviour from extended, if something breaks this might be it
 public class PlayerClass : MonoBehaviour, EntityClass
 {
+    public static PlayerClass main;
     public float curMana;
     public float maxMana;
     public float maxHP;
     public float curHP;
     private float dmg;
-    public int gold;
+    public int gold2;
     public int totalEnemies;
     public int totalkills;
     public RawImage HitScreen;
@@ -25,7 +26,13 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int curShade;
     public bool dead = false;
     public int[] spells = new int[3];
-    
+    public BuyMenuScript bms;
+    public int gold
+    {
+        get { return gold2; }
+        set { gold2 = value; theCanvas.transform.Find("Gold").GetComponent<GoldUI>().updateGold(this); }
+    }
+
     public void getHit(float dm, string typeHit)
     {
         if(!dead && GetComponent<MovementScript>().cooldown <= 0.95f)
@@ -120,6 +127,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         //GameObject.Find("Spawner").GetComponent<EnemySpawner>().spawnEnemy(pos, typeof(SoldierCommander), theSoldier);
         //spawner.GetComponent<EnemySpawner>().spawnEnemy(prefab);
         Debug.Log("deez");
+        main = this;
         //curHP = maxHP;
         if(curHP <= 0)
         {
@@ -138,7 +146,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
         int numScenes = SceneManager.sceneCountInBuildSettings;
         List<int> remainingScenes = new List<int>();
-        for(int i = 3; i < numScenes; i++)
+        for(int i = 4; i < numScenes; i++)
         {
             remainingScenes.Add(i);
         }
@@ -146,7 +154,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         orderScenes = new List<int>();
         while(remainingScenes.Count > 0)
         {
-            if(r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 3)))
+            if(r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 4)))
             {
                 break;
             }
@@ -155,6 +163,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
             remainingScenes.Remove(sceneIndex);
         }
         orderScenes.Add(2);
+        orderScenes.Insert(orderScenes.Count / 2, 3);
         theCanvas.transform.Find("Health").GetComponent<HealthCheck>().updateHealth(this);
         theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);
         DontDestroyOnLoad(transform.gameObject);

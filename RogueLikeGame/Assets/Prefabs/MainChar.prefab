@@ -28,8 +28,7 @@ GameObject:
   - component: {fileID: 2682160601891282900}
   - component: {fileID: 2682160601891282898}
   - component: {fileID: 2682160601891282899}
-  - component: {fileID: 2682160601891282897}
-  - component: {fileID: 2682160601891282896}
+  - component: {fileID: 1113496633806983124}
   m_Layer: 8
   m_Name: MainChar
   m_TagString: Untagged
@@ -152,6 +151,7 @@ MonoBehaviour:
   curShade: 0
   dead: 0
   spells: 000000000000000000000000
+  bms: {fileID: 0}
 --- !u!50 &2682160601891282898
 Rigidbody2D:
   serializedVersion: 4
@@ -189,48 +189,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0.099999994, y: -0.042885184}
   m_Size: {x: 0.8, y: 0.9742296}
   m_Direction: 0
---- !u!255 &2682160601891282897
-FixedJoint2D:
+--- !u!114 &1113496633806983124
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7395427581806553128}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -0.0000000034969236, y: 0.08000029}
-  m_DampingRatio: 0
-  m_Frequency: 0
---- !u!233 &2682160601891282896
-HingeJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7395427581806553128}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 10, y: 5}
-  m_UseMotor: 0
-  m_Motor:
-    m_MotorSpeed: 0
-    m_MaximumMotorForce: 10000
-  m_UseLimits: 0
-  m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 359
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e19ebbd57ea88740b4e8264bf1d3f09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2682160602196042638
 PrefabInstance:
   m_ObjectHideFlags: 0

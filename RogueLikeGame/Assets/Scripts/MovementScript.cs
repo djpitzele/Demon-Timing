@@ -64,10 +64,10 @@ public class MovementScript : MonoBehaviour
     void FixedUpdate()
     {
         float curMovement = Input.GetAxis("Horizontal");
-        /*if(Input.GetAxis("Fire2") != 0)
+        if(Input.GetAxis("Fire2") != 0)
         {
             GetComponent<PlayerClass>().nextScene();
-        }*/
+        }
         if (timeTilmovement <= 0)
         {
 
@@ -177,10 +177,11 @@ public class MovementScript : MonoBehaviour
     void UseSpell(int i)
     {
         //Debug.Log(i);
-        GameObject g = Instantiate(spell);
+        /*GameObject g = Instantiate(spell);
         g.GetComponent<Spells>().Start2();
         g.GetComponent<Spells>().createSpell(i, manaUsed);
-        g.GetComponent<Spells>().pc = pc;
+        g.GetComponent<Spells>().pc = pc;*/
+        SpellTracker.main.CreateSpell(i, manaUsed);
         GetComponent<PlayerClass>().curMana -= manaUsed;
         canvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(GetComponent<PlayerClass>());
     }

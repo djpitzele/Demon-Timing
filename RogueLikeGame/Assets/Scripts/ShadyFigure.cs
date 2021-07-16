@@ -14,6 +14,7 @@ public class ShadyFigure : MonoBehaviour, NPClass
     void Start()
     {
         bms = GameObject.Find("Canvas").transform.Find("BuyMenu").gameObject.GetComponent<BuyMenuScript>();
+        PlayerClass.main.bms = bms;
         bms.gameObject.SetActive(false);
     }
  
