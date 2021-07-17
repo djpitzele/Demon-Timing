@@ -61,10 +61,12 @@ public class MartieScript : MonoBehaviour, NPClass
     }
     public void DropSpell(int ind)
      {
-         GameObject g = Instantiate(spellPrefab);
+        GameObject g = Instantiate(spellPrefab);
         SpellItemScript sis = g.GetComponent<SpellItemScript>();
+        g.transform.position = transform.position + new Vector3(0, -1f, 0);
         sis.spellIndex = ind;
         sis.interactions = 0;
+        GetComponent<BoxCollider2D>().enabled = false;
      }
 
      public Interaction Interact()

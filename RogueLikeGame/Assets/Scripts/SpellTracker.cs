@@ -28,7 +28,7 @@ public class SpellTracker : MonoBehaviour
         GameObject g = Instantiate(spellPrefab);
         //SPELLS STILL AT 0, 0 FOR SOME REASON
         g.GetComponent<Spells>().createSpell(allSpells[index], manaUsed, this);
-        g.transform.position = transform.position + new Vector3(0, -4f, 0);
+        
     }
 
     // Start is called before the first frame update
@@ -45,7 +45,7 @@ public class SpellTracker : MonoBehaviour
     public IEnumerator lightning(int manaUsed, Spells s)
     {
         Vector3 mouse = Input.mousePosition;
-        transform.position = Camera.main.ScreenToWorldPoint(mouse);
+        s.gameObject.transform.position = Camera.main.ScreenToWorldPoint(mouse);
         yield return new WaitForSeconds(.2f);
         s.showSpell(3, null);
         EntityClass[] hits = new EntityClass[s.inside.Count];
@@ -64,7 +64,7 @@ public class SpellTracker : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(3f);
-        Destroy(this.gameObject);
+        Destroy(s.gameObject);
     }
     public IEnumerator nothing(int manaUsed, Spells s)
     {

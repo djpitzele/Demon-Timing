@@ -34,7 +34,7 @@ public class SpellItemScript : MonoBehaviour, NPClass
             bms.labels = new List<string>();
             bms.labels.Add("replace slot 1");
             bms.labels.Add("replace slot 2");
-            bms.labels.Add("replacce slot 3");
+            bms.labels.Add("replace slot 3");
             bms.costs = new List<string>();
             bms.costs.Add(SpellTracker.main.spellNames[PlayerClass.main.spells[0]]);
             bms.costs.Add(SpellTracker.main.spellNames[PlayerClass.main.spells[1]]);
@@ -55,16 +55,46 @@ public class SpellItemScript : MonoBehaviour, NPClass
         }
         return null;
     }
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        interactions = 0;
+        bms.labels = new List<string>();
+        bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
+        bms.costs = new List<string>();
+        bms.gameObject.SetActive(false);
+        bms.destroyAllOptions();
+    }
     public void slot1() 
     {
         PlayerClass.main.spells[0] = spellIndex;
+        interactions = 0;
+        bms.labels = new List<string>();
+        bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
+        bms.costs = new List<string>();
+        bms.gameObject.SetActive(false);
+        bms.destroyAllOptions();
+        Destroy(this.gameObject);
     }
     public void slot2()
     {
         PlayerClass.main.spells[1] = spellIndex;
+        interactions = 0;
+        bms.labels = new List<string>();
+        bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
+        bms.costs = new List<string>();
+        bms.gameObject.SetActive(false);
+        bms.destroyAllOptions();
+        Destroy(this.gameObject);
     }
     public void slot3()
     {
         PlayerClass.main.spells[2] = spellIndex;
+        interactions = 0;
+        bms.labels = new List<string>();
+        bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
+        bms.costs = new List<string>();
+        bms.gameObject.SetActive(false);
+        bms.destroyAllOptions();
+        Destroy(this.gameObject);
     }
 }
