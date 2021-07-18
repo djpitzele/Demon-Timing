@@ -19,13 +19,16 @@ public class DoorOut : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (floor.waves <= 0)
+        if (other.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pc))
         {
-            floor.player.GetComponent<PlayerClass>().nextScene();
-        }
-        if(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Lobby")
-        {
-            floor.player.GetComponent<PlayerClass>().theCanvas.transform.Find("Shade").GetComponent<UnityEngine.UI.Text>().enabled = false;
+            if (floor.waves <= 0)
+            {
+                pc.nextScene();
+            }
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Lobby")
+            {
+               pc.theCanvas.transform.Find("Shade").GetComponent<UnityEngine.UI.Text>().enabled = false;
+            }
         }
     }
 }

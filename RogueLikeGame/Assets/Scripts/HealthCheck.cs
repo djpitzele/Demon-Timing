@@ -10,9 +10,6 @@ public class HealthCheck : MonoBehaviour
     {
         transform.Find("HealthText").GetComponent<Text>().text = pc.curHP.ToString();
         transform.Find("HealthBar").GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, (Convert.ToSingle(pc.curHP) / pc.maxHP) * 200);
-        if (pc.curHP <= 0)
-        {
-            transform.parent.Find("Death").GetComponent<Image>().enabled = true;
-        }
+        
     }
 }

@@ -6,11 +6,17 @@ using UnityEngine.UI;
 public class SpellItemScript : MonoBehaviour, NPClass
 {
     public int interactions;
-    public int spellIndex;
+    public int spellIndex2;
+    public int spellIndex 
+    {
+        get { return spellIndex2; }
+        set { spellIndex2 = value; GetComponent<SpriteRenderer>().sprite = SpellTracker.main.spellSprites[value]; }
+    }
     public BuyMenuScript bms;
     // Start is called before the first frame update
     void Start()
     {
+        
         bms = PlayerClass.main.bms;
     }
 

@@ -41,7 +41,7 @@ public class NewGameButton : MonoBehaviour
         pc.curSceneIndex = SaveGame.current.curSceneIndex;
         pc.curShade = SaveGame.current.curShade;
         GameObject p = Instantiate(go);
-        Debug.Log(p == go);
+        //Debug.Log(p == go);
         playerPrefab = go;
         Destroy(go);
         p.GetComponent<PlayerClass>().orderScenes = SaveGame.current.orderScenes;
@@ -73,7 +73,7 @@ public class NewGameButton : MonoBehaviour
             pc.curSceneIndex = SaveGame.current.curSceneIndex;
             pc.curShade = SaveGame.current.curShade;
             GameObject p = Instantiate(go);
-            Debug.Log(p == go);
+           // Debug.Log(p == go);
             Destroy(go);
             p.name = "MainChar";
             c.name = "Canvas";

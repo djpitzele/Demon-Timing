@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Spells : MonoBehaviour
 {
-    public SpellTracker st;
     public int manaUsed;
     public List<Collider2D> inside = new List<Collider2D>();
 
     public void createSpell(SpellTracker.spell s, int manaUsed, SpellTracker str)
     {
         StartCoroutine(s.Invoke(manaUsed, this));
-        st = str;
-
     }
     private void Start()
     {
-        
+        //Debug.Log("deezClicked");
     }
-    public void showSpell(int radius, Animation a)
+    public void showSpell(int radius, int index)
     {
-        if(a != null && TryGetComponent<Animation>(out Animation anim))
+        if(index != null && TryGetComponent<Animator>(out Animator anim))
         {
+            //anim.AddClip(a, "Spell");
+            //anim["Spell"].layer = 123;
 
+            anim.SetInteger("Index", index);
         }
         GetComponent<CircleCollider2D>().radius = radius;
     }

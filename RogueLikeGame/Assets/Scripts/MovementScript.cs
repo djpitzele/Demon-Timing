@@ -183,7 +183,7 @@ public class MovementScript : MonoBehaviour
         g.GetComponent<Spells>().pc = pc;*/
         SpellTracker.main.CreateSpell(i, manaUsed);
         GetComponent<PlayerClass>().curMana -= manaUsed;
-        canvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(GetComponent<PlayerClass>());
+        
     }
     /*public void resetscene()
     {

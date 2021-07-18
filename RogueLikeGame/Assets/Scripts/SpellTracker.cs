@@ -14,7 +14,10 @@ public class SpellTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         main = this;
+        Start2();
+       
     }
 
     private void putIn(spell s, string n, Sprite theS)
@@ -30,24 +33,26 @@ public class SpellTracker : MonoBehaviour
         g.GetComponent<Spells>().createSpell(allSpells[index], manaUsed, this);
         
     }
-
+    
     // Start is called before the first frame update
+    //Keep spells in alphabetical order
     public void Start2()
     {
         allSpells.Clear();
         spellNames.Clear();
         spellSprites.Clear();
         putIn(nothing, "nothing", null);
-        putIn(lightning, "Lightning", null);
+        Debug.Log(Resources.Load<Sprite>("Spells/SpellItems/LIGHTINGITEM") != null);
+        putIn(lightning, "Lightning", Resources.Load<Sprite>("Spells/SpellItems/LIGHTINGITEM"));
     }
 
 
     public IEnumerator lightning(int manaUsed, Spells s)
     {
         Vector3 mouse = Input.mousePosition;
-        s.gameObject.transform.position = Camera.main.ScreenToWorldPoint(mouse);
+        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
         yield return new WaitForSeconds(.2f);
-        s.showSpell(3, null);
+        s.showSpell(3, 1);
         EntityClass[] hits = new EntityClass[s.inside.Count];
         int i = 0;
         foreach (Collider2D c in s.inside)
@@ -63,12 +68,13 @@ public class SpellTracker : MonoBehaviour
                 ec.getHit((int)(.5 * manaUsed), "lightning");
             }
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         Destroy(s.gameObject);
     }
     public IEnumerator nothing(int manaUsed, Spells s)
     {
         yield return new WaitForSeconds(1f);
+        Destroy(s.gameObject);
     }
     
 }

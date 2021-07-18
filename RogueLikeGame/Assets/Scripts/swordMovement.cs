@@ -17,6 +17,7 @@ public class swordMovement : MonoBehaviour
     private int facing = 1;
     private float kb = 400;
     private bool isStab;
+    public PlayerClass pc;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,7 @@ public class swordMovement : MonoBehaviour
         totalChangePosition = new Vector3(0, -2 * attackPosition.y, 0);
         GetComponent<PolygonCollider2D>().enabled = false;
         isStab = false;
+        pc = thePlayer.GetComponent<PlayerClass>();
     }
 
     // Update is called once per frame
@@ -116,6 +118,8 @@ public class swordMovement : MonoBehaviour
             {
                 rbb.AddForce((ec.ecgetObject().transform.position - transform.position) * kb, ForceMode2D.Force);
             }
+            
+            
         }
     }
     void ShortCooldown()

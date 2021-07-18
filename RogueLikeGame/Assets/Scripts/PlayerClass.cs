@@ -9,10 +9,13 @@ using UnityEngine.SceneManagement;
 public class PlayerClass : MonoBehaviour, EntityClass
 {
     public static PlayerClass main;
-    public float curMana;
+    public float curMana2;
+
     public float maxMana;
     public float maxHP;
-    public float curHP;
+    public float curHP2;
+
+
     private float dmg;
     public int gold2;
     public int totalEnemies;
@@ -31,6 +34,16 @@ public class PlayerClass : MonoBehaviour, EntityClass
     {
         get { return gold2; }
         set { gold2 = value; theCanvas.transform.Find("Gold").GetComponent<GoldUI>().updateGold(this); }
+    }
+    public float curMana
+    {
+        get{return curMana2;}
+        set { curMana2 = Math.Min(maxMana, Math.Max(value, 0)); theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);  }
+    }
+    public float curHP 
+    {
+        get { return curHP2; }
+        set { curHP2 = value; theCanvas.transform.Find("Health").GetComponent<HealthCheck>().updateHealth(this); }
     }
 
     public void getHit(float dm, string typeHit)
@@ -74,6 +87,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         Debug.Log("RIP us");
         PermVar.current.Shade += curShade;
         curShade = 0;
+        theCanvas.transform.Find("Death").GetComponent<Image>().enabled = true;
         dead = true;
         Invoke("goToLobby", 3f);
         //UI to die
@@ -164,8 +178,6 @@ public class PlayerClass : MonoBehaviour, EntityClass
         }
         orderScenes.Add(2);
         orderScenes.Insert(orderScenes.Count / 2, 3);
-        theCanvas.transform.Find("Health").GetComponent<HealthCheck>().updateHealth(this);
-        theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);
