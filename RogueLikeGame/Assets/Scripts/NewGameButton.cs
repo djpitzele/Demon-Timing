@@ -40,6 +40,7 @@ public class NewGameButton : MonoBehaviour
         pc.totalkills = SaveGame.current.totalKills;
         pc.curSceneIndex = SaveGame.current.curSceneIndex;
         pc.curShade = SaveGame.current.curShade;
+        pc.spells = SaveGame.current.spells;
         GameObject p = Instantiate(go);
         //Debug.Log(p == go);
         playerPrefab = go;
@@ -72,6 +73,7 @@ public class NewGameButton : MonoBehaviour
             pc.orderScenes = SaveGame.current.orderScenes;
             pc.curSceneIndex = SaveGame.current.curSceneIndex;
             pc.curShade = SaveGame.current.curShade;
+            pc.spells = SaveGame.current.spells;
             GameObject p = Instantiate(go);
            // Debug.Log(p == go);
             Destroy(go);

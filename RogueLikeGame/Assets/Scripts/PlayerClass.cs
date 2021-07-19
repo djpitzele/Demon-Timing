@@ -10,12 +10,9 @@ public class PlayerClass : MonoBehaviour, EntityClass
 {
     public static PlayerClass main;
     public float curMana2;
-
     public float maxMana;
     public float maxHP;
     public float curHP2;
-
-
     private float dmg;
     public int gold2;
     public int totalEnemies;
@@ -28,7 +25,12 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public GameObject pauseMenu;
     public int curShade;
     public bool dead = false;
-    public int[] spells = new int[3];
+    public int[] spells2 = new int[3];
+    public int[] spells
+    {
+        get { return spells2; }
+        set { spells2 = value; theCanvas.transform.Find("Spells").GetComponent<SpellsUI>().UpdateSpells(this); }
+    }
     public BuyMenuScript bms;
     public int gold
     {
@@ -58,8 +60,12 @@ public class PlayerClass : MonoBehaviour, EntityClass
                 die();
             }
         }
+        else
+        {
+            Debug.Log("avoidedhit");
+        }
         theCanvas.transform.Find("Health").GetComponent<HealthCheck>().updateHealth(this);
-        //Debug.Log(curHP);
+       // Debug.Log(curHP);
     }
 
     public SaveGame makeSaveGame()
@@ -73,6 +79,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         s.curSceneIndex = curSceneIndex;
         s.time = theCanvas.GetComponentsInChildren<KillCounter>()[0].timeSpent;
         s.curShade = curShade;
+        s.spells = spells;
         return s;
     }
 

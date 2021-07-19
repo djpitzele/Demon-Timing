@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class SpellTracker : MonoBehaviour
 {
     public PlayerClass pc;
@@ -42,8 +42,8 @@ public class SpellTracker : MonoBehaviour
         spellNames.Clear();
         spellSprites.Clear();
         putIn(nothing, "nothing", null);
-        Debug.Log(Resources.Load<Sprite>("Spells/SpellItems/LIGHTINGITEM") != null);
         putIn(lightning, "Lightning", Resources.Load<Sprite>("Spells/SpellItems/LIGHTINGITEM"));
+        putIn(meteor, "Meteor", null);
     }
 
 
@@ -51,10 +51,37 @@ public class SpellTracker : MonoBehaviour
     {
         Vector3 mouse = Input.mousePosition;
         s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        s.showSpell(1, 1);
         yield return new WaitForSeconds(.2f);
+        EntityClass[] hits = new EntityClass[s.inside.Count];
+        int i = 0;
+        //Debug.Log(s.inside.Count + "balls");
+        foreach (Collider2D c in s.inside)
+        {
+            hits[i] = c.gameObject.GetComponent<EntityClass>();
+            //Debug.Log("boomed");
+            i++;
+        }
+        foreach (EntityClass ec in hits)
+        {
+            if (ec != null)
+            {
+                ec.getHit(Convert.ToSingle(.5f * manaUsed), "lightning");
+                
+            }
+        }
+        yield return new WaitForSeconds(2f);
+        Destroy(s.gameObject);
+    }
+    public IEnumerator meteor(int manaUsed, Spells s)
+    {
+        Vector3 mouse = Input.mousePosition;
+        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        yield return new WaitForSeconds(3f);
         s.showSpell(3, 1);
         EntityClass[] hits = new EntityClass[s.inside.Count];
         int i = 0;
+        
         foreach (Collider2D c in s.inside)
         {
             hits[i] = c.gameObject.GetComponent<EntityClass>();
@@ -65,12 +92,12 @@ public class SpellTracker : MonoBehaviour
         {
             if (ec != null)
             {
-                ec.getHit((int)(.5 * manaUsed), "lightning");
+                ec.getHit(Convert.ToSingle(2 * manaUsed), "explosion");
             }
         }
-        yield return new WaitForSeconds(2f);
         Destroy(s.gameObject);
     }
+
     public IEnumerator nothing(int manaUsed, Spells s)
     {
         yield return new WaitForSeconds(1f);

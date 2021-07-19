@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class SpellItemScript : MonoBehaviour, NPClass
 {
     public int interactions;
     public int spellIndex2;
+    public int[] spells2 = new int[3];
     public int spellIndex 
     {
         get { return spellIndex2; }
@@ -72,7 +74,9 @@ public class SpellItemScript : MonoBehaviour, NPClass
     }
     public void slot1() 
     {
-        PlayerClass.main.spells[0] = spellIndex;
+        Array.Copy(PlayerClass.main.spells, spells2, 3);
+        spells2[0] = spellIndex;
+        PlayerClass.main.spells = spells2;
         interactions = 0;
         bms.labels = new List<string>();
         bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
@@ -83,7 +87,10 @@ public class SpellItemScript : MonoBehaviour, NPClass
     }
     public void slot2()
     {
-        PlayerClass.main.spells[1] = spellIndex;
+
+        Array.Copy(PlayerClass.main.spells, spells2, 3);
+        spells2[1] = spellIndex;
+        PlayerClass.main.spells = spells2;
         interactions = 0;
         bms.labels = new List<string>();
         bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
@@ -94,7 +101,9 @@ public class SpellItemScript : MonoBehaviour, NPClass
     }
     public void slot3()
     {
-        PlayerClass.main.spells[2] = spellIndex;
+        Array.Copy(PlayerClass.main.spells, spells2, 3);
+        spells2[2] = spellIndex;
+        PlayerClass.main.spells = spells2;
         interactions = 0;
         bms.labels = new List<string>();
         bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();

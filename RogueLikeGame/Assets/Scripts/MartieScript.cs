@@ -26,7 +26,7 @@ public class MartieScript : MonoBehaviour, NPClass
         bms.gameObject.SetActive(false);
         r = new System.Random();
         int total = SpellTracker.main.spellNames.Count;
-        Debug.Log(total);
+        //Debug.Log(total);
         s1 = r.Next(total);
         s2 = r.Next(total);
         s3 = r.Next(total);

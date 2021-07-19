@@ -46,7 +46,7 @@ public class Spells : MonoBehaviour
             
         }
        
-        //Debug.Log(other.name + "exit:'(");
+      //  Debug.Log(other.name + "exit:'(");
 
     }
 }
