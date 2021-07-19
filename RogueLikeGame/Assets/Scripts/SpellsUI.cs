@@ -25,7 +25,7 @@ public class SpellsUI : MonoBehaviour
             if(i != 0)
             {
                 imgs[j].enabled = true;
-                imgs[j].sprite = SpellTracker.main.spellSprites[i];
+                imgs[j].sprite = SpellTracker.main.spells[i].spellSprite;
                 j++;
             }
             else

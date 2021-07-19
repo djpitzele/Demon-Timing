@@ -5,11 +5,11 @@ using UnityEngine;
 public class ItemDropper : MonoBehaviour
 {
     //chance is from 0 to 1, 1 = 100% chance
-    public float chance;
-    public GameObject spawned;
+    public float[] chance;
+    public GameObject[] spawned; //array index in chance matches array index in spawned
     private System.Random r;
-    public int min = 0;
-    public int max = 0;
+    public int[] min;
+    public int[] max;
 
     // Start is called before the first frame update
     void Start()
@@ -25,13 +25,16 @@ public class ItemDropper : MonoBehaviour
 
     public void spawnItem()
     {
-        if(r.Next(1000) <= (chance * 1000))
+        for(int i = 0; i < chance.Length; i++)
         {
-            GameObject theSpawned = Instantiate(spawned, this.transform.position, Quaternion.identity);
-            if(theSpawned.TryGetComponent<StackDrop>(out StackDrop gss))
+            if (r.Next(1000) <= (chance[i] * 1000))
             {
-                gss.min = min;
-                gss.max = max;
+                GameObject theSpawned = Instantiate(spawned[i], this.transform.position, Quaternion.identity);
+                if (theSpawned.TryGetComponent<StackDrop>(out StackDrop gss))
+                {
+                    gss.min = min[i];
+                    gss.max = max[i];
+                }
             }
         }
     }

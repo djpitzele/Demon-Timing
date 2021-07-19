@@ -117,7 +117,7 @@ public class MovementScript : MonoBehaviour
         {
             timeTilmovement -= Time.fixedDeltaTime;
         }
-        if (cooldown3 <= 0)
+        if (cooldown3 <= 0 && !(pc.menuOn))
         {
             if (Input.GetAxis("Spell1") != 0)
             {

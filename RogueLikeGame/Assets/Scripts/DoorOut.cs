@@ -25,10 +25,9 @@ public class DoorOut : MonoBehaviour
             {
                 pc.nextScene();
             }
-            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "Lobby")
-            {
                pc.theCanvas.transform.Find("Shade").GetComponent<UnityEngine.UI.Text>().enabled = false;
-            }
+            pc.theCanvas.transform.Find("Gold").GetComponent<UnityEngine.UI.Text>().enabled = false;
+            
         }
     }
 }

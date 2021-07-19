@@ -39,6 +39,7 @@ public class BuyMenuScript : MonoBehaviour
         {
             Destroy(g);
         }
+        PlayerClass.main.menuOn = false;
         options.Clear();
     }
 
@@ -47,6 +48,7 @@ public class BuyMenuScript : MonoBehaviour
     {
         if (!start)
         {
+            PlayerClass.main.menuOn = true;
             int i = 0;
             //Debug.Log(i + " " + purchaseActions.Count);
 

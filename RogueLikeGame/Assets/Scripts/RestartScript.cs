@@ -21,17 +21,24 @@ public class RestartScript : MonoBehaviour
         Time.timeScale = 1f;
         Destroy(myPlayer);
         GameObject c = Instantiate(canvasPrefab);
-        playerPrefab.GetComponent<PlayerClass>().theCanvas = c;
-        playerPrefab.GetComponent<MovementScript>().canvas = c;
-        PlayerClass pc = playerPrefab.GetComponent<PlayerClass>();
+        GameObject p = Instantiate(playerPrefab);
+        p.GetComponent<PlayerClass>().theCanvas = c;
+        p.GetComponent<MovementScript>().canvas = c;
+        
+        PlayerClass pc = p.GetComponent<PlayerClass>();
         pc.gold = 0;
         pc.totalkills = 0;
         pc.curSceneIndex = 1;
-        GameObject p = Instantiate(playerPrefab);
-        p.name = "MainChar";
+        pc.maxHP = 100 + PermVar.current.healthBuff;
+        pc.maxMana = 100 + PermVar.current.manaBuff;
+        pc.curHP = 0;
+        pc.spells = new int[3];
+        GameObject go = Instantiate(p);
+        Destroy(p);
+        go.name = "MainChar";
         c.name = "Canvas";
-        c.GetComponentsInChildren<QuitScript>()[0].player = p.GetComponent<PlayerClass>();
-        c.GetComponentsInChildren<RestartScript>()[0].myPlayer = p;
+        c.GetComponentsInChildren<QuitScript>()[0].player = go.GetComponent<PlayerClass>();
+        c.GetComponentsInChildren<RestartScript>()[0].myPlayer = go;
         c.GetComponentsInChildren<KillCounter>()[0].timeSpent = 0f;
         Destroy(this.transform.parent.parent.gameObject);
     }

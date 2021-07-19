@@ -7,7 +7,7 @@ public class Spells : MonoBehaviour
     public int manaUsed;
     public List<Collider2D> inside = new List<Collider2D>();
 
-    public void createSpell(SpellTracker.spell s, int manaUsed, SpellTracker str)
+    public void createSpell(SpellTracker.spell s, int manaUsed)
     {
         StartCoroutine(s.Invoke(manaUsed, this));
     }
@@ -29,12 +29,12 @@ public class Spells : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.TryGetComponent<EntityClass>(out EntityClass ec) && !(collision.isTrigger))
+        if (collision.gameObject.TryGetComponent<EntityClass>(out EntityClass ec) && !(collision.isTrigger))
         {
             inside.Add(collision);
             //Debug.Log(collision.name);
         }
-        
+
         //Debug.Log(collision.name);
 
     }
@@ -43,10 +43,10 @@ public class Spells : MonoBehaviour
         if (other.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
         {
             inside.Remove(other);
-            
+
         }
-       
-      //  Debug.Log(other.name + "exit:'(");
+
+        //  Debug.Log(other.name + "exit:'(");
 
     }
 }

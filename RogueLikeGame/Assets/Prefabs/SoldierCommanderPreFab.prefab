@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1778816321727529}
   - component: {fileID: 1773579536}
   - component: {fileID: 8318323351740304166}
+  - component: {fileID: 9023606641780134005}
   m_Layer: 8
   m_Name: SoldierCommanderPreFab
   m_TagString: Untagged
@@ -212,7 +213,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 896d8eed48f19584cbf251aff5cfc16a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chance: 0.4
-  spawned: {fileID: 2300270610071229138, guid: e4cd774aeabf98740b8e0e1ca55b04c2, type: 3}
-  min: 1
-  max: 4
+  chance:
+  - 0.4
+  - 1
+  spawned:
+  - {fileID: 2300270610071229138, guid: e4cd774aeabf98740b8e0e1ca55b04c2, type: 3}
+  - {fileID: 2169882276682997496, guid: ba6834f75e6f23f42be03bc343c097f9, type: 3}
+  min: 0100000014000000
+  max: 0400000014000000
+--- !u!95 &9023606641780134005
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6309820748959245513}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b37d14adeb171a1408e83eae96af246e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
+using System.Reflection;
 
 public class SoldierCommander : MonoBehaviour, MeleeClass
 {
@@ -12,6 +14,7 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
     //FOR ALL FACINGS: 1 = RIGHT, -1 = LEFT
     public int facing = 1;
     public GameObject player;
+    public List<Collider2D> inside;
     /*public SoldierCommander(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
@@ -33,11 +36,9 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
         //Debug.Log("still in collider");
         if (c.gameObject.TryGetComponent(out PlayerClass ec) && tilAttack <= 0)
         {
+            StartCoroutine("Attack", ec);
             //Debug.Log("we h it");
-            ec.getHit(dmg, "melee");
-            c.gameObject.GetComponent<Rigidbody2D>().AddForce((c.gameObject.transform.position - transform.position) * 100, ForceMode2D.Force);
-            c.gameObject.GetComponent<MovementScript>().timeTilmovement += .2f;
-            tilAttack = 1;
+            
         }
     }
     // Update is called once per frame
@@ -49,7 +50,21 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
         }
         //Debug.Log(tilAttack);
     }
-
+    public IEnumerator Attack(EntityClass ec)
+    {
+        Debug.Log("attacks");
+        tilAttack = 1;
+        GetComponent<Animator>().SetTrigger("Attack");
+        yield return new WaitForSeconds(.2f);
+        GetComponent<Animator>().ResetTrigger("Attack");
+        if (inside.Contains(ec.ecgetObject().GetComponent<CapsuleCollider2D>()))
+        {
+            ec.getHit(dmg, "melee");
+            ec.ecgetObject().GetComponent<Rigidbody2D>().AddForce((ec.ecgetObject().transform.position - transform.position) * 100, ForceMode2D.Force);
+            ec.ecgetObject().GetComponent<MovementScript>().timeTilmovement += .2f;
+        }
+      
+    }
     public void setFacing(int n)
     {
         if(facing == n)
@@ -92,5 +107,28 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
     public GameObject ecgetObject()
     {
         return this.gameObject;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<EntityClass>(out EntityClass ec) && !(collision.isTrigger))
+        {
+            inside.Add(collision);
+            //Debug.Log(collision.name);
+        }
+
+        //Debug.Log(collision.name);
+
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+        {
+            inside.Remove(other);
+
+        }
+
+        //  Debug.Log(other.name + "exit:'(");
+
     }
 }

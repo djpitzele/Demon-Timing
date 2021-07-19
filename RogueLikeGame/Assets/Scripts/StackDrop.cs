@@ -8,7 +8,6 @@ public class StackDrop : MonoBehaviour
     public int max;
     public int value;
     public System.Random r;
-    public PlayerClass player;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,16 +25,13 @@ public class StackDrop : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pc) && gameObject.CompareTag("GoldStack"))
         {
-            player = pc;
-            pc.theCanvas.transform.Find("Gold").gameObject.GetComponent<UnityEngine.UI.Text>().enabled = true;
-            pc.theCanvas.GetComponentsInChildren<ShadeScript>()[0].DisableText();
             pc.gold += value;
-            pc.theCanvas.GetComponentsInChildren<GoldUI>()[0].Invoke("DisableGold", 3f);
             Destroy(this.gameObject);
         }
-    }
-    private void DisableGold()
-    {
-        player.theCanvas.transform.Find("Gold").gameObject.GetComponent<UnityEngine.UI.Text>().enabled = false;
+        if (collision.gameObject.TryGetComponent<PlayerClass>(out PlayerClass plc) && gameObject.CompareTag("ManaJar"))
+        {
+            plc.curMana += value;
+            Destroy(this.gameObject);
+        }
     }
 }

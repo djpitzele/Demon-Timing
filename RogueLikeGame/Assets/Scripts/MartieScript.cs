@@ -25,7 +25,7 @@ public class MartieScript : MonoBehaviour, NPClass
         bms = PlayerClass.main.bms;
         bms.gameObject.SetActive(false);
         r = new System.Random();
-        int total = SpellTracker.main.spellNames.Count;
+        int total = SpellTracker.main.spells.Count;
         //Debug.Log(total);
         s1 = r.Next(total);
         s2 = r.Next(total);
@@ -73,8 +73,10 @@ public class MartieScript : MonoBehaviour, NPClass
      {
          if (interactions == 0)
          {
-             interactions++;
+            PlayerClass.main.theCanvas.GetComponentsInChildren<GoldUI>()[0].updateGoldLobby();
+            interactions++;
              return (new Interaction(martieSprite, "Greetings. I can exchange your gold for some magical abilities.", Resources.GetBuiltinResource<Font>("Arial.ttf")));
+           
          }
          else if (interactions == 1)
          {
@@ -86,9 +88,9 @@ public class MartieScript : MonoBehaviour, NPClass
              bms.purchaseActions.Add(spell3);
              //Debug.Log("shady" + bms.purchaseActions.Count);
              bms.labels = new List<string>();
-             bms.labels.Add(SpellTracker.main.spellNames[s1]);
-             bms.labels.Add(SpellTracker.main.spellNames[s2]);
-             bms.labels.Add(SpellTracker.main.spellNames[s3]);
+             bms.labels.Add(SpellTracker.main.spells[s1].spellName);
+             bms.labels.Add(SpellTracker.main.spells[s2].spellName);
+             bms.labels.Add(SpellTracker.main.spells[s3].spellName);
              bms.costs = new List<string>();
              bms.costs.Add(p1 + " Gold");
              bms.costs.Add(p2 + " Gold");

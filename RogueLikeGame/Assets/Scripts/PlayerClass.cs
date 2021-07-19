@@ -26,6 +26,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int curShade;
     public bool dead = false;
     public int[] spells2 = new int[3];
+    public bool menuOn = false;
     public int[] spells
     {
         get { return spells2; }
@@ -54,7 +55,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         {
             StartCoroutine("ActivateHit");
             curHP -= dm;
-            //Debug.Log("we got hit for " + dm + typeHit + curHP);
+            Debug.Log("we got hit for " + dm + typeHit + curHP);
             if (curHP <= 0)
             {
                 die();

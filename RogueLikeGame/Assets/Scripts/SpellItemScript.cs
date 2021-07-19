@@ -12,7 +12,7 @@ public class SpellItemScript : MonoBehaviour, NPClass
     public int spellIndex 
     {
         get { return spellIndex2; }
-        set { spellIndex2 = value; GetComponent<SpriteRenderer>().sprite = SpellTracker.main.spellSprites[value]; }
+        set { spellIndex2 = value; GetComponent<SpriteRenderer>().sprite = SpellTracker.main.spells[value].spellSprite; }
     }
     public BuyMenuScript bms;
     // Start is called before the first frame update
@@ -44,9 +44,9 @@ public class SpellItemScript : MonoBehaviour, NPClass
             bms.labels.Add("replace slot 2");
             bms.labels.Add("replace slot 3");
             bms.costs = new List<string>();
-            bms.costs.Add(SpellTracker.main.spellNames[PlayerClass.main.spells[0]]);
-            bms.costs.Add(SpellTracker.main.spellNames[PlayerClass.main.spells[1]]);
-            bms.costs.Add(SpellTracker.main.spellNames[PlayerClass.main.spells[2]]);
+            bms.costs.Add(SpellTracker.main.spells[PlayerClass.main.spells[0]].spellName);
+            bms.costs.Add(SpellTracker.main.spells[PlayerClass.main.spells[1]].spellName);
+            bms.costs.Add(SpellTracker.main.spells[PlayerClass.main.spells[2]].spellName);
             bms.gameObject.SetActive(true);
 
 
