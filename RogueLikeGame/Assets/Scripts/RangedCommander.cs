@@ -17,7 +17,10 @@ public class RangedCommander : MonoBehaviour, RangedClass
         cooldown = 0f;
         curHP = maxHP;
     }
-
+    public void setSpeed(float s)
+    {
+        GetComponent<MeleeAttacker>().meleeSpeed *= s;
+    }
     public void getHit(float dm, string type)
     {
         curHP -= dm;

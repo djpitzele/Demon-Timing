@@ -31,6 +31,10 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
         curHP = maxHP;
         //Debug.Log(curHP);
     }
+    public void setSpeed(float speed)
+    {
+        GetComponent<MeleeAttacker>().meleeSpeed *= speed;
+    }
     public void OnTriggerStay2D(Collider2D c)
     {
         //Debug.Log("still in collider");

@@ -40,6 +40,10 @@ public class PipeScript : MonoBehaviour, EntityClass
             animators.Add(child.gameObject.GetComponent<Animator>());
         }*/
     }
+    public void setSpeed(float speed)
+    {
+
+    }
 
     // Update is called once per frame
     void Update()

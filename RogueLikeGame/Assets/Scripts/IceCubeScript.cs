@@ -17,6 +17,10 @@ public class IceCubeScript : MonoBehaviour, EntityClass
     {
         
     }
+    public void setSpeed(float speed)
+    {
+
+    }
 
     void FixedUpdate()
     {

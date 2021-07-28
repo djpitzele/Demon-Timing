@@ -23,6 +23,10 @@ public class Arachnus : MonoBehaviour, MeleeClass
     {
 
     }
+    public void setSpeed(float speed)
+    {
+        GetComponent<MeleeAttacker>().meleeSpeed *= speed;
+    }
     void Start()
     {
         Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();

@@ -9,7 +9,10 @@ public class BulletScript : MonoBehaviour, EntityClass
     {
         die();
     }
+    public void setSpeed(float speed)
+    {
 
+    }
     public void die()
     {
         Destroy(this.gameObject);

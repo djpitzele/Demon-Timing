@@ -15,7 +15,7 @@ public class Spells : MonoBehaviour
     {
         //Debug.Log("deezClicked");
     }
-    public void showSpell(int radius, int index)
+    public void showSpell(float radius, int index)
     {
         if(index != null && TryGetComponent<Animator>(out Animator anim))
         {
@@ -48,5 +48,9 @@ public class Spells : MonoBehaviour
 
         //  Debug.Log(other.name + "exit:'(");
 
+    }
+    public void Update()
+    {
+       // Debug.Log(transform.position);
     }
 }

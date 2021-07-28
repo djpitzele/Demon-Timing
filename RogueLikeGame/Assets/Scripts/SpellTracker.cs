@@ -40,7 +40,9 @@ public class SpellTracker : MonoBehaviour
         spells.Clear();
         putIn(nothing, "nothing", null);
         putIn(lightning, "Lightning", Resources.Load<Sprite>("Spells/SpellItems/LIGHTINGITEM"));
-        putIn(meteor, "Meteor", null);
+        putIn(meteor, "Meteor", Resources.Load<Sprite>("Spells/SpellItems/meteoritem"));
+        putIn(freeZe, "Freeze", Resources.Load<Sprite>("Spells/SpellItems/FreezeItem.png"));
+        putIn(rage, "Rage", Resources.Load<Sprite>("Assets/Resources/Spells/SpellItems/rageitem.png"));
     }
 
 
@@ -73,7 +75,7 @@ public class SpellTracker : MonoBehaviour
     public IEnumerator meteor(int manaUsed, Spells s)
     {
         Vector3 mouse = Input.mousePosition;
-        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse) + new Vector2(15, 15);
         s.showSpell(2, 2);
         yield return new WaitForSeconds(3f);
         EntityClass[] hits = new EntityClass[s.inside.Count];
@@ -102,7 +104,41 @@ public class SpellTracker : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Destroy(s.gameObject);
     }
-    
+    public IEnumerator freeZe(int manaUsed, Spells s)
+
+    {
+        Vector3 mouse = Input.mousePosition;
+        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        float sp = (manaUsed / 75f);
+        Debug.Log(sp);
+        s.showSpell(1, 3);
+        s.gameObject.transform.localScale = new Vector3(sp, sp, s.gameObject.transform.localScale.z);
+        yield return new WaitForEndOfFrame();
+        List<Collider2D> cd = new List<Collider2D>();
+        foreach(Collider2D c in s.inside)
+        {
+            cd.Add(c);
+        }
+        foreach (Collider2D c in cd)
+        {
+            EntityClass ec = c.gameObject.GetComponent<EntityClass>();
+            ec.setSpeed(.001f);
+        }
+        yield return new WaitForSeconds(5f);
+        foreach (Collider2D c in cd)
+        {
+            EntityClass ec = c.gameObject.GetComponent<EntityClass>();
+            ec.setSpeed(1000);
+        }
+        Destroy(s.gameObject);
+    }
+    public IEnumerator rage(int manaUsed, Spells s)
+    {
+        s.showSpell(3, 4);
+        yield return new WaitForSeconds(5f);
+        Destroy(s.gameObject);
+    }
+
 }
 public struct SpellStruct
 {

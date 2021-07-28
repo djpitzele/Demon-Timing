@@ -27,6 +27,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public bool dead = false;
     public int[] spells2 = new int[3];
     public bool menuOn = false;
+    public MovementScript ms;
     public int[] spells
     {
         get { return spells2; }
@@ -68,7 +69,10 @@ public class PlayerClass : MonoBehaviour, EntityClass
         theCanvas.transform.Find("Health").GetComponent<HealthCheck>().updateHealth(this);
        // Debug.Log(curHP);
     }
-
+    public void setSpeed(float speed)
+    {
+        ms.speed *= speed;
+    }
     public SaveGame makeSaveGame()
     {
         SaveGame s = new SaveGame();
@@ -161,6 +165,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
             curMana = maxMana;
         }
         dmg = 5;
+        ms = GetComponent<MovementScript>();
         totalEnemies = 0;
         HitScreen = theCanvas.transform.Find("RedHit").gameObject.GetComponent<RawImage>();
         theCanvas.transform.Find("Gold").gameObject.GetComponent<Text>().text = "Gold: " + gold;

@@ -20,6 +20,7 @@ public interface EntityClass
     public void die();
     public void setPlayer(GameObject go);
     public GameObject ecgetObject();
+    public void setSpeed(float s);
     /*public void setCurHP(float hp)
     {
         curHP = hp;
