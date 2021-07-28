@@ -51,6 +51,6 @@ public class Spells : MonoBehaviour
     }
     public void Update()
     {
-       // Debug.Log(transform.position);
+       //Debug.Log(transform.position);
     }
 }

@@ -74,8 +74,11 @@ public class SpellTracker : MonoBehaviour
     }
     public IEnumerator meteor(int manaUsed, Spells s)
     {
+        GameObject g = new GameObject();
+        g.name = "Meteor";
+        s.transform.parent = g.transform;
         Vector3 mouse = Input.mousePosition;
-        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse) + new Vector2(15, 15);
+        g.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse) + new Vector2(5f, 5.6f);
         s.showSpell(2, 2);
         yield return new WaitForSeconds(3f);
         EntityClass[] hits = new EntityClass[s.inside.Count];
@@ -96,7 +99,7 @@ public class SpellTracker : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(0.2f);
-        Destroy(s.gameObject);
+        Destroy(g.gameObject);
     }
 
     public IEnumerator nothing(int manaUsed, Spells s)
@@ -110,7 +113,7 @@ public class SpellTracker : MonoBehaviour
         Vector3 mouse = Input.mousePosition;
         s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
         float sp = (manaUsed / 75f);
-        Debug.Log(sp);
+        //Debug.Log(sp);
         s.showSpell(1, 3);
         s.gameObject.transform.localScale = new Vector3(sp, sp, s.gameObject.transform.localScale.z);
         yield return new WaitForEndOfFrame();
@@ -124,7 +127,7 @@ public class SpellTracker : MonoBehaviour
             EntityClass ec = c.gameObject.GetComponent<EntityClass>();
             ec.setSpeed(.001f);
         }
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         foreach (Collider2D c in cd)
         {
             EntityClass ec = c.gameObject.GetComponent<EntityClass>();
@@ -134,8 +137,28 @@ public class SpellTracker : MonoBehaviour
     }
     public IEnumerator rage(int manaUsed, Spells s)
     {
+        Vector3 mouse = Input.mousePosition;
         s.showSpell(3, 4);
+        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        float speedChange = 1 + (manaUsed / 85f);
+        List<Collider2D> cd = new List<Collider2D>();
+        yield return new WaitForSeconds(0.3f);
+        s.GetComponent<SpriteRenderer>().enabled = false;
+        foreach (Collider2D c in s.inside)
+        {
+            cd.Add(c);
+        }
+        foreach (Collider2D c in cd)
+        {
+            EntityClass ec = c.gameObject.GetComponent<EntityClass>();
+            ec.setSpeed(speedChange);
+        }
         yield return new WaitForSeconds(5f);
+        foreach (Collider2D c in cd)
+        {
+            EntityClass ec = c.gameObject.GetComponent<EntityClass>();
+            ec.setSpeed(1f / speedChange);
+        }
         Destroy(s.gameObject);
     }
 
