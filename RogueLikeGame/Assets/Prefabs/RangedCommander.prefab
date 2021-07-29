@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6690261486796932312}
   - component: {fileID: 4342715364162345006}
   - component: {fileID: 1778816321727529}
-  - component: {fileID: 1773579536}
   - component: {fileID: -5165148046655060228}
   - component: {fileID: 2750696410939100312}
+  - component: {fileID: 7590952036682166285}
   m_Layer: 8
   m_Name: RangedCommander
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 6309820748959245513}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.6, y: 1.6, z: 1}
+  m_LocalScale: {x: 1.6, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,15 +76,16 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7eadc181206689446a0f95514eb598e4, type: 3}
+  m_Sprite: {fileID: 5731584507761909605, guid: a218343ba4ff9454ba805dc29c8a3374,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &4342715364162345006
@@ -125,51 +126,26 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78125, y: 0.78125}
-    newSize: {x: 0.32, y: 0.32}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.21911347, y: 0.3397532}
-      - {x: 0.14425693, y: 0.26562497}
-      - {x: -0.18931736, y: 0.18204936}
+    - - {x: 0.1815007, y: 0.52530944}
+      - {x: -0.12843557, y: 0.49631658}
+      - {x: -0.19245172, y: 0.3074252}
       - {x: -0.21548018, y: 0.098473705}
-      - {x: -0.24164298, y: -0.051962182}
-      - {x: -0.26199174, y: -0.14135191}
-      - {x: -0.08466604, y: -0.25181735}
-      - {x: 0.067950636, y: -0.28742757}
-      - {x: 0.12385221, y: -0.09795302}
+      - {x: -0.08492318, y: -0.087067425}
+      - {x: -0.114675134, y: -0.3770585}
+      - {x: 0.15981689, y: -0.3320579}
+      - {x: 0.14004174, y: -0.23727724}
+      - {x: 0.13952419, y: -0.20828381}
       - {x: 0.26199168, y: -0.12972373}
+      - {x: 0.3372172, y: 0.01849173}
       - {x: 0.26199168, y: 0.27289298}
---- !u!61 &1773579536
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6309820748959245513}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.49486452, y: 0.04530108}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78125, y: 0.78125}
-    newSize: {x: 0.32, y: 0.32}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.6567931, y: 0.6423265}
-  m_EdgeRadius: 0
 --- !u!114 &-5165148046655060228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,5 +178,25 @@ MonoBehaviour:
   cooldown: 1
   projectile: {fileID: 2406414580408219003, guid: abe2a988698e9fe469f28c67e799490d,
     type: 3}
-  projSpeed: 500000
+  projSpeed: 125
   maxHP: 10
+  dmg: 5
+--- !u!95 &7590952036682166285
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6309820748959245513}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9afad430b68027840bac3a5a9175523e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour, EntityClass
 {
     public float dmg;
+    public Transform targetTransform;
     public void getHit(float dmg, string type)
     {
         die();
@@ -17,25 +18,40 @@ public class BulletScript : MonoBehaviour, EntityClass
     {
         Destroy(this.gameObject);
     }
-
-    public void OnCollisionEnter2D(Collision2D collision)
+    public float checkPlayer(Collider2D collider)
     {
-        Debug.Log(collision.gameObject.name + "---" + this.gameObject.layer);
-        if(collision.transform == transform.parent)
+        if(collider.TryGetComponent<PlayerClass>(out PlayerClass pc))
         {
-            return;
+            return 1;
         }
-        if(collision.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+        return 0;
+    }
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+        if(collision.transform != transform.parent && collision.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
         {
-            ec.getHit(dmg, "projectile");
+            Debug.Log(collision.gameObject.name + "---" + this.gameObject.layer + (collision.transform != transform.parent));
+            ec.getHit(dmg * checkPlayer(collision), "projectile");
+            die();
         }
-        die();
+        else if(collision.transform != transform.parent)
+        {
+            Debug.Log("hitwall" + collision.gameObject.name);
+            die();
+        }
+       
     }
 
     //public GameObject myPlayer;
     // Start is called before the first frame update
     void Start()
     {
+        Vector3 vectorToTarget = targetTransform.position - transform.position;
+        float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
+        Quaternion q = Quaternion.AngleAxis(angle - 90, Vector3.forward);
+
+        transform.rotation = q;
     }
 
     public void setPlayer(GameObject g)

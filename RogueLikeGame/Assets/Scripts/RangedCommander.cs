@@ -10,7 +10,7 @@ public class RangedCommander : MonoBehaviour, RangedClass
     public float projSpeed;
     private float curHP;
     public float maxHP = 10;
-    private float dmg;
+    public float dmg = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,16 +54,28 @@ public class RangedCommander : MonoBehaviour, RangedClass
         }
     }
 
-    public void attack()
+    public IEnumerator attack()
     {
+        
         if(cooldown <= 0)
         {
+            cooldown = 4f;
+            GetComponent<Animator>().SetBool("Attacking", true);
+            yield return new WaitForSeconds(1 / 3f);
+
             Debug.Log("we rly attack");
             GameObject theBullet = Instantiate(projectile, this.transform);
+            theBullet.layer = 8;
+            theBullet.GetComponent<BulletScript>().targetTransform = player.transform;
             theBullet.GetComponent<Rigidbody2D>().AddForce((player.transform.position - transform.position) * projSpeed);
-            theBullet.GetComponent<BulletScript>().dmg= 5;
+            theBullet.GetComponent<BulletScript>().dmg= dmg;
             //ROTATE THE BULLET TOWARDS THE PLAYER
-            cooldown = 1f;
+            
+            GetComponent<Animator>().SetBool("Attacking", false);
         }
+    }
+    public MonoBehaviour returnMB()
+    {
+        return this;
     }
 }

@@ -668,6 +668,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theFloor: {fileID: 11400000, guid: da7cfba2dfb1ef441a05922916acab81, type: 2}
+  topWallTile: {fileID: 0}
+  rightWallTile: {fileID: 0}
+  leftWallTile: {fileID: 0}
+  botWallTile: {fileID: 0}
+  LeftbotWallcornerTile: {fileID: 0}
+  RightbotWallcornerTile: {fileID: 0}
+  RightTopWallcornerTile: {fileID: 0}
+  LeftTopWallcornerTile: {fileID: 0}
   spritesToMatch:
   - {fileID: 21300000, guid: 5fd9c638ad37db84da84fc3ca6aa3173, type: 3}
   enemiesToMatch:
@@ -811,9 +819,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
         type: 3}
+      propertyPath: enemiesToMatch.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
+        type: 3}
+      propertyPath: spritesToMatch.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
+        type: 3}
       propertyPath: enemiesToMatch.Array.data[0]
       value: 
       objectReference: {fileID: 6309820748959245513, guid: 35b724a1292e5df46ab4258579606891,
+        type: 3}
+    - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
+        type: 3}
+      propertyPath: enemiesToMatch.Array.data[1]
+      value: 
+      objectReference: {fileID: 6309820748959245513, guid: 5eb8c516db854914684ddad40a203a18,
+        type: 3}
+    - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
+        type: 3}
+      propertyPath: spritesToMatch.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: d5ea493a009990848acac8bceda2f07f,
         type: 3}
     - target: {fileID: 4764653581605181250, guid: 3f4682a33daf68b4ebe9282f04013b6c,
         type: 3}

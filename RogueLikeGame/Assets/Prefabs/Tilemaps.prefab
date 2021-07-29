@@ -478,6 +478,14 @@ MonoBehaviour:
   rightWallTile: {fileID: 11400000, guid: 27bee67b8d5d5804092c9df392fec93e, type: 2}
   leftWallTile: {fileID: 11400000, guid: 33508af539df86d4ab352c7e7b56f72c, type: 2}
   botWallTile: {fileID: 11400000, guid: 07e9a29bd37d9934d9e2598f4f25b8d2, type: 2}
+  LeftbotWallcornerTile: {fileID: 11400000, guid: 2604d26494a57244e9e5d7f62dd1cdec,
+    type: 2}
+  RightbotWallcornerTile: {fileID: 11400000, guid: a687b88932422a9488b5726c26f02b5a,
+    type: 2}
+  RightTopWallcornerTile: {fileID: 11400000, guid: 5298a59644e48474ab2fd4949214b058,
+    type: 2}
+  LeftTopWallcornerTile: {fileID: 11400000, guid: 04eefd3d55cbfd64697f2113bbf6590d,
+    type: 2}
   spritesToMatch:
   - {fileID: 21300000, guid: 5fd9c638ad37db84da84fc3ca6aa3173, type: 3}
   enemiesToMatch:

@@ -130,13 +130,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1536060107, guid: d7fcf64bc7a95004e8362cffe6f80412, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1536060107, guid: d7fcf64bc7a95004e8362cffe6f80412, type: 3}
-      propertyPath: m_Offset.y
-      value: 0
+    - target: {fileID: 1536060108, guid: d7fcf64bc7a95004e8362cffe6f80412, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3734521400894349507, guid: d7fcf64bc7a95004e8362cffe6f80412,
         type: 3}

@@ -11,6 +11,10 @@ public class floorCreator : MonoBehaviour
     public Tile rightWallTile;
     public Tile leftWallTile;
     public Tile botWallTile;
+    public Tile LeftbotWallcornerTile;
+    public Tile RightbotWallcornerTile;
+    public Tile RightTopWallcornerTile;
+    public Tile LeftTopWallcornerTile;
     private List<SpawnerClass> spawners;
     public List<Sprite> spritesToMatch;
     public List<GameObject> enemiesToMatch;
@@ -31,6 +35,7 @@ public class floorCreator : MonoBehaviour
     public float camScaling;
     public GameObject theWalls;
     public static System.Random r = new System.Random();
+
     // for funsies
     //private HashSet<Vector2> spawnerSet;ev
 
@@ -148,10 +153,17 @@ public class floorCreator : MonoBehaviour
             rightWalls[i] = new Vector3Int(width, i, 0);
             rightWallTiles[i] = rightWallTile;
         }
+        Vector3Int[] corners = new Vector3Int[4];
+        corners[0] = new Vector3Int(-1, -1, 0);
+        corners[1] = new Vector3Int(width, -1, 0);
+        corners[2] = new Vector3Int(width, height, 0);
+        corners[3] = new Vector3Int(-1, height, 0);
+        Tile[] cornerWallTiles = { LeftbotWallcornerTile, RightbotWallcornerTile, RightTopWallcornerTile, LeftTopWallcornerTile };
         tm.SetTiles(topWalls, topWallTiles);
         tm.SetTiles(botWalls, botWallTiles);
         tm.SetTiles(leftWalls, leftWallTiles);
         tm.SetTiles(rightWalls, rightWallTiles);
+        tm.SetTiles(corners, cornerWallTiles);
 
       
     }

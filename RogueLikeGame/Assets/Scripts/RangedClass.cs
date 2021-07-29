@@ -5,6 +5,7 @@ using UnityEngine;
 public interface RangedClass : EntityClass
 {
     //ALWAYS HAVE A COOLDOWN VARIABLE*
-    public void attack();
+    public IEnumerator attack();
+    public MonoBehaviour returnMB();
 
 }

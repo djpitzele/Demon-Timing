@@ -205,7 +205,7 @@ public class RangedAttacker : MonoBehaviour
         //Debug.Log(checkLOS(transform.position));
         if(checkLOS(transform.position))
         {
-            GetComponent<RangedClass>().attack();
+            GetComponent<RangedClass>().returnMB().StartCoroutine("attack");
         }
         else if (ourWorldToCell(transform.position) == endPos)
         {

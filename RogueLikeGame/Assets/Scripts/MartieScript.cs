@@ -30,9 +30,9 @@ public class MartieScript : MonoBehaviour, NPClass
         s1 = r.Next(total);
         s2 = r.Next(total);
         s3 = r.Next(total);
-        p1 = 25 + r.Next(25);
-        p2 = 25 + r.Next(30);
-        p3 = 25 + r.Next(40);
+        p1 = 10 + r.Next(25);
+        p2 = 10 + r.Next(30);
+        p3 = 10 + r.Next(40);
     }
     // Update is called once per frame
     public void spell1()
