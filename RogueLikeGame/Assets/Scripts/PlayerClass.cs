@@ -169,6 +169,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         totalEnemies = 0;
         HitScreen = theCanvas.transform.Find("RedHit").gameObject.GetComponent<RawImage>();
         theCanvas.transform.Find("Gold").gameObject.GetComponent<Text>().text = "Gold: " + gold;
+        theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);
         HitScreen.enabled = false;
         pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
         int numScenes = SceneManager.sceneCountInBuildSettings;

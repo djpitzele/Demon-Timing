@@ -66,7 +66,7 @@ public class MovementScript : MonoBehaviour
         float curMovement = Input.GetAxis("Horizontal");
         if(Input.GetAxis("Fire2") != 0)
         {
-            GetComponent<PlayerClass>().nextScene();
+            //GetComponent<PlayerClass>().nextScene();
         }
         if (timeTilmovement <= 0)
         {
@@ -106,6 +106,7 @@ public class MovementScript : MonoBehaviour
                 Vector3 changes = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
                 //Debug.Log(rb == null);
                 rb.MovePosition(transform.position + changes * speed * Time.deltaTime);
+                GetComponent<Animator>().SetBool("Walking", changes != Vector3.zero);
             }
         }
 
@@ -117,7 +118,7 @@ public class MovementScript : MonoBehaviour
         {
             timeTilmovement -= Time.fixedDeltaTime;
         }
-        if (cooldown3 <= 0 && !(pc.menuOn))
+        if (cooldown3 <= 0 && !(pc.menuOn) && manaUsed != 0 && pc.curMana >= manaUsed)
         {
             if (Input.GetAxis("Spell1") != 0)
             {
@@ -155,7 +156,7 @@ public class MovementScript : MonoBehaviour
         if (collision.gameObject.TryGetComponent<NPClass>(out NPClass nc))
         {
             //Debug.Log("deezg");
-            if (Input.GetAxis("Submit") != 0 && cooldown2 <= 0)
+            if (Input.GetAxis("Submit") != 0 && cooldown2 <= 0 )
             {
                 Interaction i = nc.Interact();
                 if (i != null)

@@ -17,7 +17,7 @@ public class Spells : MonoBehaviour
     }
     public void showSpell(float radius, int index)
     {
-        if(index != null && TryGetComponent<Animator>(out Animator anim))
+        if(TryGetComponent<Animator>(out Animator anim))
         {
             //anim.AddClip(a, "Spell");
             //anim["Spell"].layer = 123;

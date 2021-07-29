@@ -19,7 +19,7 @@ public class RangedCommander : MonoBehaviour, RangedClass
     }
     public void setSpeed(float s)
     {
-        GetComponent<MeleeAttacker>().meleeSpeed *= s;
+        GetComponent<RangedAttacker>().meleeSpeed *= s;
     }
     public void getHit(float dm, string type)
     {
@@ -61,13 +61,14 @@ public class RangedCommander : MonoBehaviour, RangedClass
         {
             cooldown = 4f;
             GetComponent<Animator>().SetBool("Attacking", true);
+            Vector3 formerPos = player.transform.position;
             yield return new WaitForSeconds(1 / 3f);
 
             Debug.Log("we rly attack");
             GameObject theBullet = Instantiate(projectile, this.transform);
             theBullet.layer = 8;
-            theBullet.GetComponent<BulletScript>().targetTransform = player.transform;
-            theBullet.GetComponent<Rigidbody2D>().AddForce((player.transform.position - transform.position) * projSpeed);
+            theBullet.GetComponent<BulletScript>().targetTransform = formerPos;
+            theBullet.GetComponent<Rigidbody2D>().AddForce((formerPos - transform.position) * projSpeed);
             theBullet.GetComponent<BulletScript>().dmg= dmg;
             //ROTATE THE BULLET TOWARDS THE PLAYER
             

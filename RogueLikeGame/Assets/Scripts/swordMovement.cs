@@ -17,6 +17,7 @@ public class swordMovement : MonoBehaviour
     private int facing = 1;
     private float kb = 400;
     private bool isStab;
+    public float manaRegen = 5;
     public PlayerClass pc;
     // Start is called before the first frame update
     void Start()
@@ -114,6 +115,7 @@ public class swordMovement : MonoBehaviour
                 attackTime = -0.1f;
             }
             ec.getHit(thePlayer.GetComponent<PlayerClass>().getDmg(), "melee");
+            pc.curMana += manaRegen;
             if(ec.ecgetObject().TryGetComponent<Rigidbody2D>(out Rigidbody2D rbb))
             {
                 rbb.AddForce((ec.ecgetObject().transform.position - transform.position) * kb, ForceMode2D.Force);

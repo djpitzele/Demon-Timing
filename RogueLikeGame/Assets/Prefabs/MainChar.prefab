@@ -30,6 +30,7 @@ GameObject:
   - component: {fileID: 2682160601891282898}
   - component: {fileID: 2682160601891282899}
   - component: {fileID: 1113496633806983124}
+  - component: {fileID: 8878402342975156407}
   m_Layer: 8
   m_Name: MainChar
   m_TagString: Untagged
@@ -151,7 +152,9 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   curShade: 0
   dead: 0
-  spells: 000000000000000000000000
+  spells2: 000000000000000000000000
+  menuOn: 0
+  ms: {fileID: 0}
   bms: {fileID: 0}
 --- !u!50 &2682160601891282898
 Rigidbody2D:
@@ -203,10 +206,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pc: {fileID: 0}
-  spellNames: []
-  spellSprites: []
   spellPrefab: {fileID: 4771514571232568551, guid: 63bece5d89593844fb7519923d56047b,
     type: 3}
+--- !u!95 &8878402342975156407
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7395427581806553128}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e9a2dedcd70387c4aa0df19a5d3dd996, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2682160602196042638
 PrefabInstance:
   m_ObjectHideFlags: 0

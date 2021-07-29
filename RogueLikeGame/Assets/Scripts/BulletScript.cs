@@ -5,14 +5,14 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour, EntityClass
 {
     public float dmg;
-    public Transform targetTransform;
+    public Vector3 targetTransform;
     public void getHit(float dmg, string type)
     {
         die();
     }
     public void setSpeed(float speed)
     {
-
+        GetComponent<Rigidbody2D>().mass *= (1f / speed);
     }
     public void die()
     {
@@ -47,7 +47,7 @@ public class BulletScript : MonoBehaviour, EntityClass
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 vectorToTarget = targetTransform.position - transform.position;
+        Vector3 vectorToTarget = targetTransform - transform.position;
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
         Quaternion q = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 

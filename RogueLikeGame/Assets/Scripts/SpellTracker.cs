@@ -28,9 +28,10 @@ public class SpellTracker : MonoBehaviour
     }
     public void CreateSpell(int index, int manaUsed)
     {
-        GameObject g = Instantiate(spellPrefab);
+        GameObject go = new GameObject();
+        go.name = "Spell";
+        GameObject g = Instantiate(spellPrefab, go.transform);
         g.GetComponent<Spells>().createSpell(spells[index].spell, manaUsed);
-        
     }
     
     // Start is called before the first frame update
@@ -45,11 +46,15 @@ public class SpellTracker : MonoBehaviour
         putIn(rage, "Rage", Resources.Load<Sprite>("Assets/Resources/Spells/SpellItems/rageitem.png"));
     }
 
-
+    public void destroySpell(Spells s)
+    {
+        GameObject g = s.gameObject.transform.parent.gameObject;
+        Destroy(g);
+    }
     public IEnumerator lightning(int manaUsed, Spells s)
     {
         Vector3 mouse = Input.mousePosition;
-        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
         s.showSpell(1, 1);
         yield return new WaitForSeconds(.2f);
         EntityClass[] hits = new EntityClass[s.inside.Count];
@@ -70,15 +75,12 @@ public class SpellTracker : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(2f);
-        Destroy(s.gameObject);
+        destroySpell(s);
     }
     public IEnumerator meteor(int manaUsed, Spells s)
     {
-        GameObject g = new GameObject();
-        g.name = "Meteor";
-        s.transform.parent = g.transform;
         Vector3 mouse = Input.mousePosition;
-        g.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse) + new Vector2(5f, 5.6f);
+        s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse) + new Vector2(5f, 10f);
         s.showSpell(2, 2);
         yield return new WaitForSeconds(3f);
         EntityClass[] hits = new EntityClass[s.inside.Count];
@@ -99,19 +101,20 @@ public class SpellTracker : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(0.2f);
-        Destroy(g.gameObject);
+        destroySpell(s);
     }
 
     public IEnumerator nothing(int manaUsed, Spells s)
     {
         yield return new WaitForSeconds(1f);
-        Destroy(s.gameObject);
+        destroySpell(s);
     }
     public IEnumerator freeZe(int manaUsed, Spells s)
 
     {
         Vector3 mouse = Input.mousePosition;
-        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        Debug.Log("deez moved" + s.gameObject.transform.position);
         float sp = (manaUsed / 75f);
         //Debug.Log(sp);
         s.showSpell(1, 3);
@@ -133,13 +136,13 @@ public class SpellTracker : MonoBehaviour
             EntityClass ec = c.gameObject.GetComponent<EntityClass>();
             ec.setSpeed(1000);
         }
-        Destroy(s.gameObject);
+        destroySpell(s);
     }
     public IEnumerator rage(int manaUsed, Spells s)
     {
         Vector3 mouse = Input.mousePosition;
         s.showSpell(3, 4);
-        s.gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
         float speedChange = 1 + (manaUsed / 85f);
         List<Collider2D> cd = new List<Collider2D>();
         yield return new WaitForSeconds(0.3f);
@@ -159,7 +162,7 @@ public class SpellTracker : MonoBehaviour
             EntityClass ec = c.gameObject.GetComponent<EntityClass>();
             ec.setSpeed(1f / speedChange);
         }
-        Destroy(s.gameObject);
+        destroySpell(s);
     }
 
 }
