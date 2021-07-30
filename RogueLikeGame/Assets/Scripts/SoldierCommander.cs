@@ -56,7 +56,7 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
     }
     public IEnumerator Attack(EntityClass ec)
     {
-        Debug.Log("attacks");
+        //Debug.Log("attacks");
         tilAttack = 1;
         GetComponent<Animator>().SetTrigger("Attack");
         yield return new WaitForSeconds(.2f);

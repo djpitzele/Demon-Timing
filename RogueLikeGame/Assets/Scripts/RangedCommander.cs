@@ -27,6 +27,7 @@ public class RangedCommander : MonoBehaviour, RangedClass
         if (curHP <= 0)
         {
             die();
+            PlayerClass.main.totalEnemies--;
         }
     }
 

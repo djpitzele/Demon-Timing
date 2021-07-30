@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   facing: 1
   player: {fileID: 0}
+  inside: []
 --- !u!212 &6690261486796932312
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -215,7 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chance:
   - 0.4
-  - 1
+  - 0.3
   spawned:
   - {fileID: 2300270610071229138, guid: e4cd774aeabf98740b8e0e1ca55b04c2, type: 3}
   - {fileID: 2169882276682997496, guid: ba6834f75e6f23f42be03bc343c097f9, type: 3}

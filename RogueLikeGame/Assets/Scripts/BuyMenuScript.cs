@@ -59,6 +59,7 @@ public class BuyMenuScript : MonoBehaviour
                 Button b = g.GetComponent<Button>();
                 RectTransform r = g.GetComponent<RectTransform>();
                 b.gameObject.transform.SetParent(transform.parent, false);
+                g.transform.SetAsFirstSibling();
                 //was adding 400 for no reason, so we subtract 400
                 r.localPosition = new Vector3(transform.parent.gameObject.GetComponent<RectTransform>().rect.width * ((i + 1) / 4f) - 400, r.localPosition.y, 0);
                 //Debug.Log(r.localPosition);

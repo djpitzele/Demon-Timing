@@ -47,10 +47,10 @@ public class BulletScript : MonoBehaviour, EntityClass
     // Start is called before the first frame update
     void Start()
     {
+
         Vector3 vectorToTarget = targetTransform - transform.position;
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg;
         Quaternion q = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-
         transform.rotation = q;
     }
 

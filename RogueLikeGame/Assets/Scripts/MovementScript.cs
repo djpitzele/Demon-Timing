@@ -66,7 +66,7 @@ public class MovementScript : MonoBehaviour
         float curMovement = Input.GetAxis("Horizontal");
         if(Input.GetAxis("Fire2") != 0)
         {
-            //GetComponent<PlayerClass>().nextScene();
+            GetComponent<PlayerClass>().nextScene();
         }
         if (timeTilmovement <= 0)
         {
@@ -120,17 +120,17 @@ public class MovementScript : MonoBehaviour
         }
         if (cooldown3 <= 0 && !(pc.menuOn) && manaUsed != 0 && pc.curMana >= manaUsed)
         {
-            if (Input.GetAxis("Spell1") != 0)
+            if (Input.GetAxis("Spell1") != 0 && pc.spells[0] != 0)
             {
                 UseSpell(pc.spells[0]);
                 cooldown3 = .2f;
             }
-            if (Input.GetAxis("Spell2") != 0)
+            if (Input.GetAxis("Spell2") != 0 && pc.spells[0] != 0)
             {
                 UseSpell(pc.spells[1]);
                 cooldown3 = .2f;
             }
-            if (Input.GetAxis("Spell3") != 0)
+            if (Input.GetAxis("Spell3") != 0 && pc.spells[0] != 0)
             {
                 UseSpell(pc.spells[2]);
                 cooldown3 = .2f;

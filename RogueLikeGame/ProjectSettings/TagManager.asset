@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GoldStack
   - ManaJar
+  - GamblingToken
   layers:
   - Default
   - TransparentFX

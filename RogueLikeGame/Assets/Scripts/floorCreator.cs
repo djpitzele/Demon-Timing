@@ -77,23 +77,29 @@ public class floorCreator : MonoBehaviour
         StartCoroutine("beAsleep");
     }
 
+    public IEnumerator nextWave(List<SpawnerTile> sts)
+    {
+        startChecking = false;
+        yield return new WaitForSeconds(0.5f);
+        foreach (SpawnerTile t in sts)
+        {
+            t.WaveOver();
+        }
+        startChecking = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (startChecking && player.GetComponent<PlayerClass>().totalEnemies == 0 && waves > 0)
         {
-            foreach (SpawnerTile t in spawnerTiles)
-            {
-                t.WaveOver();
-            }
+            StartCoroutine("nextWave", spawnerTiles);
             waves--;
             if(waves == 0)
             {
                 player.GetComponent<PlayerClass>().curShade += 1;
                 player.GetComponent<PlayerClass>().theCanvas.GetComponentsInChildren<ShadeScript>()[0].updateShade();
             }
-            
-
         }
 
     }

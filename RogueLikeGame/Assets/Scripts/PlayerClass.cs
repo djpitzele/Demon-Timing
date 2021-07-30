@@ -56,7 +56,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         {
             StartCoroutine("ActivateHit");
             curHP -= dm;
-            Debug.Log("we got hit for " + dm + typeHit + curHP);
+            //Debug.Log("we got hit for " + dm + typeHit + curHP);
             if (curHP <= 0)
             {
                 die();
@@ -174,7 +174,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
         pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
         int numScenes = SceneManager.sceneCountInBuildSettings;
         List<int> remainingScenes = new List<int>();
-        for(int i = 4; i < numScenes; i++)
+        //CHANGE WHEN NEW ROOM: int i = ?
+        for(int i = 5; i < numScenes; i++)
         {
             remainingScenes.Add(i);
         }
@@ -182,7 +183,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
         orderScenes = new List<int>();
         while(remainingScenes.Count > 0)
         {
-            if(r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 4)))
+            //CHANGE WHEN NEW ROOM: int i = ?
+            if (r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 5)))
             {
                 break;
             }
@@ -192,6 +194,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         }
         orderScenes.Add(2);
         orderScenes.Insert(orderScenes.Count / 2, 3);
+        orderScenes.Insert(0, 10); //temp
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);
