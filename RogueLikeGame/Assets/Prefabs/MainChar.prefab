@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thePlayer: {fileID: 7395427581806553128}
   attackPosition: {x: 0.6, y: 0.8, z: 0}
+  manaRegen: 5
   pc: {fileID: 0}
 --- !u!1 &7395427581806553128
 GameObject:
@@ -339,6 +340,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8300995623662836843, guid: 411ac8f602b134742bf33c2de5b35869,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}

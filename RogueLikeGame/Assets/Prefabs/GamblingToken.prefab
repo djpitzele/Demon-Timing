@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 247587923513362762}
   - component: {fileID: 2920254975787017115}
   - component: {fileID: 6923316310287989882}
+  - component: {fileID: 6334938008246855045}
   m_Layer: 0
   m_Name: GamblingToken
   m_TagString: GamblingToken
@@ -121,3 +122,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6334938008246855045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4940388594713226267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbef3c81d7c5b49449c87d64fa573f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

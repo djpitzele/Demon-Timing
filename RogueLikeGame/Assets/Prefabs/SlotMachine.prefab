@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6982765263956852712}
   - component: {fileID: 586351887080467905}
+  - component: {fileID: 6387750064233415637}
   m_Layer: 0
   m_Name: Number3
   m_TagString: Untagged
@@ -82,6 +83,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6387750064233415637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3742907045523667478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f73d26449aae454e9f2a8f00e46dda0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  number2: 1
+  numbers:
+  - {fileID: -4677205242863488633, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 859809963154828141, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: -8750563325967366506, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 3003832276856978067, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 7411717357407056019, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 5893147983358093460, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 9153319047519127056, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: -290087458851718232, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 1529409630825075727, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
 --- !u!1 &7264042617365014558
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,16 +150,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f73d26449aae454e9f2a8f00e46dda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number2: 0
   numbers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: -4677205242863488633, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 859809963154828141, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: -8750563325967366506, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 3003832276856978067, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 7411717357407056019, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 5893147983358093460, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 9153319047519127056, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: -290087458851718232, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 1529409630825075727, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
 --- !u!212 &2577506396993554136
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -175,7 +200,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d63551ce563219646b88125e5e54a200, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -258,7 +283,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d5ea493a009990848acac8bceda2f07f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -282,16 +307,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f73d26449aae454e9f2a8f00e46dda0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  number2: 0
   numbers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: -4677205242863488633, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 859809963154828141, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: -8750563325967366506, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 3003832276856978067, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 7411717357407056019, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 5893147983358093460, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 9153319047519127056, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: -290087458851718232, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
+  - {fileID: 1529409630825075727, guid: 21bd24f54c69cdf4fb019b39bea6a2d0, type: 3}
 --- !u!1 &9076651921102294960
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +330,7 @@ GameObject:
   - component: {fileID: 3493827112769836637}
   - component: {fileID: 528846652527997344}
   - component: {fileID: 6991252154804081401}
+  - component: {fileID: 2647712320678334307}
   m_Layer: 0
   m_Name: SlotMachine
   m_TagString: Untagged
@@ -320,7 +347,7 @@ Transform:
   m_GameObject: {fileID: 9076651921102294960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 5.5, z: 1}
+  m_LocalScale: {x: 10, y: 5.5, z: 1}
   m_Children:
   - {fileID: 5279557397090590536}
   - {fileID: 2428605207006316429}
@@ -338,7 +365,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -417,5 +444,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1beb11cc291691e4a93ca96a750f5e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Gold: {fileID: 2300270610071229138, guid: e4cd774aeabf98740b8e0e1ca55b04c2, type: 3}
   roll: 000000
   cooldown: 0.2
+  initialcooldowns:
+  - 0.6
+  - 0.4
+  - 0.2
+  initialcd: 0
+  talked: 0
+--- !u!61 &2647712320678334307
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9076651921102294960}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.011624634, y: -0.10628724}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.8613616, y: 1.2125732}
+  m_EdgeRadius: 0

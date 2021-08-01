@@ -4,16 +4,35 @@ using UnityEngine;
 
 public class GamblerScript : MonoBehaviour, NPClass
 {
-    public Sprite gamblerSprite;
+    public static Sprite gamblerSprite;
     public GameObject tokenPrefab;
     public bool inRange;
     public PlayerClass pc;
     public BuyMenuScript bms;
     public int interactions = 0;
+    public float cooldown = .05f;
 
     public void dropToken()
     {
+        cooldown = .05f;
         GameObject t = Instantiate(tokenPrefab);
+        t.transform.position = transform.position + new Vector3(0, -2, 0);
+        t.GetComponent<TokenScript>().difficulty = 0;
+        pc.gold -= 10;
+    }
+    public void dropToken1()
+    {
+        cooldown = .05f;
+        GameObject t = Instantiate(tokenPrefab);
+        t.GetComponent<TokenScript>().difficulty = 1;
+        t.transform.position = transform.position + new Vector3(0, -2, 0);
+        pc.gold -= 10;
+    }
+    public void dropToken2()
+    {
+        cooldown = .05f;
+        GameObject t = Instantiate(tokenPrefab);
+        t.GetComponent<TokenScript>().difficulty = 2;
         t.transform.position = transform.position + new Vector3(0, -2, 0);
         pc.gold -= 10;
     }
@@ -47,10 +66,16 @@ public class GamblerScript : MonoBehaviour, NPClass
             interactions++;
             bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
             bms.purchaseActions.Add(dropToken);
+            bms.purchaseActions.Add(dropToken1);
+            bms.purchaseActions.Add(dropToken2);
             //Debug.Log("shady" + bms.purchaseActions.Count);
             bms.labels = new List<string>();
-            bms.labels.Add("One Gambling Token");
+            bms.labels.Add("Easy Gambling Token");
+            bms.labels.Add("Medium Gambling Token");
+            bms.labels.Add("Hard Gambling Token");
             bms.costs = new List<string>();
+            bms.costs.Add("10 Gold");
+            bms.costs.Add("10 Gold");
             bms.costs.Add("10 Gold");
             bms.gameObject.SetActive(true);
         }
@@ -83,5 +108,9 @@ public class GamblerScript : MonoBehaviour, NPClass
             bms.destroyAllOptions();
             interactions = 0;
         }
+    }
+    public void Update()
+    {
+        cooldown -= Time.deltaTime;
     }
 }

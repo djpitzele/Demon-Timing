@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SlotNumber : MonoBehaviour
 {
-    private int number2;
+    public int number2;
     public Sprite[] numbers = new Sprite[9];
     public int number
     {

@@ -148,8 +148,9 @@ MonoBehaviour:
   maxHP: 30
   dmg: 5
   dashing: 0
-  speed: 50
+  speed: 500
   rb: {fileID: 0}
+  cooldown: 0
 --- !u!95 &-4041995495816609786
 Animator:
   serializedVersion: 3

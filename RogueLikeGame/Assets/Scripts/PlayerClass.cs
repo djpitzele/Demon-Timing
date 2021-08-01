@@ -56,11 +56,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
         {
             StartCoroutine("ActivateHit");
             curHP -= dm;
+            if (curHP2 <= 0) { die(); }
             //Debug.Log("we got hit for " + dm + typeHit + curHP);
-            if (curHP <= 0)
-            {
-                die();
-            }
         }
         else
         {
@@ -194,7 +191,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         }
         orderScenes.Add(2);
         orderScenes.Insert(orderScenes.Count / 2, 3);
-        orderScenes.Insert(0, 10); //temp
+        orderScenes.Insert(0, 4); //temp
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);

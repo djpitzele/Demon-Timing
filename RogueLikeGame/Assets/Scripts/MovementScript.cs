@@ -125,12 +125,12 @@ public class MovementScript : MonoBehaviour
                 UseSpell(pc.spells[0]);
                 cooldown3 = .2f;
             }
-            if (Input.GetAxis("Spell2") != 0 && pc.spells[0] != 0)
+            if (Input.GetAxis("Spell2") != 0 && pc.spells[1] != 0)
             {
                 UseSpell(pc.spells[1]);
                 cooldown3 = .2f;
             }
-            if (Input.GetAxis("Spell3") != 0 && pc.spells[0] != 0)
+            if (Input.GetAxis("Spell3") != 0 && pc.spells[2] != 0)
             {
                 UseSpell(pc.spells[2]);
                 cooldown3 = .2f;

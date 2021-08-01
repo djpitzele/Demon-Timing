@@ -89,7 +89,11 @@ public class Samurai : MonoBehaviour, RangedClass
             Quaternion q = Quaternion.AngleAxis(angle + 180, Vector3.forward);
             transform.localRotation = q;
             //DASH IS SO SLOW FOR SOM  E REASON
-            GetComponent<Rigidbody2D>().AddForce((Vector3.Normalize(formerPos - transform.position)) * speed);
+            Vector3 temp = formerPos - transform.position;
+            temp = Vector3.Normalize(temp);
+            Debug.Log(speed.ToString() + temp.ToString());
+            temp *= speed;
+            GetComponent<Rigidbody2D>().AddForce(temp);
             yield return new WaitForFixedUpdate();
             //Debug.Log("we rly attack");
             GetComponent<Animator>().SetInteger("state", 1);

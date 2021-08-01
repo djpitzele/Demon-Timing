@@ -42,8 +42,8 @@ public class SpellTracker : MonoBehaviour
         putIn(nothing, "nothing", null);
         putIn(lightning, "Lightning", Resources.Load<Sprite>("Spells/SpellItems/LIGHTINGITEM"));
         putIn(meteor, "Meteor", Resources.Load<Sprite>("Spells/SpellItems/meteoritem"));
-        putIn(freeZe, "Freeze", Resources.Load<Sprite>("Spells/SpellItems/FreezeItem.png"));
-        putIn(rage, "Rage", Resources.Load<Sprite>("Assets/Resources/Spells/SpellItems/rageitem.png"));
+        putIn(freeZe, "Freeze", Resources.Load<Sprite>("Spells/SpellItems/FreezeItem"));
+        putIn(rage, "Rage", Resources.Load<Sprite>("Spells/SpellItems/rageitem"));
     }
 
     public void destroySpell(Spells s)
