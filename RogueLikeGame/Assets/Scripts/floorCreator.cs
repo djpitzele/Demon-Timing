@@ -114,7 +114,7 @@ public class floorCreator : MonoBehaviour
                 int x = r.Next(1000);
                 //Debug.Log(streak);
                 //Debug.Log(x);
-                if (x < 6000 / (width * height))
+                if (x < (spawnersLeft * 2000) / (width * height))
                 {
                     //Debug.Log(x);
                     //Debug.Log(((pillarsLeft / (width * height)) * 80000));

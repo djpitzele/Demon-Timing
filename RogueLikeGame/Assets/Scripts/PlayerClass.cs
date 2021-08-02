@@ -152,7 +152,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         Debug.Log("deez");
         main = this;
         //curHP = maxHP;
-        if(curHP <= 0)
+        if (curHP <= 0)
         {
             curHP = maxHP;
         }
@@ -172,26 +172,33 @@ public class PlayerClass : MonoBehaviour, EntityClass
         int numScenes = SceneManager.sceneCountInBuildSettings;
         List<int> remainingScenes = new List<int>();
         //CHANGE WHEN NEW ROOM: int i = ?
-        for(int i = 5; i < numScenes; i++)
+        for (int i = 5; i < numScenes; i++)
         {
             remainingScenes.Add(i);
         }
         //Debug.Log(remainingScenes.Count + "-----------------");
         orderScenes = new List<int>();
-        while(remainingScenes.Count > 0)
+        /* while(remainingScenes.Count > 0)
+         {
+             //CHANGE WHEN NEW ROOM: int i = ?
+             if (r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 5)))
+             {
+                 break;
+             }
+             int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
+             orderScenes.Add(sceneIndex);
+             remainingScenes.Remove(sceneIndex);
+         }*/
+        int length = 4 + r.Next(6);
+        for (int i = 0; i < length; i++)
         {
-            //CHANGE WHEN NEW ROOM: int i = ?
-            if (r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 5)))
-            {
-                break;
-            }
+         //   Debug.Log(remainingScenes.Count);
             int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
             orderScenes.Add(sceneIndex);
             remainingScenes.Remove(sceneIndex);
         }
         orderScenes.Add(2);
-        orderScenes.Insert(orderScenes.Count / 2, 3);
-        orderScenes.Insert(0, 4); //temp
+        orderScenes.Insert(orderScenes.Count / 2, npcRoom());
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);
@@ -209,7 +216,10 @@ public class PlayerClass : MonoBehaviour, EntityClass
         orderScenes.RemoveAt(0);
         //Debug.Log(orderScendqes.Count+"nutslength");
     }
-
+    public int npcRoom()
+    {
+        return r.Next(3, 5);//add npc rooms
+    }
     // Update is called once per frame
     void Update()
     {

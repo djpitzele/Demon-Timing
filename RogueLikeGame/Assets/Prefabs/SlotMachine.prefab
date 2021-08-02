@@ -452,7 +452,11 @@ MonoBehaviour:
   - 0.4
   - 0.2
   initialcd: 0
+  cooldown2: 0
   talked: 0
+  tokenDiff: 0
+  start: {fileID: 21300000, guid: 44d309f4d44f6fd4b8c223ad00a61bd5, type: 3}
+  sr: []
 --- !u!61 &2647712320678334307
 BoxCollider2D:
   m_ObjectHideFlags: 0

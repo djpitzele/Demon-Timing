@@ -49,6 +49,7 @@ public class SpellTracker : MonoBehaviour
     public void destroySpell(Spells s)
     {
         GameObject g = s.gameObject.transform.parent.gameObject;
+        s.onDestroy.Invoke(s.manaUsed, s);
         Destroy(g);
     }
     public IEnumerator lightning(int manaUsed, Spells s)
@@ -114,29 +115,62 @@ public class SpellTracker : MonoBehaviour
     {
         Vector3 mouse = Input.mousePosition;
         s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
-        Debug.Log("deez moved" + s.gameObject.transform.position);
-        float sp = (manaUsed / 75f);
+       // Debug.Log("deez moved" + s.gameObject.transform.position);
         //Debug.Log(sp);
+        float sp = 1f - (manaUsed / 120f);
         s.showSpell(1, 3);
-        s.gameObject.transform.localScale = new Vector3(sp, sp, s.gameObject.transform.localScale.z);
         yield return new WaitForEndOfFrame();
+        s.onDestroy = freezeDestroy;
+        s.onEnter = freezeEnter;
+        s.onExit = freezeExit;
         List<Collider2D> cd = new List<Collider2D>();
         foreach(Collider2D c in s.inside)
         {
             cd.Add(c);
         }
+       
         foreach (Collider2D c in cd)
         {
             EntityClass ec = c.gameObject.GetComponent<EntityClass>();
-            ec.setSpeed(.001f);
+            ec.setSpeed(sp);
         }
         yield return new WaitForSeconds(4f);
         foreach (Collider2D c in cd)
         {
             EntityClass ec = c.gameObject.GetComponent<EntityClass>();
-            ec.setSpeed(1000);
+            ec.setSpeed(1/sp);
         }
         destroySpell(s);
+    }
+    public IEnumerator freezeEnter(int manaUsed, Spells s, Collider2D c)
+    {
+        yield return null;
+        if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+        {
+            ec.setSpeed(1f - (manaUsed / 120f));
+
+        }
+    }
+    public IEnumerator freezeExit(int manaUsed, Spells s, Collider2D c)
+    {
+        yield return null;
+        if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+        {
+            ec.setSpeed(1f / (1f - (manaUsed / 120f)));
+
+        }
+    }
+    public void freezeDestroy(int manaUsed, Spells s)
+    {
+        
+        foreach (Collider2D c in s.inside)
+        {
+            if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+            {
+                ec.setSpeed(1f / (1f - (manaUsed / 120f)));
+
+            }
+        }
     }
     public IEnumerator rage(int manaUsed, Spells s)
     {
@@ -164,8 +198,10 @@ public class SpellTracker : MonoBehaviour
         }
         destroySpell(s);
     }
+    
 
 }
+
 public struct SpellStruct
 {
     public SpellTracker.spell spell;

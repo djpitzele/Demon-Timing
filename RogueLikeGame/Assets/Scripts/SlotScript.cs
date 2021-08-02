@@ -14,9 +14,21 @@ public class SlotScript : MonoBehaviour, NPClass
     public System.Random r = new System.Random();
     public bool talked = false;
     public int tokenDiff;
+    public Sprite start;
+    public SpriteRenderer[] sr;
     // Start is called before the first frame update
     void Start()
     {
+        sr = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sr in sr)
+        {
+            if(sr != GetComponent<SpriteRenderer>())
+            {
+                sr.sprite = start;
+            }
+          
+        }
+        
         talked = true;
     }
 
@@ -96,7 +108,7 @@ public class SlotScript : MonoBehaviour, NPClass
     }
     public Interaction endGame()
     {
-
+      
         talked = true;
         float w = won(transform.Find("Number" + (1).ToString()).GetComponent<SlotNumber>().number, transform.Find("Number" + (1 + 1).ToString()).GetComponent<SlotNumber>().number, transform.Find("Number" + (2 + 1).ToString()).GetComponent<SlotNumber>().number);
         if (w > 0)
@@ -116,10 +128,11 @@ public class SlotScript : MonoBehaviour, NPClass
             }
             return new Interaction(GamblerScript.gamblerSprite, "get better lol", Resources.GetBuiltinResource<Font>("Arial.ttf"));
         }
-
-
         
-       
+
+
+
+
     } 
     public float won(int n1, int n2, int n3)
     {
