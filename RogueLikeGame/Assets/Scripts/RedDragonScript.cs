@@ -11,6 +11,10 @@ public class RedDragonScript : MonoBehaviour
     public Sprite fired;
     public Sprite Notfired;
     public floorCreator floorScript;
+    public Sprite deadDragon;
+    public Sprite goldenDoor;
+    public GameObject door;
+    public GameObject spellPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,8 @@ public class RedDragonScript : MonoBehaviour
         {
             pipes.Add((PipeScript)o);
         }
+        door = DoorOut.main.gameObject;
+        door.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     // Update is called once per frame
@@ -27,20 +33,32 @@ public class RedDragonScript : MonoBehaviour
         if (pipes.Count == 0 || floorScript.waves <= 0)
         {
             //WE WON, DO SOMETHING COOL
-            GameObject f = GameObject.Find("Canvas").transform.GetChild(5).gameObject;
-            f.GetComponent<Image>().enabled = true;
-            f.transform.GetChild(0).gameObject.GetComponent<Text>().enabled = true;
-            f.GetComponentsInChildren<Text>()[0].text = "GGs\n" + f.transform.parent.GetChild(2).GetComponent<KillCounter>().timeSpent.ToString();
+            Debug.Log("hello");
             floorScript.waves = -1;
             GameObject[] gms = (GameObject[])FindObjectsOfType(typeof(GameObject));
+            pipes.Clear();
             foreach (GameObject g in gms)
             {
-                if (g.TryGetComponent<EntityClass>(out EntityClass ec))
+                if(g.TryGetComponent<PlayerClass>(out PlayerClass pc))
+                {
+                    continue;
+                }
+                else if (g.TryGetComponent<EntityClass>(out EntityClass ec))
                 {
                     ec.die();
                 }
+                else if(g.TryGetComponent<PipeScript>(out PipeScript ps))
+                {
+                    Destroy(ps.gameObject);
+                }
             }
+            GameObject s = Instantiate(spellPrefab);
+            s.transform.position = new Vector3(10, 10, 0);
+            s.GetComponent<SpellItemScript>().spellIndex = 5;
             Destroy(this.gameObject);
+            GetComponent<SpriteRenderer>().sprite = deadDragon;
+            door.GetComponent<SpriteRenderer>().enabled = true;
+            door.GetComponent<SpriteRenderer>().sprite = goldenDoor;
         }
         else if(timeTilFire <= 0)
         {

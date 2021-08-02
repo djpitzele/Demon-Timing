@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class floorCreator : MonoBehaviour
 {
+    public static floorCreator main;
     public Tile theFloor;
     public Tile topWallTile;
     public Tile rightWallTile;
@@ -42,6 +43,7 @@ public class floorCreator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        main = this;
         camera =  Camera.main.gameObject;
         player = GameObject.Find("MainChar");
         spawners = new List<SpawnerClass>();

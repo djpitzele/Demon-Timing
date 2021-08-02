@@ -25,7 +25,7 @@ public class Spells : MonoBehaviour
     {
         yield return null;
     }
-    private void Start()
+    void Start()
     {
         onUpdate = EmptyUpdate;
         onEnter = ColliderEmpty;

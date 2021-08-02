@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DoorOut : MonoBehaviour
 {
+    public static DoorOut main;
     public floorCreator floor;
     public TileSetter theTiles;
     // Start is called before the first frame update
     void Start()
     {
+        main = this;
         transform.position = new Vector3(theTiles.width + 0.35f, theTiles.height / 2.0f, 0);
     }
 

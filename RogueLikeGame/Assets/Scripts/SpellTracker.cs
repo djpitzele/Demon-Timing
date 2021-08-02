@@ -26,6 +26,16 @@ public class SpellTracker : MonoBehaviour
         SpellStruct sp = new SpellStruct(s, theS, n);
         spells.Add(sp);
     }
+    public void hitList(List<Collider2D> cs, float dmg, string dmgType)
+    {
+        foreach(Collider2D c in cs)
+        {
+            if(c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+            {
+                ec.getHit(dmg, dmgType);
+            }
+        }
+    }
     public void CreateSpell(int index, int manaUsed)
     {
         GameObject go = new GameObject();
@@ -35,7 +45,6 @@ public class SpellTracker : MonoBehaviour
     }
     
     // Start is called before the first frame update
-    //Keep spells in alphabetical order
     public void Start2()
     {
         spells.Clear();
@@ -44,6 +53,7 @@ public class SpellTracker : MonoBehaviour
         putIn(meteor, "Meteor", Resources.Load<Sprite>("Spells/SpellItems/meteoritem"));
         putIn(freeZe, "Freeze", Resources.Load<Sprite>("Spells/SpellItems/FreezeItem"));
         putIn(rage, "Rage", Resources.Load<Sprite>("Spells/SpellItems/rageitem"));
+        putIn(firePipe, "FirePipe", Resources.Load<Sprite>("Arrow")); // 5 //put animation into firepipe
     }
 
     public void destroySpell(Spells s)
@@ -58,23 +68,7 @@ public class SpellTracker : MonoBehaviour
         s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
         s.showSpell(1, 1);
         yield return new WaitForSeconds(.2f);
-        EntityClass[] hits = new EntityClass[s.inside.Count];
-        int i = 0;
-        //Debug.Log(s.inside.Count + "balls");
-        foreach (Collider2D c in s.inside)
-        {
-            hits[i] = c.gameObject.GetComponent<EntityClass>();
-            //Debug.Log("boomed");
-            i++;
-        }
-        foreach (EntityClass ec in hits)
-        {
-            if (ec != null)
-            {
-                ec.getHit(Convert.ToSingle(.5f * manaUsed), "lightning");
-                
-            }
-        }
+        hitList(s.inside, Convert.ToSingle(.5f * manaUsed), "lightning");
         yield return new WaitForSeconds(2f);
         destroySpell(s);
     }
@@ -84,21 +78,12 @@ public class SpellTracker : MonoBehaviour
         s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse) + new Vector2(5f, 10f);
         s.showSpell(2, 2);
         yield return new WaitForSeconds(3f);
-        EntityClass[] hits = new EntityClass[s.inside.Count];
-        int i = 0;
-        //Debug.Log(s.inside.Count + "balls");
-        foreach (Collider2D c in s.inside)
+        //hitList(s.inside, Convert.ToSingle((2 - Vector3.Distance(s.transform.position, ec.ecgetObject().transform.position)) * (manaUsed / 2.0f)), "explosion");
+        foreach(Collider2D c in s.inside)
         {
-            hits[i] = c.gameObject.GetComponent<EntityClass>();
-            //Debug.Log("boomed");
-            i++;
-        }
-        foreach (EntityClass ec in hits)
-        {
-            if (ec != null)
+            if(c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
             {
                 ec.getHit(Convert.ToSingle((2 - Vector3.Distance(s.transform.position, ec.ecgetObject().transform.position)) * (manaUsed / 2.0f)), "explosion");
-
             }
         }
         yield return new WaitForSeconds(0.2f);
@@ -154,7 +139,7 @@ public class SpellTracker : MonoBehaviour
     public IEnumerator freezeExit(int manaUsed, Spells s, Collider2D c)
     {
         yield return null;
-        if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+        if (c != null && c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
         {
             ec.setSpeed(1f / (1f - (manaUsed / 120f)));
 
@@ -176,11 +161,13 @@ public class SpellTracker : MonoBehaviour
     {
         Vector3 mouse = Input.mousePosition;
         s.showSpell(3, 4);
+        yield return new WaitForEndOfFrame();
+        s.onDestroy = rageDestroy;
+        s.onEnter = rageEnter;
+        s.onExit = rageExit;
         s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
         float speedChange = 1 + (manaUsed / 85f);
         List<Collider2D> cd = new List<Collider2D>();
-        yield return new WaitForSeconds(0.3f);
-        s.GetComponent<SpriteRenderer>().enabled = false;
         foreach (Collider2D c in s.inside)
         {
             cd.Add(c);
@@ -198,9 +185,67 @@ public class SpellTracker : MonoBehaviour
         }
         destroySpell(s);
     }
-    
+    public IEnumerator rageEnter(int manaUsed, Spells s, Collider2D c)
+    {
+        yield return null;
+        if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+        {
+            ec.setSpeed(1 + (manaUsed / 85f));
 
+        }
+    }
+    public IEnumerator rageExit(int manaUsed, Spells s, Collider2D c)
+    {
+        yield return null;
+        if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+        {
+            ec.setSpeed(1f / (1 + (manaUsed / 85f)));
+
+        }
+    }
+    public void rageDestroy(int manaUsed, Spells s)
+    {
+
+        foreach (Collider2D c in s.inside)
+        {
+            if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+            {
+                ec.setSpeed(1f / (1 + (manaUsed / 85f)));
+
+            }
+        }
+    }
+    public IEnumerator firePipe(int manaUsed, Spells s)
+    {
+        s.onEnter = fireEnter;
+        s.showSpell(0, 1); //change 1 to the animation
+        Destroy(s.GetComponent<CircleCollider2D>());
+        BoxCollider2D bc = s.gameObject.AddComponent<BoxCollider2D>();
+        Vector3 mouse = Input.mousePosition;
+        mouse = Camera.main.ScreenToWorldPoint(mouse);
+        GridLayout gl = floorCreator.main.transform.parent.GetComponent<GridLayout>();
+        Vector3Int cellCoords = gl.WorldToCell(mouse);
+        Vector3 finalPos = gl.CellToWorld(cellCoords) + new Vector3(0.5f, 0.5f, 0);
+        s.gameObject.transform.parent.position = finalPos;
+        yield return new WaitForSeconds(0.2f);
+        bc.offset = new Vector2(0, 0);
+        bc.size = new Vector2(1, 1);
+        for (int i = 0; i < 5; i++)
+        {
+            hitList(s.inside, manaUsed / 1.5f, "fire");
+            yield return new WaitForSeconds(1f);
+        }
+        destroySpell(s);
+    }
+    public IEnumerator fireEnter(int manaUsed, Spells s, Collider2D other)
+    {
+        if(other.TryGetComponent<EntityClass>(out EntityClass ec)) {
+            ec.getHit(manaUsed / 2.5f, "fire");
+        }
+        return null;
+    }
 }
+
 
 public struct SpellStruct
 {

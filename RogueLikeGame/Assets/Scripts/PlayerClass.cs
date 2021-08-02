@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 [System.Serializable]
 //TOOK OUT MonoBehaviour from extended, if something breaks this might be it
 public class PlayerClass : MonoBehaviour, EntityClass
@@ -28,6 +29,9 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int[] spells2 = new int[3];
     public bool menuOn = false;
     public MovementScript ms;
+    public int firstNormalIndex = 5;
+    public int lastNormalIndex = 15;//does not include hard rooms
+    public int[] bossSceneIndex = { 2, 2, 2 }; // put boss room scene indicies in here
     public int[] spells
     {
         get { return spells2; }
@@ -171,12 +175,17 @@ public class PlayerClass : MonoBehaviour, EntityClass
         pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
         int numScenes = SceneManager.sceneCountInBuildSettings;
         List<int> remainingScenes = new List<int>();
+        List<int> totalRemainingScenes = new List<int>();
         //CHANGE WHEN NEW ROOM: int i = ?
-        for (int i = 5; i < numScenes; i++)
+        for (int i = firstNormalIndex; i <= lastNormalIndex; i++)
         {
+            totalRemainingScenes.Add(i);
             remainingScenes.Add(i);
         }
-        //Debug.Log(remainingScenes.Count + "-----------------");
+        for(int i = lastNormalIndex + 1; i < numScenes; i++)
+        {
+            totalRemainingScenes.Add(i);
+        }
         orderScenes = new List<int>();
         /* while(remainingScenes.Count > 0)
          {
@@ -189,16 +198,49 @@ public class PlayerClass : MonoBehaviour, EntityClass
              orderScenes.Add(sceneIndex);
              remainingScenes.Remove(sceneIndex);
          }*/
-        int length = 4 + r.Next(6);
-        for (int i = 0; i < length; i++)
+        int length1 = 4 + r.Next(6);
+        for (int i = 0; i < length1; i++)
         {
          //   Debug.Log(remainingScenes.Count);
             int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
             orderScenes.Add(sceneIndex);
             remainingScenes.Remove(sceneIndex);
         }
-        orderScenes.Add(2);
+        orderScenes.Add(bossSceneIndex[0]);
         orderScenes.Insert(orderScenes.Count / 2, npcRoom());
+        remainingScenes.Clear();
+        foreach(int i in totalRemainingScenes)
+        {
+            remainingScenes.Add(i);
+        }
+        int length2 = 5 + r.Next(6);
+        for (int i = 0; i < length2; i++)
+        {
+            //   Debug.Log(remainingScenes.Count);
+            int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
+            orderScenes.Add(sceneIndex);
+            remainingScenes.Remove(sceneIndex);
+        }
+        orderScenes.Add(bossSceneIndex[1]);
+        orderScenes.Insert(orderScenes.Count - (length2 / 2), npcRoom());
+        foreach (int i in totalRemainingScenes)
+        {
+            remainingScenes.Add(i);
+        }
+        int length3 = 6 + r.Next(6);
+        for (int i = 0; i < length3; i++)
+        {
+            //   Debug.Log(remainingScenes.Count);
+            int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
+            orderScenes.Add(sceneIndex);
+            remainingScenes.Remove(sceneIndex);
+        }
+        orderScenes.Add(bossSceneIndex[2]);
+        orderScenes.Insert(orderScenes.Count - (length3 / 2), npcRoom());
+        foreach(int i in orderScenes)
+        {
+            Debug.Log(i);
+        }
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);
