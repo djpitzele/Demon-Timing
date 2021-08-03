@@ -101,6 +101,11 @@ public class floorCreator : MonoBehaviour
             {
                 player.GetComponent<PlayerClass>().curShade += 1;
                 player.GetComponent<PlayerClass>().theCanvas.GetComponentsInChildren<ShadeScript>()[0].updateShade();
+                if(TryGetComponent<HardRoomScript>(out HardRoomScript hr))
+                {
+                    hr.spawnSpell();
+                }
+                startChecking = false;
             }
         }
 

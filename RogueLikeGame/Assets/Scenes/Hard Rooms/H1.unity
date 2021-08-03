@@ -277,7 +277,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 554010659}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1697047991}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0e7868d3cb865847a2521728c6fb8c6, type: 3}
@@ -866,6 +866,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1697047991 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 968146726575111023, guid: 3f4682a33daf68b4ebe9282f04013b6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 554010659}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1697047993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697047991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c13c1a61f7235440871af8b46601b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spell: {fileID: 7435359415944120453, guid: 88fd4f3b2afe4874eacc4d64ff605aaf, type: 3}
+  spellind: 6
 --- !u!1001 &1757611164
 PrefabInstance:
   m_ObjectHideFlags: 0

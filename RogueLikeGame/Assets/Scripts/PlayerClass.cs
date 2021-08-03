@@ -237,10 +237,6 @@ public class PlayerClass : MonoBehaviour, EntityClass
         }
         orderScenes.Add(bossSceneIndex[2]);
         orderScenes.Insert(orderScenes.Count - (length3 / 2), npcRoom());
-        foreach(int i in orderScenes)
-        {
-            Debug.Log(i);
-        }
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(theCanvas);
         SceneManager.LoadScene(curSceneIndex);

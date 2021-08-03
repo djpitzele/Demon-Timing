@@ -28,7 +28,14 @@ public class SpellTracker : MonoBehaviour
     }
     public void hitList(List<Collider2D> cs, float dmg, string dmgType)
     {
+        Collider2D[] cds = new Collider2D[cs.Count];
+        int i = 0;
         foreach(Collider2D c in cs)
+        {
+            cds[i] = c;
+            i++;
+        }
+        foreach(Collider2D c in cds)
         {
             if(c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
             {
@@ -54,19 +61,23 @@ public class SpellTracker : MonoBehaviour
         putIn(freeZe, "Freeze", Resources.Load<Sprite>("Spells/SpellItems/FreezeItem"));
         putIn(rage, "Rage", Resources.Load<Sprite>("Spells/SpellItems/rageitem"));
         putIn(firePipe, "FirePipe", Resources.Load<Sprite>("Arrow")); // 5 //put animation into firepipe
+        putIn(arrowRain, "Arrow Rain", Resources.Load<Sprite>("Arrow"));
     }
 
     public void destroySpell(Spells s)
     {
         GameObject g = s.gameObject.transform.parent.gameObject;
-        s.onDestroy.Invoke(s.manaUsed, s);
+        if(s.runFunction[3])
+        {
+            s.onDestroy.Invoke(s.manaUsed, s);
+        }
         Destroy(g);
     }
     public IEnumerator lightning(int manaUsed, Spells s)
     {
+        s.showSpell(1, 1);
         Vector3 mouse = Input.mousePosition;
         s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
-        s.showSpell(1, 1);
         yield return new WaitForSeconds(.2f);
         hitList(s.inside, Convert.ToSingle(.5f * manaUsed), "lightning");
         yield return new WaitForSeconds(2f);
@@ -78,10 +89,16 @@ public class SpellTracker : MonoBehaviour
         s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse) + new Vector2(5f, 10f);
         s.showSpell(2, 2);
         yield return new WaitForSeconds(3f);
-        //hitList(s.inside, Convert.ToSingle((2 - Vector3.Distance(s.transform.position, ec.ecgetObject().transform.position)) * (manaUsed / 2.0f)), "explosion");
-        foreach(Collider2D c in s.inside)
+        Collider2D[] cds = new Collider2D[s.inside.Count];
+        int i = 0;
+        foreach (Collider2D c in s.inside)
         {
-            if(c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+            cds[i] = c;
+            i++;
+        }
+        foreach (Collider2D c in cds)
+        {
+            if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
             {
                 ec.getHit(Convert.ToSingle((2 - Vector3.Distance(s.transform.position, ec.ecgetObject().transform.position)) * (manaUsed / 2.0f)), "explosion");
             }
@@ -96,45 +113,25 @@ public class SpellTracker : MonoBehaviour
         destroySpell(s);
     }
     public IEnumerator freeZe(int manaUsed, Spells s)
-
     {
-        Vector3 mouse = Input.mousePosition;
-        s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
-       // Debug.Log("deez moved" + s.gameObject.transform.position);
-        //Debug.Log(sp);
-        float sp = 1f - (manaUsed / 120f);
-        s.showSpell(1, 3);
-        yield return new WaitForEndOfFrame();
         s.onDestroy = freezeDestroy;
         s.onEnter = freezeEnter;
         s.onExit = freezeExit;
-        List<Collider2D> cd = new List<Collider2D>();
-        foreach(Collider2D c in s.inside)
-        {
-            cd.Add(c);
-        }
-       
-        foreach (Collider2D c in cd)
-        {
-            EntityClass ec = c.gameObject.GetComponent<EntityClass>();
-            ec.setSpeed(sp);
-        }
+        Vector3 mouse = Input.mousePosition;
+        s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        float sp = 1f - (manaUsed / 120f);
+        s.showSpell(1, 3);
         yield return new WaitForSeconds(4f);
-        foreach (Collider2D c in cd)
-        {
-            EntityClass ec = c.gameObject.GetComponent<EntityClass>();
-            ec.setSpeed(1/sp);
-        }
         destroySpell(s);
     }
     public IEnumerator freezeEnter(int manaUsed, Spells s, Collider2D c)
     {
-        yield return null;
         if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
         {
             ec.setSpeed(1f - (manaUsed / 120f));
 
         }
+        yield return null;
     }
     public IEnumerator freezeExit(int manaUsed, Spells s, Collider2D c)
     {
@@ -159,30 +156,15 @@ public class SpellTracker : MonoBehaviour
     }
     public IEnumerator rage(int manaUsed, Spells s)
     {
-        Vector3 mouse = Input.mousePosition;
-        s.showSpell(3, 4);
-        yield return new WaitForEndOfFrame();
         s.onDestroy = rageDestroy;
         s.onEnter = rageEnter;
         s.onExit = rageExit;
+        Vector3 mouse = Input.mousePosition;
+        s.showSpell(3, 4);
+        yield return new WaitForEndOfFrame();
         s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
         float speedChange = 1 + (manaUsed / 85f);
-        List<Collider2D> cd = new List<Collider2D>();
-        foreach (Collider2D c in s.inside)
-        {
-            cd.Add(c);
-        }
-        foreach (Collider2D c in cd)
-        {
-            EntityClass ec = c.gameObject.GetComponent<EntityClass>();
-            ec.setSpeed(speedChange);
-        }
         yield return new WaitForSeconds(5f);
-        foreach (Collider2D c in cd)
-        {
-            EntityClass ec = c.gameObject.GetComponent<EntityClass>();
-            ec.setSpeed(1f / speedChange);
-        }
         destroySpell(s);
     }
     public IEnumerator rageEnter(int manaUsed, Spells s, Collider2D c)
@@ -217,10 +199,12 @@ public class SpellTracker : MonoBehaviour
     }
     public IEnumerator firePipe(int manaUsed, Spells s)
     {
-        s.onEnter = fireEnter;
         s.showSpell(0, 1); //change 1 to the animation
         Destroy(s.GetComponent<CircleCollider2D>());
         BoxCollider2D bc = s.gameObject.AddComponent<BoxCollider2D>();
+        bc.offset = new Vector2(0, 0);
+        bc.size = new Vector2(1, 1);
+        bc.isTrigger = true;
         Vector3 mouse = Input.mousePosition;
         mouse = Camera.main.ScreenToWorldPoint(mouse);
         GridLayout gl = floorCreator.main.transform.parent.GetComponent<GridLayout>();
@@ -228,8 +212,7 @@ public class SpellTracker : MonoBehaviour
         Vector3 finalPos = gl.CellToWorld(cellCoords) + new Vector3(0.5f, 0.5f, 0);
         s.gameObject.transform.parent.position = finalPos;
         yield return new WaitForSeconds(0.2f);
-        bc.offset = new Vector2(0, 0);
-        bc.size = new Vector2(1, 1);
+        s.onEnter = fireEnter;
         for (int i = 0; i < 5; i++)
         {
             hitList(s.inside, manaUsed / 1.5f, "fire");
@@ -239,10 +222,26 @@ public class SpellTracker : MonoBehaviour
     }
     public IEnumerator fireEnter(int manaUsed, Spells s, Collider2D other)
     {
-        if(other.TryGetComponent<EntityClass>(out EntityClass ec)) {
+        yield return null;
+        //Debug.Log("fire");
+        if(other.gameObject.TryGetComponent<EntityClass>(out EntityClass ec)) {
             ec.getHit(manaUsed / 2.5f, "fire");
         }
-        return null;
+    }
+    public IEnumerator arrowRain(int manaUsed, Spells s)
+    {
+        Vector3 mouse = Input.mousePosition;
+        s.gameObject.transform.parent.position = (Vector2)Camera.main.ScreenToWorldPoint(mouse);
+        s.showSpell(5, 6);
+        yield return new WaitForSeconds(.2f);
+        s.onUpdate = arrowRainUpdate;
+        yield return new WaitForSeconds(1f);
+        destroySpell(s);
+
+    }
+    public void arrowRainUpdate(int manaUsed, Spells s)
+    {
+        hitList(s.inside, (manaUsed * 8f)/(60f * 25f), "projectile");
     }
 }
 

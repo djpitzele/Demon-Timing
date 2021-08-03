@@ -53,12 +53,13 @@ public class RedDragonScript : MonoBehaviour
                 }
             }
             GameObject s = Instantiate(spellPrefab);
-            s.transform.position = new Vector3(10, 10, 0);
+            s.transform.position = new Vector3(11.5f, 10, 0);
             s.GetComponent<SpellItemScript>().spellIndex = 5;
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
             GetComponent<SpriteRenderer>().sprite = deadDragon;
             door.GetComponent<SpriteRenderer>().enabled = true;
             door.GetComponent<SpriteRenderer>().sprite = goldenDoor;
+            Destroy(this);
         }
         else if(timeTilFire <= 0)
         {

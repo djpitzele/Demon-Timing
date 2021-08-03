@@ -8,30 +8,39 @@ public class Spells : MonoBehaviour
     public List<Collider2D> inside = new List<Collider2D>();
     public delegate void UpdateFunction(int manaUsed, Spells s);
     public delegate IEnumerator ColliderFunction(int manaUsed, Spells s, Collider2D c);
-    public UpdateFunction onUpdate;
-    public ColliderFunction onEnter;
-    public ColliderFunction onExit;
-    public UpdateFunction onDestroy;
+    public UpdateFunction onUpdate2;
+    public UpdateFunction onUpdate
+    {
+        get { return onUpdate2; }
+        set { onUpdate2 = value;  runFunction[0] = true; }
+    }
+    public ColliderFunction onEnter2;
+    public ColliderFunction onEnter
+    {
+        get { return onEnter2; }
+        set { onEnter2 = value; runFunction[1] = true; }
+    }
+    public ColliderFunction onExit2;
+    public ColliderFunction onExit
+    {
+        get { return onExit2; }
+        set { onExit2 = value; runFunction[2] = true; }
+    }
+    public UpdateFunction onDestroy2;
+    public UpdateFunction onDestroy
+    {
+        get { return onDestroy2; }
+        set { onDestroy2 = value; runFunction[3] = true; }
+    }
+    public bool[] runFunction = { false, false, false, false };
     public void createSpell(SpellTracker.spell s, int manaUsed)
     {
         StartCoroutine(s.Invoke(manaUsed, this));
         this.manaUsed = manaUsed;   
     }
-    public  void EmptyUpdate(int manaUsed, Spells s)
-    {
-
-    }
-    public IEnumerator ColliderEmpty(int manaUsed, Spells s, Collider2D c)
-    {
-        yield return null;
-    }
     void Start()
     {
-        onUpdate = EmptyUpdate;
-        onEnter = ColliderEmpty;
-        onExit = ColliderEmpty;
-        onDestroy = EmptyUpdate;
-        //Debug.Log("deezClicked");
+        
     }
     public void showSpell(float radius, int index)
     {
@@ -47,32 +56,37 @@ public class Spells : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<EntityClass>(out EntityClass ec) && !(collision.isTrigger))
+        if (collision.TryGetComponent<EntityClass>(out EntityClass ec) && !(collision.isTrigger))
         {
             inside.Add(collision);
+            if (runFunction[1])
+            {
+                StartCoroutine(onEnter.Invoke(manaUsed, this, collision));
+            }
             //Debug.Log(collision.name);
         }
-        if (onEnter != null)
-        {
-            StartCoroutine(onEnter.Invoke(manaUsed, this, collision));
-        }
+        //Debug.Log("firebutbetter" + collision.name);
         //Debug.Log(collision.name);
 
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
+        if (other.gameObject.TryGetComponent<EntityClass>(out EntityClass ec) && !(other.isTrigger))
         {
             inside.Remove(other);
-
+            if (runFunction[2])
+            {
+                StartCoroutine(onExit.Invoke(manaUsed, this, other));
+            }
         }
-            StartCoroutine(onExit.Invoke(manaUsed, this, other));
         //  Debug.Log(other.name + "exit:'(");
 
     }
     public void Update()
     {
-      onUpdate.Invoke(manaUsed, this);
-       //Debug.Log(transform.position);
+        if(runFunction[0])
+        {
+            onUpdate.Invoke(manaUsed, this);
+        }
     }
 }

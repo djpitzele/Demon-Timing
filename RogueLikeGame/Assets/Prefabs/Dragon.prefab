@@ -97,3 +97,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pipes: []
+  fired: {fileID: 7790055733914027047, guid: c101004898c1db3449b8675687e77cba, type: 3}
+  Notfired: {fileID: 7066767661700882461, guid: c101004898c1db3449b8675687e77cba,
+    type: 3}
+  floorScript: {fileID: 0}
+  deadDragon: {fileID: 21300000, guid: 9de67cc37e0bafa4cadcd2eb96448279, type: 3}
+  goldenDoor: {fileID: 21300000, guid: d63551ce563219646b88125e5e54a200, type: 3}
+  door: {fileID: 0}
+  spellPrefab: {fileID: 7435359415944120453, guid: 88fd4f3b2afe4874eacc4d64ff605aaf,
+    type: 3}
