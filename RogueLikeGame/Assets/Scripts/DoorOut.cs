@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class DoorOut : MonoBehaviour
+public class DoorOut : MonoBehaviour, NPClass
 {
     public static DoorOut main;
     public floorCreator floor;
@@ -19,17 +20,19 @@ public class DoorOut : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter2D(Collider2D other)
+    public Interaction Interact()
     {
-        if (other.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pc))
+        PlayerClass pc = PlayerClass.main;
+        if(SceneManager.GetActiveScene().name == "Lobby")
         {
+            pc.updateChoices();
+        }
             if (floor.waves <= 0)
             {
                 pc.nextScene();
             }
                pc.theCanvas.transform.Find("Shade").GetComponent<UnityEngine.UI.Text>().enabled = false;
             pc.theCanvas.transform.Find("Gold").GetComponent<UnityEngine.UI.Text>().enabled = false;
-            
-        }
+        return null;
     }
 }

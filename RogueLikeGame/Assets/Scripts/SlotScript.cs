@@ -43,7 +43,7 @@ public class SlotScript : MonoBehaviour, NPClass
    
                 if (b)
                 {
-                    Debug.Log("Number" + (i + 1).ToString());
+                    //Debug.Log("Number" + (i + 1).ToString());
                     transform.Find("Number" + (i+1).ToString()).GetComponent<SlotNumber>().number = r.Next(9);
                    
                     

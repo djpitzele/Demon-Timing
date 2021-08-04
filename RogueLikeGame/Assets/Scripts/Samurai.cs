@@ -112,4 +112,8 @@ public class Samurai : MonoBehaviour, RangedClass
     {
         return this;
     }
+    public void setFacing(int n)
+    {
+
+    }
 }

@@ -12,6 +12,7 @@ public class SpellTracker : MonoBehaviour
     public List<SpellStruct> spells = new List<SpellStruct>();
     public static SpellTracker main;
     public GameObject spellPrefab;
+    public float spellDmg = 1f; //1 = default spell damage
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +40,7 @@ public class SpellTracker : MonoBehaviour
         {
             if(c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
             {
-                ec.getHit(dmg, dmgType);
+                ec.getHit(dmg * spellDmg, dmgType);
             }
         }
     }
@@ -100,7 +101,7 @@ public class SpellTracker : MonoBehaviour
         {
             if (c.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
             {
-                ec.getHit(Convert.ToSingle((2 - Vector3.Distance(s.transform.position, ec.ecgetObject().transform.position)) * (manaUsed / 2.0f)), "explosion");
+                ec.getHit(Convert.ToSingle((2 - Vector3.Distance(s.transform.position, ec.ecgetObject().transform.position)) * (manaUsed / 2.0f)) * spellDmg, "explosion");
             }
         }
         yield return new WaitForSeconds(0.2f);

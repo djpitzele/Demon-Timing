@@ -17,5 +17,10 @@ public class SaveGame
     public float time;
     public int curShade;
     public int[] spells = new int[3];
+    public SkillTree st = new SkillTree();
+}
 
+public class SkillTree
+{
+    public int[] choices = new int[5]; //0 index = bought first choice? 1 index = 0, 1, or 2: first choice? remaining 3: levels of the last progression
 }

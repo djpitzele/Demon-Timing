@@ -11,12 +11,37 @@ public class RangedCommander : MonoBehaviour, RangedClass
     private float curHP;
     public float maxHP = 10;
     public float dmg = 5;
+    public int facing;
     // Start is called before the first frame update
     void Start()
     {
         cooldown = 0f;
         curHP = maxHP;
+        if(player.transform.position.x - transform.position.x >= 0)
+        {
+            setFacing(1);
+        }
+        else
+        {
+            setFacing(-1);
+        }
     }
+
+    public void setFacing(int n)
+    {
+        if (facing == n)
+        {
+            return;
+        }
+        else
+        {
+            Vector3 curScale = transform.localScale;
+            curScale.x *= -1;
+            transform.localScale = curScale;
+            facing = n;
+        }
+    }
+
     public void setSpeed(float s)
     {
         GetComponent<RangedAttacker>().meleeSpeed *= s;

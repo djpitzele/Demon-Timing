@@ -14,7 +14,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public float maxMana;
     public float maxHP;
     public float curHP2;
-    private float dmg;
+    public float dmg;
     public int gold2;
     public int totalEnemies;
     public int totalkills;
@@ -32,6 +32,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int firstNormalIndex = 5;
     public int lastNormalIndex = 15;//does not include hard rooms
     public int[] bossSceneIndex = { 2, 2, 2 }; // put boss room scene indicies in here
+    public delegate IEnumerator ability();
+    public ability playerAbility;
     public int[] spells
     {
         get { return spells2; }
@@ -265,6 +267,12 @@ public class PlayerClass : MonoBehaviour, EntityClass
         //DIE SOMETIME
         //Debug.Log(this.getCurHP());
     }
+
+    public void updateChoices()
+    {
+        int[] choices = SaveGame.current.st.choices;
+    }
+
      public void setPlayer(GameObject g)
     {
         Debug.Log("deez");
