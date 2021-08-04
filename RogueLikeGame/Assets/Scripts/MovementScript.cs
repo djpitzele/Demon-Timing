@@ -38,7 +38,14 @@ public class MovementScript : MonoBehaviour
         //pauseMenu = canvas.transform.Find("PauseMenu").gameObject;
         canvas.transform.Find("ManaUsage").GetComponent<ManaUsageScript>().updateMana(this, pc);
     }
-
+    public void dash()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
+        //Debug.Log(mousePos);
+        rb.MovePosition(Vector3.MoveTowards(transform.position, mousePos, 9));
+        cooldown = 1;
+    }
     private void Update()
     {
         if (Input.GetAxis("Reset") != 0 && menuCooldown <= 0)
@@ -68,6 +75,10 @@ public class MovementScript : MonoBehaviour
         {
             GetComponent<PlayerClass>().nextScene();
         }
+        if(Input.GetAxis("Ability") != 0)
+        {
+            StartCoroutine(PlayerClass.main.playerAbility.Invoke());
+        }
         if (timeTilmovement <= 0)
         {
 
@@ -93,13 +104,9 @@ public class MovementScript : MonoBehaviour
                 }
                 facing = -1;
             }
-            if (cooldown <= 0 && UnityEngine.Input.GetAxis("Jump") == 1)
+            if (cooldown <= 0 && Input.GetAxis("Jump") == 1)
             {
-                Vector3 mousePos = Input.mousePosition;
-                mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-                //Debug.Log(mousePos);
-                rb.MovePosition(Vector3.MoveTowards(transform.position, mousePos, 9));
-                cooldown = 1;
+                dash();
             }
             else
             {

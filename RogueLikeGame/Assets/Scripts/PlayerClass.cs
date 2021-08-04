@@ -24,6 +24,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public System.Random r = new System.Random();
     public GameObject theCanvas;
     public GameObject pauseMenu;
+    public GameObject skillTreeMenu;
     public int curShade;
     public bool dead = false;
     public int[] spells2 = new int[3];
@@ -34,6 +35,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int[] bossSceneIndex = { 2, 2, 2 }; // put boss room scene indicies in here
     public delegate IEnumerator ability();
     public ability playerAbility;
+    public float abilityCooldown = 0f;
     public int[] spells
     {
         get { return spells2; }
@@ -173,6 +175,8 @@ public class PlayerClass : MonoBehaviour, EntityClass
         HitScreen = theCanvas.transform.Find("RedHit").gameObject.GetComponent<RawImage>();
         theCanvas.transform.Find("Gold").gameObject.GetComponent<Text>().text = "Gold: " + gold;
         theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);
+        skillTreeMenu = theCanvas.transform.Find("Skill Tree").gameObject;
+        skillTreeMenu.SetActive(false);
         HitScreen.enabled = false;
         pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
         int numScenes = SceneManager.sceneCountInBuildSettings;
@@ -263,7 +267,10 @@ public class PlayerClass : MonoBehaviour, EntityClass
     // Update is called once per frame
     void Update()
     {
-
+        if(abilityCooldown > 0)
+        {
+            abilityCooldown -= Time.deltaTime;
+        }
         //DIE SOMETIME
         //Debug.Log(this.getCurHP());
     }

@@ -34,7 +34,7 @@ public class ShadyFigure : MonoBehaviour, NPClass
         else if(interactions == 1)
         {
             interactions++;
-            bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
+            /*bms.purchaseActions = new List<UnityEngine.Events.UnityAction>();
             bms.purchaseActions.Add(UpMelee);
             bms.purchaseActions.Add(UpHealth);
             bms.purchaseActions.Add(UpMana);
@@ -47,9 +47,8 @@ public class ShadyFigure : MonoBehaviour, NPClass
             bms.costs.Add(FindCostMelee().ToString() + " Shade");
             bms.costs.Add(FindCostHealth().ToString() + " Shade");
             bms.costs.Add(FindCostMana().ToString() + " Shade");
-            bms.gameObject.SetActive(true);
-            
-
+            bms.gameObject.SetActive(true);*/
+            PlayerClass.main.skillTreeMenu.SetActive(true);
         }
         else if (interactions == 2)
         {
@@ -64,7 +63,7 @@ public class ShadyFigure : MonoBehaviour, NPClass
         return null;
     }
 
-    public void UpHealth()
+   /* public void UpHealth()
     {
         if (PermVar.current.Shade >= FindCostHealth())
         {
@@ -104,11 +103,12 @@ public class ShadyFigure : MonoBehaviour, NPClass
             bms.options[0].gameObject.GetComponentsInChildren<UnityEngine.UI.Text>()[1].text = FindCostMelee().ToString() + " Shade";
         }
         
-       /* if(TryGetComponent<Animator>(out Animator a) && a.GetBool("Talking"))
+        if(TryGetComponent<Animator>(out Animator a) && a.GetBool("Talking"))
         {
             a.SetBool("Talking", true);
-        }*/
+        }
     }
+*/
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pcg))
@@ -122,9 +122,9 @@ public class ShadyFigure : MonoBehaviour, NPClass
         if (collision.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pc))
         {
             inRange = false;
-            bms.transform.parent.Find("Interaction").gameObject.SetActive(false);
-            bms.gameObject.SetActive(false);
-            bms.destroyAllOptions();
+           // bms.transform.parent.Find("Interaction").gameObject.SetActive(false);
+            PlayerClass.main.skillTreeMenu.SetActive(false);
+            //bms.destroyAllOptions();
             interactions = 0;
         }
     }
