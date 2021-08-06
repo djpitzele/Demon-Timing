@@ -53,6 +53,7 @@ MonoBehaviour:
   facing: 1
   player: {fileID: 0}
   inside: []
+  stunned: 0
 --- !u!212 &6690261486796932312
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -93,7 +94,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ba9073198b7d78a4c9a25be82d8fce57, type: 3}
+  m_Sprite: {fileID: 944857045956645628, guid: ef02329c60be31a488d12eac96c87b19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -156,8 +157,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78125, y: 0.78125}
+    pivot: {x: 0.4817251, y: 0.5402046}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.78125, y: 0.78125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -165,17 +166,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.21911347, y: 0.3397532}
-      - {x: 0.14425693, y: 0.26562497}
-      - {x: -0.18931736, y: 0.18204936}
-      - {x: -0.21548018, y: 0.098473705}
-      - {x: -0.24164298, y: -0.051962182}
+    - - {x: 0.020112993, y: 0.058167458}
+      - {x: 0.04803718, y: 0.21428606}
+      - {x: -0.07335057, y: 0.3099755}
+      - {x: -0.34748644, y: 0.013739613}
+      - {x: -0.30503052, y: -0.11836815}
       - {x: -0.26199174, y: -0.14135191}
       - {x: -0.08466604, y: -0.25181735}
-      - {x: 0.067950636, y: -0.28742757}
+      - {x: 0.03985088, y: -0.23303136}
       - {x: 0.12385221, y: -0.09795302}
-      - {x: 0.26199168, y: -0.12972373}
-      - {x: 0.26199168, y: 0.27289298}
+      - {x: 0.22807246, y: -0.044081166}
+      - {x: 0.21686825, y: 0.008394986}
 --- !u!61 &1773579536
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -192,8 +193,8 @@ BoxCollider2D:
   m_Offset: {x: 0.39611885, y: 0.04530108}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.78125, y: 0.78125}
+    pivot: {x: 0.4817251, y: 0.5402046}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.78125, y: 0.78125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -215,13 +216,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chance:
-  - 0.4
+  - 0.5
   - 0.3
   spawned:
   - {fileID: 2300270610071229138, guid: e4cd774aeabf98740b8e0e1ca55b04c2, type: 3}
   - {fileID: 2169882276682997496, guid: ba6834f75e6f23f42be03bc343c097f9, type: 3}
-  min: 0100000014000000
-  max: 0400000014000000
+  min: 0300000014000000
+  max: 0600000014000000
 --- !u!95 &9023606641780134005
 Animator:
   serializedVersion: 3

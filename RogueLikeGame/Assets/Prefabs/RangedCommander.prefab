@@ -180,7 +180,8 @@ MonoBehaviour:
     type: 3}
   projSpeed: 125
   maxHP: 10
-  dmg: 5
+  dmg: 10
+  facing: 0
 --- !u!95 &7590952036682166285
 Animator:
   serializedVersion: 3

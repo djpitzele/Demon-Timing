@@ -10,6 +10,7 @@ public class MovementScript : MonoBehaviour
     //cooldown is the cooldown on the dash
     public float cooldown = 0;
     public GameObject canvas;
+    public GameObject sword;
     public float speed = 11f;
     private static double pi = Math.PI;
     private float fpi = Convert.ToSingle(pi);
@@ -29,6 +30,7 @@ public class MovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sword = transform.Find("Sword").gameObject;
         pc = GetComponent<PlayerClass>();
         interaction = canvas.transform.Find("Interaction").gameObject;
         interaction.SetActive(false);
@@ -89,7 +91,7 @@ public class MovementScript : MonoBehaviour
                     Vector3 curScale = transform.localScale;
                     curScale.x *= -1;
                     transform.localScale = curScale;
-                    transform.Find("Sword").gameObject.GetComponent<swordMovement>().attackPosition.x *= -1;
+                    sword.GetComponent<swordMovement>().attackPosition.x *= -1;
                 }
                 facing = 1;
             }
@@ -100,7 +102,7 @@ public class MovementScript : MonoBehaviour
                     Vector3 curScale = transform.localScale;
                     curScale.x *= -1;
                     transform.localScale = curScale;
-                    transform.Find("Sword").gameObject.GetComponent<swordMovement>().attackPosition.x *= -1;
+                    sword.gameObject.GetComponent<swordMovement>().attackPosition.x *= -1;
                 }
                 facing = -1;
             }

@@ -15,6 +15,7 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
     public int facing = 1;
     public GameObject player;
     public List<Collider2D> inside;
+    public bool stunned;
     /*public SoldierCommander(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
@@ -48,7 +49,7 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
     // Update is called once per frame
     void Update()
     {
-        if(tilAttack > 0)
+        if(tilAttack > 0 && !stunned)
         {
             tilAttack -= Time.deltaTime;
         }
@@ -56,6 +57,7 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
     }
     public IEnumerator Attack(EntityClass ec)
     {
+
         //Debug.Log("attacks");
         tilAttack = 1;
         GetComponent<Animator>().SetTrigger("Attack");
@@ -92,6 +94,19 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
         {
             die();
         }
+        else { StartCoroutine(ResetColor(GetComponent<SpriteRenderer>(), dm)); }
+        
+    }
+    private IEnumerator ResetColor(SpriteRenderer sr, float dm)
+    {
+        float n = GetComponent<MeleeAttacker>().meleeSpeed;
+        stunned = true;
+        GetComponent<MeleeAttacker>().meleeSpeed = 0;
+        sr.color = new Color(1, .5f, .5f, 1);
+        yield return new WaitForSeconds(dm / 10f);
+        sr.color = Color.white;
+        stunned = false;
+        GetComponent<MeleeAttacker>().meleeSpeed = n;
     }
     public void die()
     {

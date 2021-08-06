@@ -167,7 +167,7 @@ public class RangedAttacker : MonoBehaviour
         }
         timeTilFind -= Time.deltaTime;
         //Debug.Log(timeTilFind);
-        if ((myPlayer.transform.position.x - transform.position.x) >= 0)
+        if ((endPos.x - transform.position.x) >= 0)
         {
             GetComponent<RangedClass>().setFacing(1);
         }

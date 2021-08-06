@@ -27,9 +27,19 @@ public class MartieScript : MonoBehaviour, NPClass
         r = new System.Random();
         int total = SpellTracker.main.spells.Count;
         //Debug.Log(total);
-        s1 = r.Next(total);
-        s2 = r.Next(total);
-        s3 = r.Next(total);
+        List<int> s = new List<int>();
+        for(int i = 1;i<total; i++)
+        {
+            s.Add(i);
+        }
+
+        
+        s1 = s[r.Next(total)];
+        s.Remove(s1);
+        s2 = s[r.Next(total-1)];
+        s.Remove(s2);
+        s3 = s[r.Next(total-2)];
+        s.Remove(s3);
         p1 = 10 + r.Next(25);
         p2 = 10 + r.Next(30);
         p3 = 10 + r.Next(40);

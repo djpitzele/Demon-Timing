@@ -65,6 +65,13 @@ public class floorCreator : MonoBehaviour
             genRowSpawners(i);
             //Debug.Log(i);
         }
+        if (initialSpawnersLeft == spawnersLeft)
+        {
+            Vector3Int v = new Vector3Int(width, height, 0);
+            SpawnerTile t = chooseSpawner(v);
+            spawnerTiles.Add(t);
+            tm.SetTile(v, t);
+        }
         genWalls();
         int larger = Math.Max(width, height);
         camera.transform.position = new Vector3(width / 2.0f, height / 2.0f, -10);
@@ -135,6 +142,7 @@ public class floorCreator : MonoBehaviour
                 }
             }
         }
+
     }
     public void genWalls()
     {
@@ -229,6 +237,12 @@ public class floorCreator : MonoBehaviour
             {
                 d++;
             }
+        }
+        if(timeBetween.Count == 1)
+        {
+            timeBetween[0]--
+                ;
+            timeBetween.Add(1);
         }
         return timeBetween;
     }

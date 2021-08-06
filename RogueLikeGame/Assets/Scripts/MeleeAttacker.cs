@@ -39,8 +39,9 @@ public class MeleeAttacker : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        bool b = mandist(ourWorldToCell(transform.position), endPos);
         //Debug.Log(path[0]);
-        if (timeTilFind <= 0 /*&& (ourWorldToCell(myPlayer.transform.position) != oldPlayerPos)*/ && ourWorldToCell(transform.position) != endPos)
+        if (timeTilFind <= 0 /*&& (ourWorldToCell(myPlayer.transform.position) != oldPlayerPos)*/ && b)
         {
             
             /*RaycastHit2D[] results = new RaycastHit2D[1];
@@ -126,15 +127,22 @@ public class MeleeAttacker : MonoBehaviour
                 //Debug.Log(j);
                 j++;
             }
-            if(openList.Count == 0)
+            if ((endPos.x - transform.position.x) >= 0)
             {
-                //Debug.Log("boxed like a fish");
-                // Destroy(this);
+                GetComponent<MeleeClass>().setFacing(1);
+            }
+            else
+            {
+                GetComponent<MeleeClass>().setFacing(-1);
             }
             goingTowards = 0;
             path = curPath;
             timeTilFind = .5f;
             //Debug.Log("Y" + goingTowards + " " + path.Count);
+        }
+        else if(!b)
+        {
+            GetComponent<Rigidbody2D>().position = Vector3.MoveTowards(transform.position, myPlayer.transform.position, meleeSpeed * Time.fixedDeltaTime);
         }
         /*else if(ourWorldToCell(transform.position) == endPos)
         {
@@ -160,16 +168,14 @@ public class MeleeAttacker : MonoBehaviour
         }
         timeTilFind -= Time.deltaTime;
         //Debug.Log(timeTilFind);
-        if((myPlayer.transform.position.x - transform.position.x) >= 0)
-        {
-            GetComponent<MeleeClass>().setFacing(1);
-        }
-        else
-        {
-            GetComponent<MeleeClass>().setFacing(-1);
-        }
-    }
 
+    }
+    bool mandist(Vector2 v1, Vector2 v2)
+    {
+        Vector2 v3 = v1 - v2;
+        int dist = (int)(Math.Abs((decimal)v3.x) + Math.Abs((decimal)(v3.y)));
+        return (dist > 1);
+    }
     public void moveTowardsNext()
     {
         Vector2 nextPoint = path[goingTowards];

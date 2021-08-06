@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -4041995495816609786}
   - component: {fileID: 5630108277055793553}
   - component: {fileID: 440469276445856165}
+  - component: {fileID: 8071913044967484215}
   m_Layer: 0
   m_Name: Samurai
   m_TagString: Untagged
@@ -227,3 +228,21 @@ PolygonCollider2D:
       - {x: 0.35757232, y: -0.28839123}
       - {x: 0.20221645, y: -0.34959355}
       - {x: 0.0094690025, y: -0.3515235}
+--- !u!114 &8071913044967484215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5198380654971402548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 896d8eed48f19584cbf251aff5cfc16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chance:
+  - 1
+  spawned:
+  - {fileID: 2300270610071229138, guid: e4cd774aeabf98740b8e0e1ca55b04c2, type: 3}
+  min: 03000000
+  max: 0c000000

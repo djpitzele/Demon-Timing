@@ -16,6 +16,7 @@ public class TileSetter : MonoBehaviour
     public Tilemap tm = new Tilemap();
     private HashSet<Vector2> pillarSet;
     System.Random r = new System.Random();
+    public int streak = 0;
     public int getWidth()
     {
         return width;
@@ -90,7 +91,7 @@ public class TileSetter : MonoBehaviour
     }
     public void genRowPillars(int curHeight)
     {
-        int streak = 0;
+        //streak += 0;
         //float totalPillars = pillarsLeft;
         for(int i = 0; i < width; i++)
         {

@@ -277,11 +277,17 @@ public class PlayerClass : MonoBehaviour, EntityClass
 
     public void updateChoices()
     {
-        int[] choices = SaveGame.current.st.choices;
+        int[] choices = SaveGame.current.choices;
     }
 
      public void setPlayer(GameObject g)
     {
         Debug.Log("deez");
+    }
+    private IEnumerator ResetColor(SpriteRenderer sr)
+    {
+        sr.color = new Color(1, .5f, .5f, 1);
+        yield return new WaitForSeconds(.5f);
+        sr.color = Color.white;
     }
 }

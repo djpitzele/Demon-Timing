@@ -21,13 +21,13 @@ public class SkillTreeScript : MonoBehaviour
         {
             transform.GetChild(i).gameObject.SetActive(true);
         }
-        SaveGame.current.st.choices[0] = 1;
+        SaveGame.current.choices[0] = 1;
     }
     public void MeleeAbilityClick()
     {
         pc.playerAbility = MeleeAbility;
         //st.Find("Melee 1").gameObject.SetActive(true);
-        SaveGame.current.st.choices[1] = 0;
+        SaveGame.current.choices[1] = 0;
     }
     public IEnumerator MeleeAbility()
     {
@@ -40,7 +40,7 @@ public class SkillTreeScript : MonoBehaviour
     {
         pc.playerAbility = SpeedAbility;
         //st.Find("Speed Ability").Find("Speed 1").gameObject.SetActive(true);
-        SaveGame.current.st.choices[1] = 1;
+        SaveGame.current.choices[1] = 1;
     }
     public IEnumerator SpeedAbility()
     {
@@ -51,7 +51,7 @@ public class SkillTreeScript : MonoBehaviour
     {
         pc.playerAbility = ManaAbility;
         //skill1.Find("Mana Ability").Find("Mana 1").gameObject.SetActive(true);
-        SaveGame.current.st.choices[1] = 2;
+        SaveGame.current.choices[1] = 2;
     }
     public IEnumerator ManaAbility()
     {

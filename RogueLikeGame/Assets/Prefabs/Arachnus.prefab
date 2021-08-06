@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -1165859178018327981}
   - component: {fileID: 4881582886672728823}
   - component: {fileID: 1644245846286080016}
+  - component: {fileID: 671546699151902430}
   m_Layer: 0
   m_Name: Arachnus
   m_TagString: Untagged
@@ -49,7 +50,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.012198687, y: 0.10229951}
+  m_Offset: {x: -0.021539986, y: -0.16859847}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -60,7 +61,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6633153, y: 0.7166501}
+  m_Size: {x: 0.50264466, y: 0.4513569}
   m_EdgeRadius: 0
 --- !u!212 &1782398070008912178
 SpriteRenderer:
@@ -190,3 +191,21 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &671546699151902430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569663351199239505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 896d8eed48f19584cbf251aff5cfc16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chance:
+  - 0.6
+  spawned:
+  - {fileID: 2300270610071229138, guid: e4cd774aeabf98740b8e0e1ca55b04c2, type: 3}
+  min: 04000000
+  max: 08000000

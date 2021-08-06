@@ -13,6 +13,7 @@ public class Samurai : MonoBehaviour, RangedClass
     public float speed = 5000;
     public Rigidbody2D rb;
     public float cooldown = 0;
+    public bool stunned;
     public int facing
     {
         get { return facing2; }
@@ -27,7 +28,11 @@ public class Samurai : MonoBehaviour, RangedClass
 
     void Update()
     {
-        cooldown -= Time.deltaTime;
+        if (cooldown > 0 && !stunned) ;
+        {
+            cooldown -= Time.deltaTime;
+        }
+        
     }
     public void setSpeed(float s)
     {
@@ -35,12 +40,25 @@ public class Samurai : MonoBehaviour, RangedClass
     }
     public void getHit(float dm, string type)
     {
+       
         curHP -= dm;
         if (curHP <= 0)
         {
-            die();
             PlayerClass.main.totalEnemies--;
+            die();
         }
+       else { StartCoroutine(ResetColor(GetComponent<SpriteRenderer>(), dm)); }
+    }
+    private IEnumerator ResetColor(SpriteRenderer sr, float dm)
+    {
+        float n = GetComponent<RangedAttacker>().meleeSpeed;
+        stunned = true;
+        GetComponent<RangedAttacker>().meleeSpeed = 0;
+        sr.color = new Color(1, .5f, .5f, 1);
+        yield return new WaitForSeconds(dm / 10f);
+        sr.color = Color.white;
+        stunned = false;
+        GetComponent<RangedAttacker>().meleeSpeed = n;
     }
     public void UpdateFacing(int oldFacing, int newFacing)
     {

@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: ef02329c60be31a488d12eac96c87b19
+guid: deb42a6f17056be4c867298dc57af09b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 944857045956645628
-    second: soldiercommanderAnim_0
+      213: 3339795922689957859
+    second: frozenSoldierCommanderanim_0
   - first:
-      213: 604052194851146936
-    second: soldiercommanderAnim_1
+      213: -5890227329177869249
+    second: frozenSoldierCommanderanim_1
   - first:
-      213: 4759856451316701085
-    second: soldiercommanderAnim_2
+      213: 3433947898470142955
+    second: frozenSoldierCommanderanim_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -77,7 +77,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -89,7 +89,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,7 +101,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +113,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -125,7 +125,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: soldiercommanderAnim_0
+      name: frozenSoldierCommanderanim_0
       rect:
         serializedVersion: 2
         x: 0
@@ -144,20 +144,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.4817251, y: 0.5402046}
+      pivot: {x: 0.39400584, y: 0.5182748}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf255cb2a7ecc1d00800000000000000
-      internalID: 944857045956645628
+      spriteID: 3ef9b3a52b6595e20800000000000000
+      internalID: 3339795922689957859
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldiercommanderAnim_1
+      name: frozenSoldierCommanderanim_1
       rect:
         serializedVersion: 2
         x: 32
@@ -165,20 +165,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.4817251, y: 0.5402046}
+      pivot: {x: 0.39400578, y: 0.5182748}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bcc5e35546026800800000000000000
-      internalID: 604052194851146936
+      spriteID: f342e0ea375b14ea0800000000000000
+      internalID: -5890227329177869249
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: soldiercommanderAnim_2
+      name: frozenSoldierCommanderanim_2
       rect:
         serializedVersion: 2
         x: 64
@@ -186,14 +186,14 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.4817251, y: 0.5402046}
+      pivot: {x: 0.39766073, y: 0.5073099}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d97559249386e0240800000000000000
-      internalID: 4759856451316701085
+      spriteID: be313897b65d7af20800000000000000
+      internalID: 3433947898470142955
       vertices: []
       indices: 
       edges: []

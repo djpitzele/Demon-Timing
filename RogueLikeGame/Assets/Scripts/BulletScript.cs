@@ -31,13 +31,13 @@ public class BulletScript : MonoBehaviour, EntityClass
         
         if(collision.transform != transform.parent && collision.gameObject.TryGetComponent<EntityClass>(out EntityClass ec))
         {
-            Debug.Log(collision.gameObject.name + "---" + this.gameObject.layer + (collision.transform != transform.parent));
+            //Debug.Log(collision.gameObject.name + "---" + this.gameObject.layer + (collision.transform != transform.parent));
             ec.getHit(dmg * checkPlayer(collision), "projectile");
             die();
         }
         else if(collision.transform != transform.parent)
         {
-            Debug.Log("hitwall" + collision.gameObject.name);
+            //Debug.Log("hitwall" + collision.gameObject.name);
             die();
         }
        

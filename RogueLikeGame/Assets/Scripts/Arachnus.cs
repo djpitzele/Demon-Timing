@@ -11,6 +11,7 @@ public class Arachnus : MonoBehaviour, MeleeClass
     private float dmg;
     private float tilAttack = 0;
     private GameObject player;
+    public bool stunned;
     /*public SoldierCommander(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
@@ -31,7 +32,7 @@ public class Arachnus : MonoBehaviour, MeleeClass
     {
         Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();
         //r.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
-        dmg = 10;
+        dmg = 5;
         curMana = maxMana;
         curHP = maxHP;
         //Debug.Log(curHP);
@@ -50,7 +51,7 @@ public class Arachnus : MonoBehaviour, MeleeClass
     // Update is called once per frame
     void Update()
     {
-        if (tilAttack > 0)
+        if (tilAttack > 0 && !stunned)
         {
             tilAttack -= Time.deltaTime;
         }
@@ -58,12 +59,14 @@ public class Arachnus : MonoBehaviour, MeleeClass
 
     public void getHit(float dm, string typeHit)
     {
+       
         //Debug.Log("soldier got hit for " + dm + typeHit + "--" + curHP);
         curHP -= dm;
         if (curHP <= 0)
         {
             die();
         }
+       else { StartCoroutine(ResetColor(GetComponent<SpriteRenderer>(), dm)); }
     }
     public void die()
     {
@@ -81,5 +84,16 @@ public class Arachnus : MonoBehaviour, MeleeClass
     public GameObject ecgetObject()
     {
         return this.gameObject;
+    }
+    private IEnumerator ResetColor(SpriteRenderer sr, float dm)
+    {
+        float n = GetComponent<MeleeAttacker>().meleeSpeed;
+        stunned = true;
+        GetComponent<MeleeAttacker>().meleeSpeed = 0;
+        sr.color = new Color(1, .5f, .5f, 1);
+        yield return new WaitForSeconds(dm/10f);
+        sr.color = Color.white;
+        stunned = false;
+        GetComponent<MeleeAttacker>().meleeSpeed = n;
     }
 }
