@@ -18,18 +18,20 @@ public class swordMovement : MonoBehaviour
     private Quaternion normalRotation;
     private Quaternion currentRotation;
     //private int facing = 1;
-    private float kb = 400;
+    public float kb = 400;
     private bool isStab;
     public float manaRegen = 5;
     public PlayerClass pc;
     private float swordVelocity = 10f;
     private float flyingSwordSpeed = 500f;
     private float inWall = 1f;
+    public float totalAttackCooldown;
     public Rigidbody2D rb;
     //public FixedJoint2D fj;
     // Start is called before the first frame update
     void Start()
     {
+        totalAttackCooldown = 0.5f;
         //fj = GetComponent<FixedJoint2D>();
         //fj.connectedBody = transform.parent.GetComponent<Rigidbody2D>();
         normalRotation = transform.rotation;
@@ -49,7 +51,7 @@ public class swordMovement : MonoBehaviour
     {
         //facing = thePlayer.GetComponent<MovementScript>().getFacing();
         //Debug.Log(thePlayer.GetComponent<PlayerClass>().getFacing());
-        if (attackTime <= -0.5f && Input.GetAxis("Attack") > 0 && !isStab)
+        if (attackTime <= -1 * totalAttackCooldown && Input.GetAxis("Attack") > 0 && !isStab)
         {
             isStab = false;
             //rb.simulated = true;
@@ -59,7 +61,7 @@ public class swordMovement : MonoBehaviour
             currentRotation = new Quaternion(0, 0, 0, 1);
             GetComponent<PolygonCollider2D>().enabled = true;
         }
-        else if(attackTime <= -0.5f && Input.GetAxis("Attack") < 0 && !(isStab))
+        else if(attackTime <= -1 * totalAttackCooldown && Input.GetAxis("Attack") < 0 && !(isStab))
         {
             //fj.enabled = false;
             GetComponent<PolygonCollider2D>().enabled = true;

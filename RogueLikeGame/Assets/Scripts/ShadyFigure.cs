@@ -129,7 +129,7 @@ public class ShadyFigure : MonoBehaviour, NPClass
         }
     }
 
-    private static int FindCostHealth()
+    /*private static int FindCostHealth()
     {
         return 1 + (int)Math.Pow(PermVar.current.healthBuff / 5, 2.43f);
     }
@@ -142,5 +142,5 @@ public class ShadyFigure : MonoBehaviour, NPClass
     private static int FindCostMana()
     {
         return 1 + (int)Math.Pow(PermVar.current.manaBuff / 5, 1.38);
-    }
+    }*/
 }

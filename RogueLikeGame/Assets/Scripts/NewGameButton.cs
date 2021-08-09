@@ -65,9 +65,9 @@ public class NewGameButton : MonoBehaviour
             c.GetComponentsInChildren<KillCounter>()[0].timeSpent = SaveGame.current.time;
             c.transform.Find("Gold").GetComponent<Text>().text = "Gold: " + SaveGame.current.gold;
             pc.curHP = SaveGame.current.curHP;
-            pc.maxHP = 100 + PermVar.current.healthBuff;
+            pc.maxHP = 100;
             pc.curMana = SaveGame.current.curMana;
-            pc.maxMana = 100 + PermVar.current.manaBuff;
+            pc.maxMana = 100;
             pc.gold = SaveGame.current.gold;
             pc.totalkills = SaveGame.current.totalKills;
             pc.orderScenes = SaveGame.current.orderScenes;

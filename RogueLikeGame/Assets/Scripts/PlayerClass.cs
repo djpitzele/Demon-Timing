@@ -146,7 +146,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
 
     public float getDmg()
     {
-        return dmg * (1 + PermVar.current.meleeBuff);
+        return dmg;
     }
     public GameObject ecgetObject()
     {
@@ -280,7 +280,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
 
     public void updateChoices()
     {
-        int[] choices = SaveGame.current.choices;
+        bool[][] choices = SaveGame.current.choices;
     }
 
      public void setPlayer(GameObject g)

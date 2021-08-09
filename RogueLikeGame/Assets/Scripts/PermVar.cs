@@ -8,8 +8,8 @@ public class PermVar
 {
     public static PermVar current;
     public int Shade;
-    public float meleeBuff;
+    /*public float meleeBuff;
     //healthBuff and manaBuff are the amount of health on top of 100, meleeBuff is the % damage added
     public int healthBuff;
-    public int manaBuff;
+    public int manaBuff;*/
 }
