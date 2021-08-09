@@ -76,9 +76,10 @@ public class floorCreator : MonoBehaviour
         int larger = Math.Max(width, height);
         camera.transform.position = new Vector3(width / 2.0f, height / 2.0f, -10);
         camera.GetComponent<Camera>().orthographicSize = (camScaling / 10.0f) * larger;
-        Vector2[] thePoints = { new Vector2(0, 0), new Vector2(width, 0), new Vector2(width, height), new Vector2(0, height), new Vector2(0, 0) };
+        Vector2[] thePoints = { new Vector2(-20, -20), new Vector2(width + 20, -20), new Vector2(width + 20, height + 20), new Vector2(-20, height + 20), new Vector2(-20, -20) };
         theWalls = GameObject.Find("Walls");
         theWalls.GetComponent<EdgeCollider2D>().points = thePoints;
+        theWalls.GetComponent<EdgeCollider2D>().edgeRadius = 20;
         if(TryGetComponent<RedDragonFloor>(out RedDragonFloor rdf)) {
             rdf.changeCamera(camera);
         }

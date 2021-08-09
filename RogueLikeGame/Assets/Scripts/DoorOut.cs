@@ -29,6 +29,7 @@ public class DoorOut : MonoBehaviour, NPClass
         }
             if (floor.waves <= 0)
             {
+               
                 pc.nextScene();
             }
                pc.theCanvas.transform.Find("Shade").GetComponent<UnityEngine.UI.Text>().enabled = false;

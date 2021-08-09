@@ -36,6 +36,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public delegate IEnumerator ability();
     public ability playerAbility;
     public float abilityCooldown = 0f;
+    public swordMovement sm;
     public int[] spells
     {
         get { return spells2; }
@@ -175,6 +176,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         HitScreen = theCanvas.transform.Find("RedHit").gameObject.GetComponent<RawImage>();
         theCanvas.transform.Find("Gold").gameObject.GetComponent<Text>().text = "Gold: " + gold;
         theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);
+        sm = transform.GetComponentsInChildren<swordMovement>()[0];
         skillTreeMenu = theCanvas.transform.Find("Skill Tree").gameObject;
         skillTreeMenu.SetActive(false);
         HitScreen.enabled = false;
@@ -255,6 +257,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public void nextScene()
     {
         //Debug.Log(orderScenes[1] + "nuts" + orderScenes[0]);
+        sm.sheithe();
         curSceneIndex = orderScenes[0];
         SceneManager.LoadScene(orderScenes[0]);
         orderScenes.RemoveAt(0);

@@ -25,10 +25,10 @@ public class MartieScript : MonoBehaviour, NPClass
         bms = PlayerClass.main.bms;
         bms.gameObject.SetActive(false);
         r = new System.Random();
-        int total = SpellTracker.main.spells.Count;
+        int total = SpellTracker.main.spells.Count - 1;
         //Debug.Log(total);
         List<int> s = new List<int>();
-        for(int i = 1;i<total; i++)
+        for(int i = 1;i<=total; i++)
         {
             s.Add(i);
         }

@@ -19,6 +19,7 @@ public class RestartScript : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         Time.timeScale = 1f;
+        myPlayer.GetComponent<PlayerClass>().sm.sheithe();
         Destroy(myPlayer);
         GameObject c = Instantiate(canvasPrefab);
         GameObject p = Instantiate(playerPrefab);

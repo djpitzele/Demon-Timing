@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class swordMovement : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class swordMovement : MonoBehaviour
     private Vector3 totalChangePosition;
     private Quaternion normalRotation;
     private Quaternion currentRotation;
-    private int facing = 1;
+    //private int facing = 1;
     private float kb = 400;
     private bool isStab;
     public float manaRegen = 5;
@@ -46,7 +47,7 @@ public class swordMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        facing = thePlayer.GetComponent<MovementScript>().getFacing();
+        //facing = thePlayer.GetComponent<MovementScript>().getFacing();
         //Debug.Log(thePlayer.GetComponent<PlayerClass>().getFacing());
         if (attackTime <= -0.5f && Input.GetAxis("Attack") > 0 && !isStab)
         {
@@ -63,6 +64,7 @@ public class swordMovement : MonoBehaviour
             //fj.enabled = false;
             GetComponent<PolygonCollider2D>().enabled = true;
             GetComponent<RelativeJoint2D>().enabled = false;
+            
             Vector2 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
             Vector2 diff = mousePos - (Vector2)transform.position;
@@ -70,14 +72,17 @@ public class swordMovement : MonoBehaviour
             normalDiff.Normalize();
             stabSwordPos = (Vector2)transform.parent.position + (normalDiff * flyingSwordSpeed);
             isStab = true;
-            attackTime = Time.fixedDeltaTime * 5;
+            attackTime = Time.fixedDeltaTime * 2;
             rb.velocity *= 0;
             inWall = 1;
             rb.constraints = RigidbodyConstraints2D.None;
+            
             //this.gameObject.transform.SetParent(null, true);
             //rb.constraints = RigidbodyConstraints2D.None;
             //rb.simulated = true;
             transform.parent = null;
+            //SceneManager.MoveGameObjectToScene(this.gameObject, SceneManager.GetActiveScene());
+            transform.position += (Vector3)normalDiff;
             //rb.AddForce(stabSwordPos);
             //transform.rotation = Quaternion.identity;
 
@@ -107,7 +112,7 @@ public class swordMovement : MonoBehaviour
             transform.position += (totalChangePosition / (totalAttackTime / Time.deltaTime));
             //transform.rotation = Quaternion.RotateTowards(transform.rotation, endAttackPosition, 90);
             //Debug.Log(facing);
-            currentRotation.eulerAngles += new Vector3(0, 0, facing * -1 * 90f * (Time.deltaTime / totalAttackTime));
+            currentRotation.eulerAngles += new Vector3(0, 0, pc.ms.getFacing() * -1 * 90f * (Time.deltaTime / totalAttackTime));
             transform.rotation = currentRotation;
             //rb.rotation += facing * -1 * 90f * (Time.deltaTime / totalAttackTime);
             
@@ -143,8 +148,7 @@ public class swordMovement : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D c)
     {
-
-        Debug.Log("urmother");
+        //Debug.Log("urmother");
         if (c.rigidbody.bodyType == RigidbodyType2D.Static)
         {
             inWall = 0;
@@ -177,7 +181,7 @@ public class swordMovement : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D c)
     {
-        Debug.Log("unluggy");
+        //Debug.Log("unluggy");
         /*if(c.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb) && rb.bodyType == RigidbodyType2D.Static && isStab)
         {
             //swordVelocity *= -1;
@@ -205,20 +209,23 @@ public class swordMovement : MonoBehaviour
         }
         
     }
-    void sheithe()
+    public void sheithe()
     {
-
-        Debug.Log("in da wall");
+       
+        //Debug.Log("in da wall");
         rb.constraints = RigidbodyConstraints2D.None;
         GetComponent<RelativeJoint2D>().enabled = true;
+        //DontDestroyOnLoad(this.gameObject);
         transform.parent = pc.gameObject.transform;
         //rb.constraints = RigidbodyConstraints2D.None;
         transform.position = transform.parent.position;
         transform.localScale = new Vector3((Convert.ToSingle(Math.Abs(transform.localScale.x))), (Convert.ToSingle(Math.Abs(transform.localScale.y))), (Convert.ToSingle(Math.Abs(transform.localScale.z))));
         //.localScale *= pc.ms.getFacing();
         transform.rotation = normalRotation;
+        attackTime = 0f;
         isStab = false;
         inWall = 1;
+        swordVelocity = 10f;
         GetComponent<PolygonCollider2D>().isTrigger = true;
         GetComponent<PolygonCollider2D>().enabled = false;
 

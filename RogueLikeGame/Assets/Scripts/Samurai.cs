@@ -10,9 +10,10 @@ public class Samurai : MonoBehaviour, RangedClass
     public float dmg;
     private int facing2;
     public bool dashing;
-    public float speed = 5000;
+    public float speed;
     public Rigidbody2D rb;
     public float cooldown = 0;
+    public float dashCooldown = 0f;
     public bool stunned;
     public int facing
     {
@@ -28,11 +29,14 @@ public class Samurai : MonoBehaviour, RangedClass
 
     void Update()
     {
-        if (cooldown > 0 && !stunned) ;
+        if (cooldown > 0 && !stunned)
         {
             cooldown -= Time.deltaTime;
         }
-        
+        if(dashCooldown > 0 && !stunned && !dashing)
+        {
+            dashCooldown -= Time.deltaTime;
+        }
     }
     public void setSpeed(float s)
     {
@@ -96,10 +100,11 @@ public class Samurai : MonoBehaviour, RangedClass
     public IEnumerator attack()
     {
 
-        if (!(dashing))
+        if (!(dashing) && dashCooldown <= 0)
         {
             dashing = true;
             //Debug.Log("asdf");
+            dashCooldown = 0.5f;
             Vector3 formerPos = player.transform.position;
             yield return new WaitForSeconds(.1f);
             Vector3 vectorToTarget = formerPos - transform.position;
@@ -109,15 +114,18 @@ public class Samurai : MonoBehaviour, RangedClass
             //DASH IS SO SLOW FOR SOM  E REASON
             Vector3 temp = formerPos - transform.position;
             temp = Vector3.Normalize(temp);
-            Debug.Log(speed.ToString() + temp.ToString());
+            //Debug.Log(speed.ToString() + temp.ToString());
             temp *= speed;
             GetComponent<Rigidbody2D>().AddForce(temp);
             yield return new WaitForFixedUpdate();
             //Debug.Log("we rly attack");
             GetComponent<Animator>().SetInteger("state", 1);
-            Debug.Log((formerPos - transform.position).magnitude);
-            Debug.Log("vel mag" + rb.velocity.magnitude);
-            yield return new WaitForSeconds(((formerPos - transform.position).magnitude) / rb.velocity.magnitude);
+            //Debug.Log((formerPos - transform.position).magnitude);
+            //Debug.Log("vel mag" + rb.velocity.magnitude);
+            if(rb.velocity.magnitude != 0)
+            {
+                yield return new WaitForSeconds(((formerPos - transform.position).magnitude) / rb.velocity.magnitude);
+            }
             dashing = false;
             transform.rotation = Quaternion.identity;
             rb.velocity = Vector2.zero;

@@ -16,6 +16,7 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
     public GameObject player;
     public List<Collider2D> inside;
     public bool stunned;
+    public bool attacking = false;
     /*public SoldierCommander(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
@@ -39,8 +40,9 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
     public void OnTriggerStay2D(Collider2D c)
     {
         //Debug.Log("still in collider");
-        if (c.gameObject.TryGetComponent(out PlayerClass ec) && tilAttack <= 0)
+        if (c.gameObject.TryGetComponent(out PlayerClass ec) && tilAttack <= 0 && !attacking)
         {
+            attacking = true;
             StartCoroutine("Attack", ec);
             //Debug.Log("we h it");
             
@@ -60,16 +62,17 @@ public class SoldierCommander : MonoBehaviour, MeleeClass
 
         //Debug.Log("attacks");
         tilAttack = 1;
-        GetComponent<Animator>().SetTrigger("Attack");
+        GetComponent<Animator>().SetBool("Attack", true);
+        yield return new WaitForEndOfFrame();
+        GetComponent<Animator>().SetBool("Attack", false);
         yield return new WaitForSeconds(.2f);
-        GetComponent<Animator>().ResetTrigger("Attack");
         if (inside.Contains(ec.ecgetObject().GetComponent<CapsuleCollider2D>()))
         {
             ec.getHit(dmg, "melee");
             ec.ecgetObject().GetComponent<Rigidbody2D>().AddForce((ec.ecgetObject().transform.position - transform.position) * 100, ForceMode2D.Force);
             ec.ecgetObject().GetComponent<MovementScript>().timeTilmovement += .2f;
         }
-      
+        attacking = false;
     }
     public void setFacing(int n)
     {

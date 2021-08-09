@@ -103,10 +103,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.37259623, y: 0.05864942}
+  m_Offset: {x: -0.43, y: 0.02}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.61520743, y: 0.4807986}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -114,7 +114,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.42500573, y: 0.5239048}
+  m_Size: {x: 0.35, y: 0.45}
   m_EdgeRadius: 0
 --- !u!114 &7167668825195842218
 MonoBehaviour:
@@ -149,9 +149,11 @@ MonoBehaviour:
   maxHP: 30
   dmg: 5
   dashing: 0
-  speed: 500
+  speed: 300
   rb: {fileID: 0}
   cooldown: 0
+  dashCooldown: 0
+  stunned: 0
 --- !u!95 &-4041995495816609786
 Animator:
   serializedVersion: 3
@@ -205,10 +207,10 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.13, y: 0.04}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.61520743, y: 0.4807986}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
@@ -217,15 +219,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.00010801852, y: -0.11183675}
+    - - {x: -0.07726671, y: -0.32768592}
+      - {x: -0.112710014, y: -0.26197264}
       - {x: -0.14392295, y: -0.09846187}
       - {x: -0.1374025, y: 0.019158721}
-      - {x: 0.013664642, y: 0.03658007}
-      - {x: 0.0074678212, y: 0.3413903}
+      - {x: -0.11770433, y: 0.14113903}
+      - {x: 0.021169886, y: 0.3289983}
+      - {x: 0.01819183, y: 0.31994233}
       - {x: 0.21003088, y: 0.32888922}
-      - {x: 0.42802855, y: 0.035802215}
+      - {x: 0.3100646, y: 0.12963718}
+      - {x: 0.39317557, y: 0.0840602}
       - {x: 0.43224722, y: -0.21371627}
-      - {x: 0.35757232, y: -0.28839123}
+      - {x: 0.3817013, y: -0.31788224}
       - {x: 0.20221645, y: -0.34959355}
       - {x: 0.0094690025, y: -0.3515235}
 --- !u!114 &8071913044967484215
