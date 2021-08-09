@@ -65,9 +65,9 @@ public class floorCreator : MonoBehaviour
             genRowSpawners(i);
             //Debug.Log(i);
         }
-        if (initialSpawnersLeft == spawnersLeft)
+        if (initialSpawnersLeft == spawnersLeft && initialSpawnersLeft > 0)
         {
-            Vector3Int v = new Vector3Int(width, height, 0);
+            Vector3Int v = new Vector3Int(width-  1, height - 1, 0);
             SpawnerTile t = chooseSpawner(v);
             spawnerTiles.Add(t);
             tm.SetTile(v, t);
