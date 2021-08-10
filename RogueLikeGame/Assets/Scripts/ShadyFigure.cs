@@ -48,6 +48,7 @@ public class ShadyFigure : MonoBehaviour, NPClass
             bms.costs.Add(FindCostHealth().ToString() + " Shade");
             bms.costs.Add(FindCostMana().ToString() + " Shade");
             bms.gameObject.SetActive(true);*/
+            ShadeScript.sh.updateTempShade(PermVar.current.Shade + PlayerClass.main.curShade);
             PlayerClass.main.skillTreeMenu.SetActive(true);
         }
         else if (interactions == 2)
@@ -122,6 +123,7 @@ public class ShadyFigure : MonoBehaviour, NPClass
         if (collision.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pc))
         {
             inRange = false;
+            ShadeScript.sh.DisableTempText();
            // bms.transform.parent.Find("Interaction").gameObject.SetActive(false);
             PlayerClass.main.skillTreeMenu.SetActive(false);
             //bms.destroyAllOptions();

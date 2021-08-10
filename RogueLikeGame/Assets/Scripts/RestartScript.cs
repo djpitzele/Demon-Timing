@@ -25,13 +25,13 @@ public class RestartScript : MonoBehaviour
         GameObject p = Instantiate(playerPrefab);
         p.GetComponent<PlayerClass>().theCanvas = c;
         p.GetComponent<MovementScript>().canvas = c;
-        
+        SkillTreeScript.sts.resetChoices();
         PlayerClass pc = p.GetComponent<PlayerClass>();
         pc.gold = 0;
         pc.totalkills = 0;
         pc.curSceneIndex = 1;
-        pc.maxHP = 100 + PermVar.current.healthBuff;
-        pc.maxMana = 100 + PermVar.current.manaBuff;
+        pc.maxHP = 100;
+        pc.maxMana = 100;
         pc.curHP = 0;
         pc.spells = new int[3];
         GameObject go = Instantiate(p);

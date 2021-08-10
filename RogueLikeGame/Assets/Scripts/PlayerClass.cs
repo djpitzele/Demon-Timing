@@ -178,6 +178,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);
         sm = transform.GetComponentsInChildren<swordMovement>()[0];
         skillTreeMenu = theCanvas.transform.Find("Skill Tree").gameObject;
+        SkillTreeScript.sts.pc = this;
         skillTreeMenu.SetActive(false);
         HitScreen.enabled = false;
         pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
@@ -280,7 +281,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
 
     public void updateChoices()
     {
-        bool[][] choices = SaveGame.current.choices;
+        bool[,] choices = SaveGame.current.choices;
     }
 
      public void setPlayer(GameObject g)
