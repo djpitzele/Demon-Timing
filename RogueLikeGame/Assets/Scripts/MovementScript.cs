@@ -27,6 +27,11 @@ public class MovementScript : MonoBehaviour
     public GameObject spell;
     public int manaUsed = 5;
     public PlayerClass pc;
+    public float dashDistance = 9f;
+    //lower = more effiecnent
+    public float manaEfficiency = 1f;
+    public bool speedAbility = false;
+    public float dashDelay = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,10 +48,10 @@ public class MovementScript : MonoBehaviour
     public void dash()
     {
         Vector3 mousePos = Input.mousePosition;
-        mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-        //Debug.Log(mousePos);
-        rb.MovePosition(Vector3.MoveTowards(transform.position, mousePos, 9));
-        cooldown = 1;
+        mousePos = (Vector2)Camera.main.ScreenToWorldPoint(mousePos);
+        //Debug.Log(mousePos.ToString() + rb.ToString() + transform.position.ToString() + dashDistance);
+        rb.MovePosition(Vector3.MoveTowards(transform.position, mousePos, dashDistance));
+        
     }
     private void Update()
     {
@@ -77,9 +82,12 @@ public class MovementScript : MonoBehaviour
         {
             GetComponent<PlayerClass>().nextScene();
         }
-        if(Input.GetAxis("Ability") != 0)
+        if(Input.GetAxis("Ability") != 0 && pc.abilityCooldown <= 0)
         {
-            StartCoroutine(PlayerClass.main.playerAbility.Invoke());
+            if(pc.haveAbility)
+            {
+                StartCoroutine(PlayerClass.main.playerAbility.Invoke());
+            }
         }
         if (timeTilmovement <= 0)
         {
@@ -106,9 +114,19 @@ public class MovementScript : MonoBehaviour
                 }
                 facing = -1;
             }
-            if (cooldown <= 0 && Input.GetAxis("Jump") == 1)
-            {
-                dash();
+            if (Input.GetAxis("Jump") == 1 && dashDelay <= 0) {
+                if (cooldown <= 0)
+                {
+                    dash();
+                    cooldown = 1;
+                    dashDelay = 0.1f;
+                }
+                else if(speedAbility && pc.abilityCooldown <= 0f)
+                {
+                    dash();
+                    pc.abilityCooldown = 2.5f;
+                    dashDelay = 0.1f;
+                }
             }
             else
             {
@@ -122,6 +140,10 @@ public class MovementScript : MonoBehaviour
         if (cooldown > 0)
         {
             cooldown -= Time.fixedDeltaTime;
+        }
+        if(dashDelay > 0)
+        {
+            dashDelay -= Time.fixedDeltaTime;
         }
         if(timeTilmovement > 0)
         {
@@ -192,7 +214,7 @@ public class MovementScript : MonoBehaviour
         g.GetComponent<Spells>().createSpell(i, manaUsed);
         g.GetComponent<Spells>().pc = pc;*/
         SpellTracker.main.CreateSpell(i, manaUsed);
-        GetComponent<PlayerClass>().curMana -= manaUsed;
+        GetComponent<PlayerClass>().curMana -= (manaUsed * manaEfficiency);
         
     }
     /*public void resetscene()

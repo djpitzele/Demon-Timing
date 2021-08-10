@@ -61,12 +61,12 @@ public class swordMovement : MonoBehaviour
             currentRotation = new Quaternion(0, 0, 0, 1);
             GetComponent<PolygonCollider2D>().enabled = true;
         }
-        else if(attackTime <= -1 * totalAttackCooldown && Input.GetAxis("Attack") < 0 && !(isStab))
+        else if(attackTime <= -2 * totalAttackCooldown && Input.GetAxis("Attack") < 0 && !(isStab))
         {
             //fj.enabled = false;
             GetComponent<PolygonCollider2D>().enabled = true;
-            GetComponent<RelativeJoint2D>().enabled = false;
-            
+            //GetComponent<RelativeJoint2D>().enabled = false;
+            GetComponent<HingeJoint2D>().enabled = false;
             Vector2 mousePos = Input.mousePosition;
             mousePos = Camera.main.ScreenToWorldPoint(mousePos);
             Vector2 diff = mousePos - (Vector2)transform.position;
@@ -172,7 +172,7 @@ public class swordMovement : MonoBehaviour
             pc.curMana += manaRegen;
             if (ec.ecgetObject().TryGetComponent<Rigidbody2D>(out Rigidbody2D rbb))
             {
-                rbb.AddForce((ec.ecgetObject().transform.position - transform.position) * kb, ForceMode2D.Force);
+                rbb.AddForce((ec.ecgetObject().transform.position - transform.position) * (kb / 2f), ForceMode2D.Force);
             }
             //Vector2 curForce = (Vector2)rb.velocity;
             //rb.AddForce(-2 * curForce);
@@ -216,7 +216,8 @@ public class swordMovement : MonoBehaviour
        
         //Debug.Log("in da wall");
         rb.constraints = RigidbodyConstraints2D.None;
-        GetComponent<RelativeJoint2D>().enabled = true;
+        //GetComponent<RelativeJoint2D>().enabled = true;
+        GetComponent<HingeJoint2D>().enabled = true;
         //DontDestroyOnLoad(this.gameObject);
         transform.parent = pc.gameObject.transform;
         //rb.constraints = RigidbodyConstraints2D.None;

@@ -112,6 +112,8 @@ MonoBehaviour:
   spell: {fileID: 4771514571232568551, guid: 63bece5d89593844fb7519923d56047b, type: 3}
   manaUsed: 5
   pc: {fileID: 0}
+  dashDistance: 9
+  manaEfficiency: 1
 --- !u!114 &2682160601891282900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +148,10 @@ MonoBehaviour:
   firstNormalIndex: 5
   lastNormalIndex: 15
   bossSceneIndex: 020000000200000002000000
+  haveAbility: 0
   abilityCooldown: 0
+  enemyPerception: 1
+  sm: {fileID: 0}
   bms: {fileID: 0}
 --- !u!50 &2682160601891282898
 Rigidbody2D:
@@ -227,6 +232,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5258212985795892390}
     m_Modifications:
+    - target: {fileID: 2224091441097303402, guid: 411ac8f602b134742bf33c2de5b35869,
+        type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: -0.10000038
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224091441097303402, guid: 411ac8f602b134742bf33c2de5b35869,
+        type: 3}
+      propertyPath: m_ConnectedRigidBody
+      value: 
+      objectReference: {fileID: 2682160601891282898}
     - target: {fileID: 2454688686394235695, guid: 411ac8f602b134742bf33c2de5b35869,
         type: 3}
       propertyPath: m_ConnectedRigidBody

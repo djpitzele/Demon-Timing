@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4170897641232470670}
   - component: {fileID: 8574991261746536700}
   - component: {fileID: 6418676071320905138}
-  - component: {fileID: 2454688686394235695}
   - component: {fileID: 2682160602254804334}
+  - component: {fileID: 2224091441097303402}
   m_Layer: 8
   m_Name: Sword
   m_TagString: Untagged
@@ -160,25 +160,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!254 &2454688686394235695
-RelativeJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8300995623662836843}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_MaxForce: 10000
-  m_MaxTorque: 10000
-  m_CorrectionScale: 0.3
-  m_AutoConfigureOffset: 1
-  m_LinearOffset: {x: -0.0000000043711554, y: 0.10000038}
-  m_AngularOffset: 1.5707964
 --- !u!114 &2682160602254804334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +174,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thePlayer: {fileID: 0}
   attackPosition: {x: 0.6, y: 0.8, z: 0}
+  kb: 400
   manaRegen: 5
   pc: {fileID: 0}
+  totalAttackCooldown: 0
   rb: {fileID: 0}
+--- !u!233 &2224091441097303402
+HingeJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8300995623662836843}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_UseMotor: 0
+  m_Motor:
+    m_MotorSpeed: 0
+    m_MaximumMotorForce: 10000
+  m_UseLimits: 0
+  m_AngleLimits:
+    m_LowerAngle: 0
+    m_UpperAngle: 359

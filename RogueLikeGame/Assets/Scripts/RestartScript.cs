@@ -21,11 +21,12 @@ public class RestartScript : MonoBehaviour
         Time.timeScale = 1f;
         myPlayer.GetComponent<PlayerClass>().sm.sheithe();
         Destroy(myPlayer);
+        SkillTreeScript.sts.resetChoices();
         GameObject c = Instantiate(canvasPrefab);
         GameObject p = Instantiate(playerPrefab);
         p.GetComponent<PlayerClass>().theCanvas = c;
         p.GetComponent<MovementScript>().canvas = c;
-        SkillTreeScript.sts.resetChoices();
+
         PlayerClass pc = p.GetComponent<PlayerClass>();
         pc.gold = 0;
         pc.totalkills = 0;

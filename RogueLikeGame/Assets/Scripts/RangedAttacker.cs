@@ -140,7 +140,7 @@ public class RangedAttacker : MonoBehaviour
             }
             goingTowards = 0;
             path = curPath;
-            timeTilFind = .5f;
+            timeTilFind = .5f * PlayerClass.main.enemyPerception;
             //Debug.Log("Y" + goingTowards + " " + path.Count);
         }
         /*else if(ourWorldToCell(transform.position) == endPos)

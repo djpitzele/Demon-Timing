@@ -35,7 +35,9 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int[] bossSceneIndex = { 2, 2, 2 }; // put boss room scene indicies in here
     public delegate IEnumerator ability();
     public ability playerAbility;
+    public bool haveAbility = false;
     public float abilityCooldown = 0f;
+    public float enemyPerception = 1f;
     public swordMovement sm;
     public int[] spells
     {
