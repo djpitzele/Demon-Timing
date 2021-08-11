@@ -94,7 +94,7 @@ public class RangedCommander : MonoBehaviour, RangedClass
         
         if(cooldown <= 0)
         {
-            cooldown = 4f;
+            cooldown = 2f;
             GetComponent<Animator>().SetBool("Attacking", true);
             Vector3 formerPos = player.transform.position;
             yield return new WaitForSeconds(1 / 3f);
@@ -103,7 +103,7 @@ public class RangedCommander : MonoBehaviour, RangedClass
             GameObject theBullet = Instantiate(projectile, this.transform);
             theBullet.layer = 8;
             theBullet.GetComponent<BulletScript>().targetTransform = formerPos;
-            theBullet.GetComponent<Rigidbody2D>().AddForce((formerPos - transform.position) * projSpeed);
+            theBullet.GetComponent<Rigidbody2D>().AddForce((formerPos - transform.position).normalized * projSpeed);
             theBullet.GetComponent<BulletScript>().dmg= dmg;
             //ROTATE THE BULLET TOWARDS THE PLAYER
             

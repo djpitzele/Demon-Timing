@@ -72,7 +72,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         }
         else
         {
-            Debug.Log("avoidedhit");
+            //Debug.Log("avoidedhit");
         }
         theCanvas.transform.Find("Health").GetComponent<HealthCheck>().updateHealth(this);
        // Debug.Log(curHP);
@@ -104,7 +104,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     }
     public void die()
     {
-        Debug.Log("RIP us");
+        //Debug.Log("RIP us");
         PermVar.current.Shade += curShade;
         curShade = 0;
         theCanvas.transform.Find("Death").GetComponent<Image>().enabled = true;
@@ -261,10 +261,29 @@ public class PlayerClass : MonoBehaviour, EntityClass
     {
         //Debug.Log(orderScenes[1] + "nuts" + orderScenes[0]);
         sm.sheithe();
+        sm.attackTime = -10f;
+        abilityCooldown = 0f;
+        if(SceneManager.GetActiveScene().name == "Lobby")
+        {
+            applyEffects(PermVar.current.choices, SkillTreeScript.sts.effects);
+        }
         curSceneIndex = orderScenes[0];
         SceneManager.LoadScene(orderScenes[0]);
         orderScenes.RemoveAt(0);
         //Debug.Log(orderScendqes.Count+"nutslength");
+    }
+    public void applyEffects(bool[,] bs, UnityEngine.Events.UnityAction[,] uas)
+    {
+        for(int i = 0; i < 5; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                if(bs[i, j])
+                {
+                    uas[i, j].Invoke();
+                }
+            }
+        }
     }
     public int npcRoom()
     {
@@ -283,7 +302,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
 
     public void updateChoices()
     {
-        bool[,] choices = SaveGame.current.choices;
+        bool[,] choices = PermVar.current.choices;
     }
 
      public void setPlayer(GameObject g)

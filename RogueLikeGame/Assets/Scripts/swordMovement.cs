@@ -8,12 +8,12 @@ public class swordMovement : MonoBehaviour
 {
     public GameObject thePlayer;
     //public Rigidbody2D rb;
-    private float attackTime = 0f;
+    public float attackTime = 0f;
     private float totalAttackTime = 0.25f;
     private float totalStabTime = 2f;
     private float stabDistance = 3f;
     private Vector3 stabSwordPos;
-    public Vector3 attackPosition = new Vector3(0.6f, 0.8f, 0);
+    public Vector3 attackPosition = new Vector3(0.8f, 0.8f, 0);
     private Vector3 totalChangePosition;
     private Quaternion normalRotation;
     private Quaternion currentRotation;
@@ -31,7 +31,7 @@ public class swordMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        totalAttackCooldown = 0.5f;
+        totalAttackCooldown = 10f;
         //fj = GetComponent<FixedJoint2D>();
         //fj.connectedBody = transform.parent.GetComponent<Rigidbody2D>();
         normalRotation = transform.rotation;
@@ -49,11 +49,21 @@ public class swordMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        /*if(attackTime > -1 * totalAttackCooldown && GetComponent<SpriteRenderer>().color != Color.red)
+        {
+            GetComponent<SpriteRenderer>().color = Color.red;
+        }*/
+        if(attackTime <= -1 * totalAttackCooldown && GetComponent<SpriteRenderer>().color != Color.white)
+        {
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
         //facing = thePlayer.GetComponent<MovementScript>().getFacing();
         //Debug.Log(thePlayer.GetComponent<PlayerClass>().getFacing());
         if (attackTime <= -1 * totalAttackCooldown && Input.GetAxis("Attack") > 0 && !isStab)
         {
             isStab = false;
+            rb.simulated = true;
+            rb.constraints = RigidbodyConstraints2D.None;
             //rb.simulated = true;
             attackTime = totalAttackTime;
             transform.position = transform.parent.position;
@@ -61,9 +71,10 @@ public class swordMovement : MonoBehaviour
             currentRotation = new Quaternion(0, 0, 0, 1);
             GetComponent<PolygonCollider2D>().enabled = true;
         }
-        else if(attackTime <= -2 * totalAttackCooldown && Input.GetAxis("Attack") < 0 && !(isStab))
+        else if(attackTime <= -1 * totalAttackCooldown && Input.GetAxis("Attack") < 0 && !(isStab))
         {
             //fj.enabled = false;
+            rb.simulated = true;
             GetComponent<PolygonCollider2D>().enabled = true;
             //GetComponent<RelativeJoint2D>().enabled = false;
             GetComponent<HingeJoint2D>().enabled = false;
@@ -137,6 +148,8 @@ public class swordMovement : MonoBehaviour
         else if (-0.2 <= attackTime && attackTime <= 0 && !isStab)
         {
             //rb.simulated = false;
+            attackTime = -0.9f * totalAttackCooldown;
+            GetComponent<SpriteRenderer>().color = Color.red;
             transform.position = transform.parent.position;
             transform.rotation = normalRotation;
             GetComponent<PolygonCollider2D>().enabled = false;
@@ -146,6 +159,7 @@ public class swordMovement : MonoBehaviour
         {
             
         }
+        
         attackTime -= Time.deltaTime;
     }
     private void OnCollisionEnter2D(Collision2D c)
@@ -192,13 +206,13 @@ public class swordMovement : MonoBehaviour
         {
             sheithe();
         }
-        if (c.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb) && rb.bodyType == RigidbodyType2D.Static && attackTime > totalAttackTime / 2)
+        /*else if (!isStab && c.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb) && rb.bodyType == RigidbodyType2D.Static && attackTime > totalAttackTime / 2)
         {
             attackTime = -0.1f;
             Invoke("ShortCooldown", .1f);
             //rb.simulated = false;
            
-        }
+        }*/
        
         else if (c.gameObject.TryGetComponent(out EntityClass ec) && !(c.isTrigger) && !(c.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pcc)))
         {
@@ -215,9 +229,12 @@ public class swordMovement : MonoBehaviour
     {
        
         //Debug.Log("in da wall");
-        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         //GetComponent<RelativeJoint2D>().enabled = true;
         GetComponent<HingeJoint2D>().enabled = true;
+        rb.simulated = false;
+        attackTime = -0.8f * totalAttackCooldown;
+        GetComponent<SpriteRenderer>().color = Color.red;
         //DontDestroyOnLoad(this.gameObject);
         transform.parent = pc.gameObject.transform;
         //rb.constraints = RigidbodyConstraints2D.None;

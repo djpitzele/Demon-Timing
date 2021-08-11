@@ -178,10 +178,10 @@ MonoBehaviour:
   cooldown: 1
   projectile: {fileID: 2406414580408219003, guid: abe2a988698e9fe469f28c67e799490d,
     type: 3}
-  projSpeed: 125
+  projSpeed: 750
   maxHP: 10
   dmg: 10
-  facing: 0
+  stunned: 0
 --- !u!95 &7590952036682166285
 Animator:
   serializedVersion: 3

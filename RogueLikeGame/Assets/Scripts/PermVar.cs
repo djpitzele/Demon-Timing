@@ -12,4 +12,6 @@ public class PermVar
     //healthBuff and manaBuff are the amount of health on top of 100, meleeBuff is the % damage added
     public int healthBuff;
     public int manaBuff;*/
+    public bool[,] choices;
+    public int spentShade;
 }

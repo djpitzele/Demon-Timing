@@ -45,6 +45,7 @@ public class NewGameButton : MonoBehaviour
         //Debug.Log(p == go);
         playerPrefab = go;
         Destroy(go);
+        PermVar.current.choices = new bool[5, 3] { { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false } };
         p.GetComponent<PlayerClass>().orderScenes = SaveGame.current.orderScenes;
         p.name = "MainChar";
         c.name = "Canvas";
@@ -75,6 +76,7 @@ public class NewGameButton : MonoBehaviour
             pc.curShade = SaveGame.current.curShade;
             pc.spells = SaveGame.current.spells;
             GameObject p = Instantiate(go);
+            p.GetComponent<PlayerClass>().applyEffects(PermVar.current.choices, SkillTreeScript.sts.effects);
            // Debug.Log(p == go);
             Destroy(go);
             p.name = "MainChar";

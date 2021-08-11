@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
 using UnityEngine.UI;
+using System;
 
 public class SkillTreeScript : MonoBehaviour
 {
@@ -11,14 +14,18 @@ public class SkillTreeScript : MonoBehaviour
     public int tempShade;
     public int spentShade2;
     public GameObject resetButton;
+    public bool[,] stuffs;
+    public UnityAction[,] effects = new UnityAction[5,3]; 
     public int spentShade
     {
         get { return spentShade2; }
-        set { spentShade2 = value; ShadeScript.sh.updateTempShade(tempShade - spentShade2); }
+        set { spentShade2 = value; ShadeScript.sh.updateTempShade(tempShade - spentShade2); PermVar.current.spentShade = value; }
     }
     public int[,] prices = new int[5, 3] { { 1 , -1, -1} , { 5, 5, 5 }, { 15, 15, 15 }, { 45, 45, 45 }, { 135, 135, 135 } };
     void Awake()
     {
+        effects = new UnityAction[5, 3] { { Skill1Effect, Skill1Effect, Skill1Effect }, { MeleeAbilityEffect, SpeedAbilityEffect, ManaAbilityEffect }, { Melee1Effect, Speed1Effect, Mana1Effect }, { Melee2Effect, Speed2Effect, Mana2Effect }, { Melee3Effect, Speed3Effect, Mana3Effect } };
+        stuffs = PermVar.current.choices;
         sts = this;
         //resetButton = transform.parent.Find("Reset Skill Tree").gameObject;
         //prices[0] = { { 1 } };//, { 5, 5, 5 }, { 15, 15, 15 }, { 45, 45, 45 }, { 135, 135, 135 } };
@@ -41,13 +48,69 @@ public class SkillTreeScript : MonoBehaviour
         resetButton = transform.parent.Find("Reset Skill Tree").gameObject;
         resetButton.SetActive(false);
         //Debug.Log("it was disabled");
+        pc = PlayerClass.main;
         resetButton.GetComponent<Button>().onClick.AddListener(resetChoices);
+        
     }
     public void OnEnable()
     {
+        try
+        {
+            if (!PermVar.current.choices[0, 0] && !PermVar.current.choices[0, 1] && !PermVar.current.choices[0, 2])
+            {
+                PermVar.current.choices = new bool[5, 3] { { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false } };
+            }
+        }
+        catch (NullReferenceException n)
+        {
+            PermVar.current.choices = new bool[5, 3] { { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false } };
+            Debug.Log("caught error");
+        }
+        setColors(PermVar.current.choices);
         //pc = PlayerClass.main;
         resetButton.SetActive(true);
         //Debug.Log("happens" + resetButton == null);
+    }
+
+    public void setColors(bool[,] choices)
+    {
+        if(choices[0, 0] || choices[0, 1] || choices[0, 2])
+        {
+            updateColors(transform.Find("Skill 1"));
+            if(choices[1, 0])
+            {
+                updateColors(transform.Find("Melee Ability"));
+                for(int i = 2; i < 5; i++)
+                {
+                    if(choices[i, 0])
+                    {
+                        updateColors(transform.Find(makeString(new Vector2Int(i, 0))));
+                    }
+                }
+            }
+            else if (choices[1, 1])
+            {
+                updateColors(transform.Find("Speed Ability"));
+                for (int i = 2; i < 5; i++)
+                {
+                    if (choices[i, 1])
+                    {
+                        updateColors(transform.Find(makeString(new Vector2Int(i, 1))));
+                    }
+                }
+            }
+            else if (choices[1, 2])
+            {
+                updateColors(transform.Find("Mana Ability"));
+                for (int i = 2; i < 5; i++)
+                {
+                    if (choices[i, 2])
+                    {
+                        updateColors(transform.Find(makeString(new Vector2Int(i, 2))));
+                    }
+                }
+            }
+        }
     }
     public void OnDisable()
     {
@@ -56,7 +119,8 @@ public class SkillTreeScript : MonoBehaviour
     public void resetChoices()
     {
         spentShade = 0;
-        SaveGame.current.choices = new bool[5, 3] { { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false } };
+        transform.parent.Find("Shade").Find("TempShade").GetComponent<Text>().enabled = false;
+        PermVar.current.choices = new bool[5, 3] { { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false } };
         Image[] imgs = GetComponentsInChildren<Image>();
         foreach(Image i in imgs)
         {
@@ -67,16 +131,21 @@ public class SkillTreeScript : MonoBehaviour
     public bool possible(Vector2Int pos)
     {
         tempShade = PermVar.current.Shade + PlayerClass.main.curShade;
-        if (tempShade - spentShade >= prices[pos.x, pos.y] && (pos.x == 0 || SaveGame.current.choices[pos.x - 1, pos.y]) && !(SaveGame.current.choices[pos.x, pos.y]))
+        if (tempShade - spentShade >= prices[pos.x, pos.y] && (pos.x == 0 || PermVar.current.choices[pos.x - 1, pos.y]) && !(PermVar.current.choices[pos.x, pos.y]))
         {
             spentShade += prices[pos.x, pos.y];
             //ShadeScript.sh.updateTempShade(tempShade - spentShade);
-            SaveGame.current.choices[pos.x, pos.y] = true;
-            //Debug.Log("jeez" + true);
+            PermVar.current.choices[pos.x, pos.y] = true;
+            Debug.Log("jeez" + true);
             return true;
         }
-        //Debug.Log("jeez" + false);
+        Debug.Log("jeez" + false);
         return false;
+    }
+    public void updateTemp()
+    {
+        tempShade = PermVar.current.Shade + PlayerClass.main.curShade;
+        ShadeScript.sh.updateTempShade(tempShade);
     }
     public void updateColors(Transform green)
     {
@@ -95,11 +164,10 @@ public class SkillTreeScript : MonoBehaviour
             updateColors(transform.Find("Skill 1"), transform.Find("Melee Ability"));
             updateColors(transform.Find("Skill 1"), transform.Find("Speed Ability"));
             updateColors(transform.Find("Skill 1"), transform.Find("Mana Ability"));
-            pc.dmg *= 1.05f;
-            SpellTracker.main.spellDmg *= 1.05f;
+            
             //all 3 elements in the first row of choices are true for this purchase
-            SaveGame.current.choices[0, 1] = true;
-            SaveGame.current.choices[0, 2] = true;
+            PermVar.current.choices[0, 1] = true;
+            PermVar.current.choices[0, 2] = true;
             /*for(int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(true);
@@ -107,20 +175,29 @@ public class SkillTreeScript : MonoBehaviour
             //SaveGame.current.choices[0, 0] = true;
         }
     }
+    public void Skill1Effect()
+    {
+        pc.dmg *= 1.05f;
+        SpellTracker.main.spellDmg *= 1.05f;
+    }
     public void MeleeAbilityClick()
     {
         Vector2Int v = new Vector2Int(1, 0);
         if (possible(v))
         {
             updateColors(transform.Find("Melee Ability"), transform.Find("Melee 1"));
-            pc.playerAbility = MeleeAbility;
-            SaveGame.current.choices[0, 1] = false;
-            SaveGame.current.choices[0, 2] = false;
-            pc.haveAbility = true;
+
+            PermVar.current.choices[0, 1] = false;
+            PermVar.current.choices[0, 2] = false;
+            
             //st.Find("Melee 1").gameObject.SetActive(true);
             //SaveGame.current.choices[1, 0] = true;
-            SaveGame.current.choices[1, 0] = false;
         }
+    }
+    public void MeleeAbilityEffect()
+    {
+        pc.haveAbility = true;
+        pc.playerAbility = MeleeAbility;
     }
     public IEnumerator MeleeAbility()
     {
@@ -135,8 +212,12 @@ public class SkillTreeScript : MonoBehaviour
         if (possible(v))
         {
             updateColors(transform.Find(makeString(v)), transform.Find(makeString(new Vector2Int(v.x + 1, v.y))));
-            pc.dmg *= 1.1f;
+
         }
+    }
+    public void Melee1Effect()
+    {
+        pc.dmg *= 1.1f;
     }
     public void Melee2()
     {
@@ -144,8 +225,12 @@ public class SkillTreeScript : MonoBehaviour
         if (possible(v))
         {
             updateColors(transform.Find(makeString(v)), transform.Find(makeString(new Vector2Int(v.x + 1, v.y))));
-            pc.sm.totalAttackCooldown *= 0.8f;
+           
         }
+    }
+    public void Melee2Effect()
+    {
+        pc.sm.totalAttackCooldown *= 0.8f;
     }
     public void Melee3()
     {
@@ -157,6 +242,10 @@ public class SkillTreeScript : MonoBehaviour
             pc.sm.kb *= 2f;
         }
     }
+    public void Melee3Effect()
+    {
+        pc.sm.kb *= 2f;
+    }
     public void SpeedAbilityClick()
     {
         Vector2Int v = new Vector2Int(1, 1);
@@ -164,13 +253,17 @@ public class SkillTreeScript : MonoBehaviour
         {
             updateColors(transform.Find("Speed Ability"), transform.Find("Speed 1"));
             //pc.playerAbility = SpeedAbility;
-            pc.ms.speedAbility = true;
-            SaveGame.current.choices[0, 0] = false;
-            SaveGame.current.choices[0, 2] = false;
+            
+            PermVar.current.choices[0, 0] = false;
+            PermVar.current.choices[0, 2] = false;
             //st.Find("Speed Ability").Find("Speed 1").gameObject.SetActive(true);
-            SaveGame.current.choices[1, 1] = true;
+            PermVar.current.choices[1, 1] = true;
             //pc.haveAbility = true;
         }
+    }
+    public void SpeedAbilityEffect()
+    {
+        pc.ms.speedAbility = true;
     }
     /*public IEnumerator SpeedAbility()
     {
@@ -191,8 +284,12 @@ public class SkillTreeScript : MonoBehaviour
         if (possible(v))
         {
             updateColors(transform.Find(makeString(v)), transform.Find(makeString(new Vector2Int(v.x + 1, v.y))));
-            pc.setSpeed(1.2f);
+            
         }
+    }
+    public void Speed1Effect()
+    {
+        pc.setSpeed(1.2f);
     }
     public void Speed2()
     {
@@ -200,8 +297,12 @@ public class SkillTreeScript : MonoBehaviour
         if (possible(v))
         {
             updateColors(transform.Find(makeString(v)), transform.Find(makeString(new Vector2Int(v.x + 1, v.y))));
-            pc.ms.dashDistance *= 1.5f;
+           
         }
+    }
+    public void Speed2Effect()
+    {
+        pc.ms.dashDistance *= 1.5f;
     }
     public void Speed3()
     {
@@ -209,8 +310,12 @@ public class SkillTreeScript : MonoBehaviour
         if (possible(v))
         {
             updateColors(transform.Find(makeString(v)));
-            pc.enemyPerception *= 2f;
+            
         }
+    }
+    public void Speed3Effect()
+    {
+        pc.enemyPerception *= 2f;
     }
     public void ManaAbilityClick()
     {
@@ -218,13 +323,17 @@ public class SkillTreeScript : MonoBehaviour
         if (possible(v))
         {
             updateColors(transform.Find("Mana Ability"), transform.Find("Mana 1"));
-            pc.playerAbility = ManaAbility;
-            SaveGame.current.choices[0, 0] = false;
-            SaveGame.current.choices[0, 1] = false;
+
+            PermVar.current.choices[0, 0] = false;
+            PermVar.current.choices[0, 1] = false;
             //skill1.Find("Mana Ability").Find("Mana 1").gameObject.SetActive(true);
-            SaveGame.current.choices[1, 2] = true;
-            pc.haveAbility = true;
+            PermVar.current.choices[1, 2] = true;
         }
+    }
+    public void ManaAbilityEffect()
+    {
+        pc.haveAbility = true;
+        pc.playerAbility = ManaAbility;
     }
     public IEnumerator ManaAbility()
     {
@@ -238,9 +347,13 @@ public class SkillTreeScript : MonoBehaviour
         if (possible(v))
         {
             updateColors(transform.Find(makeString(v)), transform.Find(makeString(new Vector2Int(v.x + 1, v.y))));
-            pc.maxMana += 50;
-            pc.curMana += 50;
+           
         }
+    }
+    public void Mana1Effect()
+    {
+        pc.maxMana += 50;
+        pc.curMana += 50;
     }
     public void Mana2()
     {
@@ -251,14 +364,22 @@ public class SkillTreeScript : MonoBehaviour
             pc.sm.manaRegen *= 1.5f;
         }
     }
+    public void Mana2Effect()
+    {
+        pc.sm.manaRegen *= 1.5f;
+    }
     public void Mana3()
     {//njot finished
         Vector2Int v = new Vector2Int(4, 2);
         if (possible(v))
         {
             updateColors(transform.Find(makeString(v)));
-            pc.ms.manaEfficiency *= .8f;
+           
         }
+    }
+    public void Mana3Effect()
+    {
+        pc.ms.manaEfficiency *= .8f;
     }
     public string firstWord(Vector2Int v)
     {

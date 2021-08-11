@@ -26,6 +26,7 @@ public class DoorOut : MonoBehaviour, NPClass
         if(SceneManager.GetActiveScene().name == "Lobby")
         {
             pc.updateChoices();
+            ShadeScript.sh.DisableTempText();
         }
             if (floor.waves <= 0)
             {
