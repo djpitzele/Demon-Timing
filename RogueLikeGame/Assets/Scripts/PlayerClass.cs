@@ -31,9 +31,9 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int[] spells2 = new int[3];
     public bool menuOn = false;
     public MovementScript ms;
-    public int firstNormalIndex = 5;
-    public int lastNormalIndex = 15;//does not include hard rooms
-    public int[] bossSceneIndex = { 2, 2, 2 }; // put boss room scene indicies in here
+    public int firstNormalIndex = 6;
+    public int lastNormalIndex = 16;//does not include hard rooms
+    public int[] bossSceneIndex = { 3, 2, 3 }; // put boss room scene indicies in here
     public delegate IEnumerator ability();
     public ability playerAbility;
     public bool haveAbility = false;

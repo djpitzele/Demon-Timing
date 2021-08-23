@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/RedDragon.unity
     guid: 1a9a394bc2763564bacc8b4f81c64e60
   - enabled: 1
+    path: Assets/Pillar Boss.unity
+    guid: 674257bc06ebf9b46a2c37b0be061c13
+  - enabled: 1
     path: Assets/Scenes/Specialty Rooms/Spell Shop.unity
     guid: 766c5925b1fcd674999dfe85f0bf6816
   - enabled: 1

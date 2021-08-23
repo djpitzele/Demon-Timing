@@ -44,6 +44,6 @@ public class DoorOut : MonoBehaviour, NPClass
     {
 
         GetComponent<SpriteRenderer>().sprite = goldDoor;
-        Debug.Log(Resources.Load<Sprite>("goldDoor").name + SceneManager.GetActiveScene().name);
+        //Debug.Log(Resources.Load<Sprite>("goldDoor").name + SceneManager.GetActiveScene().name);
     }
 }

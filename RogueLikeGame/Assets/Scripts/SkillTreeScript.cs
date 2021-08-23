@@ -69,7 +69,7 @@ public class SkillTreeScript : MonoBehaviour
         catch (NullReferenceException n)
         {
             PermVar.current.choices = new bool[5, 3] { { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false }, { false, false, false } };
-            Debug.Log("caught error");
+            //Debug.Log("caught error");
         }
         setColors(PermVar.current.choices);
         //pc = PlayerClass.main;

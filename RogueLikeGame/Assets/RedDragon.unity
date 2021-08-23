@@ -137,6 +137,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5236128347068822867, guid: d4b40e0e69db6fe40a75e390f573a983,
         type: 3}
+      propertyPath: goldenDoor
+      value: 
+      objectReference: {fileID: 21300000, guid: 2a3d1bbb8f8028445bf7162636e385f7,
+        type: 3}
+    - target: {fileID: 5236128347068822867, guid: d4b40e0e69db6fe40a75e390f573a983,
+        type: 3}
       propertyPath: floorScript
       value: 
       objectReference: {fileID: 397517272}
@@ -663,6 +669,7 @@ MonoBehaviour:
   floor: {fileID: 11400000, guid: 3733e0b5e74e64e42a4163ceb0e1a798, type: 2}
   pillar: {fileID: 11400000, guid: db069a568b183bc43987319ec89e27de, type: 2}
   tm: {fileID: 783083318}
+  streak: 0
 --- !u!19719996 &783083320
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -946,6 +953,7 @@ MonoBehaviour:
   camera: {fileID: 825041312}
   camScaling: 3.25
   theWalls: {fileID: 1131354250}
+  theSpawners: {fileID: 0}
 --- !u!483693784 &1152286499
 TilemapRenderer:
   m_ObjectHideFlags: 0

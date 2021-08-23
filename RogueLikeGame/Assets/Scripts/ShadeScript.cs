@@ -12,7 +12,7 @@ public class ShadeScript : MonoBehaviour
     {
         tempShade = transform.Find("TempShade").gameObject;
 
-        updateTempShade();
+        Invoke("updateTempShade", .1f);
     }
     private void Awake()
     {

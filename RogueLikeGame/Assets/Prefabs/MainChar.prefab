@@ -150,11 +150,12 @@ MonoBehaviour:
   ms: {fileID: 0}
   firstNormalIndex: 5
   lastNormalIndex: 15
-  bossSceneIndex: 020000000200000002000000
+  bossSceneIndex: 030000000300000003000000
   haveAbility: 0
   abilityCooldown: 0
   enemyPerception: 1
   sm: {fileID: 0}
+  spentShadeSpell2: 0
   bms: {fileID: 0}
 --- !u!50 &2682160601891282898
 Rigidbody2D:
