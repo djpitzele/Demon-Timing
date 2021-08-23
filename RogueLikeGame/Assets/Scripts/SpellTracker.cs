@@ -14,14 +14,17 @@ public class SpellTracker : MonoBehaviour
     public GameObject spellPrefab;
     public float spellDmg = 1f; //1 = default spell damage
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
        
         main = this;
-        Start2();
+        
        
     }
-
+    private void Start()
+    {
+        Start2();
+    }
     private void putIn(spell s, string n, Sprite theS)
     {
         SpellStruct sp = new SpellStruct(s, theS, n);
@@ -61,8 +64,8 @@ public class SpellTracker : MonoBehaviour
         putIn(meteor, "Meteor", Resources.Load<Sprite>("Spells/SpellItems/meteoritem"));
         putIn(freeZe, "Freeze", Resources.Load<Sprite>("Spells/SpellItems/FreezeItem"));
         putIn(rage, "Rage", Resources.Load<Sprite>("Spells/SpellItems/rageitem"));
-        putIn(firePipe, "FirePipe", Resources.Load<Sprite>("Arrow")); // 5 //put animation into firepipe
-        putIn(arrowRain, "Arrow Rain", Resources.Load<Sprite>("Arrow"));
+        putIn(firePipe, "FirePipe", Resources.Load<Sprite>("Firepipeitem")); // 5 //put animation into firepipe
+        putIn(arrowRain, "Arrow Rain", Resources.Load<Sprite>("arrowRainItem"));
     }
 
     public void destroySpell(Spells s)
@@ -200,11 +203,11 @@ public class SpellTracker : MonoBehaviour
     }
     public IEnumerator firePipe(int manaUsed, Spells s)
     {
-        s.showSpell(0, 1); //change 1 to the animation
+        s.showSpell(0, 5); //change 1 to the animation
         Destroy(s.GetComponent<CircleCollider2D>());
         BoxCollider2D bc = s.gameObject.AddComponent<BoxCollider2D>();
         bc.offset = new Vector2(0, 0);
-        bc.size = new Vector2(1, 1);
+        bc.size = new Vector2(1, 1.2f);
         bc.isTrigger = true;
         Vector3 mouse = Input.mousePosition;
         mouse = Camera.main.ScreenToWorldPoint(mouse);

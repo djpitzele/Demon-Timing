@@ -10,6 +10,7 @@ using UnityEditor;
 public class PlayerClass : MonoBehaviour, EntityClass
 {
     public static PlayerClass main;
+    public bool copy;
     public float curMana2;
     public float maxMana;
     public float maxHP;
@@ -39,6 +40,12 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public float abilityCooldown = 0f;
     public float enemyPerception = 1f;
     public swordMovement sm;
+    public int spentShadeSpell2 = 0;
+    public int spentShadeSpell 
+    {
+        get { return spentShadeSpell2; }
+        set { spentShadeSpell2 = value; ShadeScript.sh.updateTempShade(); }
+    }
     public int[] spells
     {
         get { return spells2; }
@@ -93,6 +100,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
         s.time = theCanvas.GetComponentsInChildren<KillCounter>()[0].timeSpent;
         s.curShade = curShade;
         s.spells = spells;
+        s.spentShadeSpell = spentShadeSpell;
         return s;
     }
 
@@ -158,103 +166,108 @@ public class PlayerClass : MonoBehaviour, EntityClass
     // Start is called before the first frame update
     void Start()
     {
-        //GameObject.Find("Spawner").GetComponent<EnemySpawner>().spawnEnemy(pos, typeof(SoldierCommander), theSoldier);
-        //spawner.GetComponent<EnemySpawner>().spawnEnemy(prefab);
-        Debug.Log("deez");
-        main = this;
-        //curHP = maxHP;
-        if (curHP <= 0)
+        if (!copy)
         {
-            curHP = maxHP;
-        }
-        //curMana = maxMana;
-        if (curMana <= 0)
-        {
-            curMana = maxMana;
-        }
-        dmg = 5;
-        ms = GetComponent<MovementScript>();
-        totalEnemies = 0;
-        HitScreen = theCanvas.transform.Find("RedHit").gameObject.GetComponent<RawImage>();
-        theCanvas.transform.Find("Gold").gameObject.GetComponent<Text>().text = "Gold: " + gold;
-        theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);
-        sm = transform.GetComponentsInChildren<swordMovement>()[0];
-        skillTreeMenu = theCanvas.transform.Find("Skill Tree").gameObject;
-        SkillTreeScript.sts.pc = this;
-        skillTreeMenu.SetActive(false);
-        HitScreen.enabled = false;
-        pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
-        int numScenes = SceneManager.sceneCountInBuildSettings;
-        List<int> remainingScenes = new List<int>();
-        List<int> totalRemainingScenes = new List<int>();
-        //CHANGE WHEN NEW ROOM: int i = ?
-        for (int i = firstNormalIndex; i <= lastNormalIndex; i++)
-        {
-            totalRemainingScenes.Add(i);
-            remainingScenes.Add(i);
-        }
-        for(int i = lastNormalIndex + 1; i < numScenes; i++)
-        {
-            totalRemainingScenes.Add(i);
-        }
-        orderScenes = new List<int>();
-        /* while(remainingScenes.Count > 0)
-         {
-             //CHANGE WHEN NEW ROOM: int i = ?
-             if (r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 5)))
+            //GameObject.Find("Spawner").GetComponent<EnemySpawner>().spawnEnemy(pos, typeof(SoldierCommander), theSoldier);
+            //spawner.GetComponent<EnemySpawner>().spawnEnemy(prefab);
+            Debug.Log("deez");
+
+            main = this;
+            PlayerClass.applyEffects(PermVar.current.choices, SkillTreeScript.sts.effects);
+            //curHP = maxHP;
+            if (curHP <= 0)
+            {
+                curHP = maxHP;
+            }
+            //curMana = maxMana;
+            if (curMana <= 0)
+            {
+                curMana = maxMana;
+            }
+            dmg = 5;
+            ms = GetComponent<MovementScript>();
+            totalEnemies = 0;
+            HitScreen = theCanvas.transform.Find("RedHit").gameObject.GetComponent<RawImage>();
+            theCanvas.transform.Find("Gold").gameObject.GetComponent<Text>().text = "Gold: " + gold;
+            theCanvas.transform.Find("Mana").GetComponent<ManaScript>().updateMana(this);
+            sm = transform.GetComponentsInChildren<swordMovement>()[0];
+            skillTreeMenu = theCanvas.transform.Find("Skill Tree").gameObject;
+            SkillTreeScript.sts.pc = this;
+            skillTreeMenu.SetActive(false);
+            HitScreen.enabled = false;
+            pauseMenu = theCanvas.transform.Find("Pause Menu").gameObject;
+            int numScenes = SceneManager.sceneCountInBuildSettings;
+            List<int> remainingScenes = new List<int>();
+            List<int> totalRemainingScenes = new List<int>();
+            //CHANGE WHEN NEW ROOM: int i = ?
+            for (int i = firstNormalIndex; i <= lastNormalIndex; i++)
+            {
+                totalRemainingScenes.Add(i);
+                remainingScenes.Add(i);
+            }
+            for (int i = lastNormalIndex + 1; i < numScenes; i++)
+            {
+                totalRemainingScenes.Add(i);
+            }
+            orderScenes = new List<int>();
+            /* while(remainingScenes.Count > 0)
              {
-                 break;
-             }
-             int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
-             orderScenes.Add(sceneIndex);
-             remainingScenes.Remove(sceneIndex);
-         }*/
-        int length1 = 4 + r.Next(6);
-        for (int i = 0; i < length1; i++)
-        {
-         //   Debug.Log(remainingScenes.Count);
-            int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
-            orderScenes.Add(sceneIndex);
-            remainingScenes.Remove(sceneIndex);
+                 //CHANGE WHEN NEW ROOM: int i = ?
+                 if (r.Next(1000) > 1000 * (remainingScenes.Count / (float)(numScenes - 5)))
+                 {
+                     break;
+                 }
+                 int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
+                 orderScenes.Add(sceneIndex);
+                 remainingScenes.Remove(sceneIndex);
+             }*/
+            int length1 = 4 + r.Next(6);
+            for (int i = 0; i < length1; i++)
+            {
+                //   Debug.Log(remainingScenes.Count);
+                int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
+                orderScenes.Add(sceneIndex);
+                remainingScenes.Remove(sceneIndex);
+            }
+            orderScenes.Add(bossSceneIndex[0]);
+            orderScenes.Insert(orderScenes.Count / 2, npcRoom());
+            remainingScenes.Clear();
+            foreach (int i in totalRemainingScenes)
+            {
+                remainingScenes.Add(i);
+            }
+            int length2 = 5 + r.Next(6);
+            for (int i = 0; i < length2; i++)
+            {
+                //   Debug.Log(remainingScenes.Count);
+                int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
+                orderScenes.Add(sceneIndex);
+                remainingScenes.Remove(sceneIndex);
+            }
+            orderScenes.Add(bossSceneIndex[1]);
+            orderScenes.Insert(orderScenes.Count - (length2 / 2), npcRoom());
+            foreach (int i in totalRemainingScenes)
+            {
+                remainingScenes.Add(i);
+            }
+            int length3 = 6 + r.Next(6);
+            for (int i = 0; i < length3; i++)
+            {
+                //   Debug.Log(remainingScenes.Count);
+                int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
+                orderScenes.Add(sceneIndex);
+                remainingScenes.Remove(sceneIndex);
+            }
+            orderScenes.Add(bossSceneIndex[2]);
+            orderScenes.Insert(orderScenes.Count - (length3 / 2), npcRoom());
+            DontDestroyOnLoad(transform.gameObject);
+            DontDestroyOnLoad(theCanvas);
+            SceneManager.LoadScene(curSceneIndex);
+            Debug.Log("deez2");
+            //Debug.Log(theCanvas.GetComponentsInChildren<ShadeScript>()[0] == null);
+            theCanvas.GetComponentsInChildren<ShadeScript>()[0].updateShadeLobby();
+            //Debug.Log(orderScenes.Count);
         }
-        orderScenes.Add(bossSceneIndex[0]);
-        orderScenes.Insert(orderScenes.Count / 2, npcRoom());
-        remainingScenes.Clear();
-        foreach(int i in totalRemainingScenes)
-        {
-            remainingScenes.Add(i);
-        }
-        int length2 = 5 + r.Next(6);
-        for (int i = 0; i < length2; i++)
-        {
-            //   Debug.Log(remainingScenes.Count);
-            int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
-            orderScenes.Add(sceneIndex);
-            remainingScenes.Remove(sceneIndex);
-        }
-        orderScenes.Add(bossSceneIndex[1]);
-        orderScenes.Insert(orderScenes.Count - (length2 / 2), npcRoom());
-        foreach (int i in totalRemainingScenes)
-        {
-            remainingScenes.Add(i);
-        }
-        int length3 = 6 + r.Next(6);
-        for (int i = 0; i < length3; i++)
-        {
-            //   Debug.Log(remainingScenes.Count);
-            int sceneIndex = remainingScenes[r.Next(remainingScenes.Count)];
-            orderScenes.Add(sceneIndex);
-            remainingScenes.Remove(sceneIndex);
-        }
-        orderScenes.Add(bossSceneIndex[2]);
-        orderScenes.Insert(orderScenes.Count - (length3 / 2), npcRoom());
-        DontDestroyOnLoad(transform.gameObject);
-        DontDestroyOnLoad(theCanvas);
-        SceneManager.LoadScene(curSceneIndex);
-        Debug.Log("deez2");
-        //Debug.Log(theCanvas.GetComponentsInChildren<ShadeScript>()[0] == null);
-        theCanvas.GetComponentsInChildren<ShadeScript>()[0].updateShadeLobby();
-        //Debug.Log(orderScenes.Count);
     }
     
     public void nextScene()
@@ -270,9 +283,10 @@ public class PlayerClass : MonoBehaviour, EntityClass
         curSceneIndex = orderScenes[0];
         SceneManager.LoadScene(orderScenes[0]);
         orderScenes.RemoveAt(0);
+        
         //Debug.Log(orderScendqes.Count+"nutslength");
     }
-    public void applyEffects(bool[,] bs, UnityEngine.Events.UnityAction[,] uas)
+    public static void applyEffects(bool[,] bs, UnityEngine.Events.UnityAction[,] uas)
     {
         for(int i = 0; i < 5; i++)
         {
@@ -314,5 +328,12 @@ public class PlayerClass : MonoBehaviour, EntityClass
         sr.color = new Color(1, .5f, .5f, 1);
         yield return new WaitForSeconds(.5f);
         sr.color = Color.white;
+    }
+    public void bossroomdoor()
+    {
+        if (orderScenes.Count > 0 && (orderScenes[0] == bossSceneIndex[0] || orderScenes[0] == bossSceneIndex[1] || orderScenes[0] == bossSceneIndex[2]))
+        {
+            DoorOut.main.bossdoor();
+        }
     }
 }

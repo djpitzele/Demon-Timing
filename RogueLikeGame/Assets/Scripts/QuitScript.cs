@@ -9,6 +9,7 @@ public class QuitScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = PlayerClass.main;
         GetComponent<Button>().onClick.AddListener(doClick);
         transform.Find("Save").GetComponent<Button>().onClick.AddListener(doClickSave);
         transform.Find("Do Not Save").GetComponent<Button>().onClick.AddListener(doClickDoNotSave);

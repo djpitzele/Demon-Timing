@@ -690,6 +690,7 @@ MonoBehaviour:
   camera: {fileID: 825041312}
   camScaling: 5
   theWalls: {fileID: 1131354250}
+  theSpawners: {fileID: 0}
 --- !u!483693784 &1152286499
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -844,7 +845,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spritesToMatch.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: d5ea493a009990848acac8bceda2f07f,
+      objectReference: {fileID: 21300000, guid: eaed9f6e34aadda41a881e73b1c49f0c,
         type: 3}
     - target: {fileID: 4764653581605181250, guid: 3f4682a33daf68b4ebe9282f04013b6c,
         type: 3}

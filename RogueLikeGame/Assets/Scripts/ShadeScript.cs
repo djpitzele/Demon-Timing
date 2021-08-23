@@ -10,8 +10,13 @@ public class ShadeScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sh = this;
         tempShade = transform.Find("TempShade").gameObject;
+
+        updateTempShade();
+    }
+    private void Awake()
+    {
+        sh = this;
     }
 
     public void updateShade()
@@ -28,10 +33,10 @@ public class ShadeScript : MonoBehaviour
         transform.parent.Find("Gold").GetComponent<Text>().enabled = false;
         GetComponent<Text>().text = "Shade: " + (PermVar.current.Shade + PlayerClass.main.curShade);
     }
-    public void updateTempShade(int n)
+    public void updateTempShade()
     {
         tempShade.GetComponent<Text>().enabled = true;
-        tempShade.GetComponent<Text>().text = "Temp Shade: " + n;
+        tempShade.GetComponent<Text>().text = "Temp Shade: " + (SkillTreeScript.sts.tempShade - SkillTreeScript.sts.spentShade - PlayerClass.main.spentShadeSpell);
     }
     // Update is called once per frame
     void Update()

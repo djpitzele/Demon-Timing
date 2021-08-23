@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76ac71f41622d7f468f34c09b429ff3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldDoor: {fileID: 21300000, guid: 2a3d1bbb8f8028445bf7162636e385f7, type: 3}
   floor: {fileID: 0}
   theTiles: {fileID: 0}
 --- !u!212 &2557261650162434341

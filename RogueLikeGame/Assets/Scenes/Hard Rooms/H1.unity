@@ -196,7 +196,7 @@ PrefabInstance:
         type: 3}
       propertyPath: spritesToMatch.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: d5ea493a009990848acac8bceda2f07f,
+      objectReference: {fileID: 21300000, guid: eaed9f6e34aadda41a881e73b1c49f0c,
         type: 3}
     - target: {fileID: 968146726575111021, guid: 3f4682a33daf68b4ebe9282f04013b6c,
         type: 3}
@@ -500,6 +500,7 @@ MonoBehaviour:
   floor: {fileID: 11400000, guid: 3733e0b5e74e64e42a4163ceb0e1a798, type: 2}
   pillar: {fileID: 11400000, guid: db069a568b183bc43987319ec89e27de, type: 2}
   tm: {fileID: 783083318}
+  streak: 0
 --- !u!19719996 &783083320
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -780,6 +781,7 @@ MonoBehaviour:
   camera: {fileID: 825041312}
   camScaling: 5
   theWalls: {fileID: 1131354250}
+  theSpawners: {fileID: 0}
 --- !u!483693784 &1152286499
 TilemapRenderer:
   m_ObjectHideFlags: 0

@@ -54,7 +54,7 @@ public class SpawnerTile : Tile
     {
         GameObject temp = Instantiate(spawnedEnemy, pos, Quaternion.identity);
         temp.GetComponent<EntityClass>().setPlayer(player);
-        player.GetComponent<PlayerClass>().totalEnemies++;
+        PlayerClass.main.GetComponent<PlayerClass>().totalEnemies++;
     }
    
 }

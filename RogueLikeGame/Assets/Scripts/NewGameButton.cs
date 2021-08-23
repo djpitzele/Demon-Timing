@@ -41,6 +41,7 @@ public class NewGameButton : MonoBehaviour
         pc.curSceneIndex = SaveGame.current.curSceneIndex;
         pc.curShade = SaveGame.current.curShade;
         pc.spells = SaveGame.current.spells;
+        pc.copy = false;
         GameObject p = Instantiate(go);
         //Debug.Log(p == go);
         playerPrefab = go;
@@ -62,6 +63,7 @@ public class NewGameButton : MonoBehaviour
             GameObject c = Instantiate(canvasPrefab);
             go.GetComponent<PlayerClass>().theCanvas = c;
             go.GetComponent<MovementScript>().canvas = c;
+            SkillTreeScript.sts.spentShade2 = PermVar.current.spentShade;
             PlayerClass pc = go.GetComponent<PlayerClass>();
             c.GetComponentsInChildren<KillCounter>()[0].timeSpent = SaveGame.current.time;
             c.transform.Find("Gold").GetComponent<Text>().text = "Gold: " + SaveGame.current.gold;
@@ -75,9 +77,11 @@ public class NewGameButton : MonoBehaviour
             pc.curSceneIndex = SaveGame.current.curSceneIndex;
             pc.curShade = SaveGame.current.curShade;
             pc.spells = SaveGame.current.spells;
+            pc.spentShadeSpell = SaveGame.current.spentShadeSpell;
+            pc.copy = false;
             GameObject p = Instantiate(go);
-            p.GetComponent<PlayerClass>().applyEffects(PermVar.current.choices, SkillTreeScript.sts.effects);
-           // Debug.Log(p == go);
+            PlayerClass.main = p.GetComponent<PlayerClass>();
+            // Debug.Log(p == go);
             Destroy(go);
             p.name = "MainChar";
             c.name = "Canvas";

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class DoorOut : MonoBehaviour, NPClass
 {
     public static DoorOut main;
+    public Sprite goldDoor;
     public floorCreator floor;
     public TileSetter theTiles;
     // Start is called before the first frame update
@@ -13,6 +14,7 @@ public class DoorOut : MonoBehaviour, NPClass
     {
         main = this;
         transform.position = new Vector3(theTiles.width + 0.35f, theTiles.height / 2.0f, 0);
+        PlayerClass.main.bossroomdoor();
     }
 
     // Update is called once per frame
@@ -35,6 +37,13 @@ public class DoorOut : MonoBehaviour, NPClass
             }
                pc.theCanvas.transform.Find("Shade").GetComponent<UnityEngine.UI.Text>().enabled = false;
             pc.theCanvas.transform.Find("Gold").GetComponent<UnityEngine.UI.Text>().enabled = false;
+        pc.theCanvas.transform.Find("TempShade");
         return null;
+    }
+    public void bossdoor() 
+    {
+
+        GetComponent<SpriteRenderer>().sprite = goldDoor;
+        Debug.Log(Resources.Load<Sprite>("goldDoor").name + SceneManager.GetActiveScene().name);
     }
 }

@@ -19,7 +19,7 @@ public class SkillTreeScript : MonoBehaviour
     public int spentShade
     {
         get { return spentShade2; }
-        set { spentShade2 = value; ShadeScript.sh.updateTempShade(tempShade - spentShade2); PermVar.current.spentShade = value; }
+        set { spentShade2 = value; ShadeScript.sh.updateTempShade(); PermVar.current.spentShade = value; }
     }
     public int[,] prices = new int[5, 3] { { 1 , -1, -1} , { 5, 5, 5 }, { 15, 15, 15 }, { 45, 45, 45 }, { 135, 135, 135 } };
     void Awake()
@@ -48,12 +48,17 @@ public class SkillTreeScript : MonoBehaviour
         resetButton = transform.parent.Find("Reset Skill Tree").gameObject;
         resetButton.SetActive(false);
         //Debug.Log("it was disabled");
-        pc = PlayerClass.main;
+
         resetButton.GetComponent<Button>().onClick.AddListener(resetChoices);
-        
+    }
+    private void Start()
+    {
+        pc = PlayerClass.main;
+        tempShade = PermVar.current.Shade + SaveGame.current.curShade;
     }
     public void OnEnable()
     {
+     
         try
         {
             if (!PermVar.current.choices[0, 0] && !PermVar.current.choices[0, 1] && !PermVar.current.choices[0, 2])
@@ -145,7 +150,7 @@ public class SkillTreeScript : MonoBehaviour
     public void updateTemp()
     {
         tempShade = PermVar.current.Shade + PlayerClass.main.curShade;
-        ShadeScript.sh.updateTempShade(tempShade);
+        ShadeScript.sh.updateTempShade();
     }
     public void updateColors(Transform green)
     {
@@ -177,6 +182,7 @@ public class SkillTreeScript : MonoBehaviour
     }
     public void Skill1Effect()
     {
+        pc = PlayerClass.main;
         pc.dmg *= 1.05f;
         SpellTracker.main.spellDmg *= 1.05f;
     }

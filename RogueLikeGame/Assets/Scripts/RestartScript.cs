@@ -35,6 +35,7 @@ public class RestartScript : MonoBehaviour
         pc.maxMana = 100;
         pc.curHP = 0;
         pc.spells = new int[3];
+        pc.copy = false;
         GameObject go = Instantiate(p);
         Destroy(p);
         go.name = "MainChar";

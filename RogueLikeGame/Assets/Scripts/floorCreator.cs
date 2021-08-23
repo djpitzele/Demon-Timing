@@ -35,6 +35,7 @@ public class floorCreator : MonoBehaviour
     public GameObject camera;
     public float camScaling;
     public GameObject theWalls;
+    public Tilemap theSpawners;
     public static System.Random r = new System.Random();
 
     // for funsies
@@ -45,7 +46,7 @@ public class floorCreator : MonoBehaviour
     {
         main = this;
         camera =  Camera.main.gameObject;
-        player = GameObject.Find("MainChar");
+        player = PlayerClass.main.gameObject;
         spawners = new List<SpawnerClass>();
         for (int i = 0; i < spritesToMatch.Count; i++)
         {
@@ -70,7 +71,7 @@ public class floorCreator : MonoBehaviour
             Vector3Int v = new Vector3Int(width-  1, height - 1, 0);
             SpawnerTile t = chooseSpawner(v);
             spawnerTiles.Add(t);
-            tm.SetTile(v, t);
+            theSpawners.SetTile(v, t);
         }
         genWalls();
         int larger = Math.Max(width, height);
@@ -135,7 +136,7 @@ public class floorCreator : MonoBehaviour
                     //Debug.Log(((pillarsLeft / (width * height)) * 80000));
                     SpawnerTile t = chooseSpawner(v);
                     spawnerTiles.Add(t);
-                    tm.SetTile(v, t);
+                    theSpawners.SetTile(v, t);
                     //tileCost[x][y] = 10000000;
                     spawnersLeft--;
                     Vector2 temp = new Vector2(v.x, v.y);

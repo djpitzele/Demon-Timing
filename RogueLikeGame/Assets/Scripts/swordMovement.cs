@@ -70,6 +70,7 @@ public class swordMovement : MonoBehaviour
             transform.position += attackPosition;
             currentRotation = new Quaternion(0, 0, 0, 1);
             GetComponent<PolygonCollider2D>().enabled = true;
+            GetComponent<Animator>().SetBool("Attack", true);
         }
         else if(attackTime <= -1 * totalAttackCooldown && Input.GetAxis("Attack") < 0 && !(isStab))
         {
@@ -147,6 +148,7 @@ public class swordMovement : MonoBehaviour
         }
         else if (-0.2 <= attackTime && attackTime <= 0 && !isStab)
         {
+            GetComponent<Animator>().SetBool("Attack", false);
             //rb.simulated = false;
             attackTime = -0.9f * totalAttackCooldown;
             GetComponent<SpriteRenderer>().color = Color.red;

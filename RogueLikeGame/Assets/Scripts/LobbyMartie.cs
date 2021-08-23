@@ -21,7 +21,7 @@ public class LobbyMartie : MonoBehaviour, NPClass
     void Start()
     {
         SpellTracker.main.Start2();
-       
+
         //bms.gameObject.SetActive(false);
         r = new System.Random();
         int total = 0;
@@ -98,30 +98,31 @@ public class LobbyMartie : MonoBehaviour, NPClass
     }
     public void spell1()
     {
-        if (SkillTreeScript.sts.tempShade - SkillTreeScript.sts.spentShade >= p1)
+        if (SkillTreeScript.sts.tempShade - SkillTreeScript.sts.spentShade - PlayerClass.main.spentShadeSpell >= p1)
         {
             DropSpell(s1);
-            SkillTreeScript.sts.spentShade += p1;
+            PlayerClass.main.spentShadeSpell += p1;
         }
     }
     public void spell2()
     {
-        if (SkillTreeScript.sts.tempShade - SkillTreeScript.sts.spentShade >= p2)
+        if (SkillTreeScript.sts.tempShade - SkillTreeScript.sts.spentShade - PlayerClass.main.spentShadeSpell >= p2)
         {
             DropSpell(s2);
-            SkillTreeScript.sts.spentShade += p2;
+            PlayerClass.main.spentShadeSpell += p2;
         }
     }
     public void spell3()
     {
-        if (SkillTreeScript.sts.tempShade - SkillTreeScript.sts.spentShade >= p3)
+        if (SkillTreeScript.sts.tempShade - SkillTreeScript.sts.spentShade - PlayerClass.main.spentShadeSpell >= p3)
         {
             DropSpell(s3);
-            SkillTreeScript.sts.spentShade += p3;
+            PlayerClass.main.spentShadeSpell += p3;
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        bms = PlayerClass.main.bms;
         if (collision.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pcg))
         {
             inRange = true;
@@ -133,7 +134,7 @@ public class LobbyMartie : MonoBehaviour, NPClass
         if (collision.gameObject.TryGetComponent<PlayerClass>(out PlayerClass pc))
         {
             inRange = false;
-            bms.transform.parent.Find("Interaction").gameObject.SetActive(false);
+            pc.ms.interaction.gameObject.SetActive(false);
             bms.gameObject.SetActive(false);
             bms.destroyAllOptions();
             interactions = 0;
