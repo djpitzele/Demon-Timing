@@ -131,7 +131,7 @@ MonoBehaviour:
   copy: 1
   curMana2: 100
   maxMana: 100
-  maxHP: 100
+  maxHP2: 100
   curHP2: 100
   dmg: 0
   gold2: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   ms: {fileID: 0}
   firstNormalIndex: 5
   lastNormalIndex: 15
-  bossSceneIndex: 030000000300000003000000
+  bossSceneIndex: 030000000200000003000000
   haveAbility: 0
   abilityCooldown: 0
   enemyPerception: 1

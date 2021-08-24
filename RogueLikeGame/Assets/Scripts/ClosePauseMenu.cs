@@ -15,6 +15,16 @@ public class ClosePauseMenu : MonoBehaviour
     public void closePause()
     {
         Time.timeScale = 1f;
+        Transform theQuit = transform.parent.Find("Quit");
+        theQuit.Find("Save").GetComponent<Image>().enabled = false;
+        theQuit.Find("Save").Find("Text").GetComponent<Text>().enabled = false;
+        theQuit.Find("Save").GetComponent<Button>().enabled = false;
+        theQuit.Find("Do Not Save").GetComponent<Image>().enabled = false;
+        theQuit.Find("Do Not Save").Find("Text").GetComponent<Text>().enabled = false;
+        theQuit.Find("Do Not Save").GetComponent<Button>().enabled = false;
+        theQuit.GetComponent<Image>().enabled = true;
+        theQuit.Find("Text").GetComponent<Text>().enabled = true;
+        theQuit.GetComponent<Button>().enabled = true;
         transform.parent.gameObject.SetActive(false);
     }
 }

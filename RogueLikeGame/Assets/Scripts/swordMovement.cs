@@ -193,6 +193,7 @@ public class swordMovement : MonoBehaviour
             //Vector2 curForce = (Vector2)rb.velocity;
             //rb.AddForce(-2 * curForce);
             swordVelocity *= -1;
+            rb.position = Vector3.MoveTowards(transform.position, stabSwordPos, swordVelocity * Time.fixedDeltaTime * inWall * 5);
         }
         else { swordVelocity *= -1; }
        

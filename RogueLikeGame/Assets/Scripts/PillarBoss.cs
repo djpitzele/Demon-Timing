@@ -54,7 +54,7 @@ public class PillarBoss : MonoBehaviour
     {
         if(collision.TryGetComponent(out EntityClass ec))
         {
-            collision.attachedRigidbody.AddForce((collision.gameObject.transform.position - transform.position).normalized * 5000);
+            collision.attachedRigidbody.AddForce((collision.gameObject.transform.position - transform.position).normalized * 50000);
             ec.getHit(20, "melee");
         }
     }
@@ -167,9 +167,13 @@ public class PillarBoss : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         GetComponent<CircleCollider2D>().enabled = true;
+        transform.Find("Impact Circle").GetComponent<SpriteRenderer>().enabled = true;
         cooldown = 2f;
         yield return new WaitForFixedUpdate();
         GetComponent<CircleCollider2D>().enabled = false;
+        yield return new WaitForSeconds(.3f);
+        transform.Find("Impact Circle").GetComponent<SpriteRenderer>().enabled = false;
+
 
     }
     public IEnumerator placepillar(Vector3 pos)

@@ -141,10 +141,10 @@ public class SkillTreeScript : MonoBehaviour
             spentShade += prices[pos.x, pos.y];
             //ShadeScript.sh.updateTempShade(tempShade - spentShade);
             PermVar.current.choices[pos.x, pos.y] = true;
-            Debug.Log("jeez" + true);
+            //Debug.Log("jeez" + true);
             return true;
         }
-        Debug.Log("jeez" + false);
+        //Debug.Log("jeez" + false);
         return false;
     }
     public void updateTemp()
@@ -160,6 +160,11 @@ public class SkillTreeScript : MonoBehaviour
     {
         green.GetComponent<Image>().color = Color.green;
         white.GetComponent<Image>().color = Color.white;
+    }
+    public void nothing()
+    {
+
+
     }
     public void Skill1()
     {
@@ -183,8 +188,8 @@ public class SkillTreeScript : MonoBehaviour
     public void Skill1Effect()
     {
         pc = PlayerClass.main;
-        pc.dmg *= 1.05f;
-        SpellTracker.main.spellDmg *= 1.05f;
+        pc.maxHP += 25;
+        pc.curHP += 25;
     }
     public void MeleeAbilityClick()
     {
@@ -195,7 +200,8 @@ public class SkillTreeScript : MonoBehaviour
 
             PermVar.current.choices[0, 1] = false;
             PermVar.current.choices[0, 2] = false;
-            
+            transform.Find("Speed Ability").GetComponent<Image>().color = Color.gray;
+            transform.Find("Mana Ability").GetComponent<Image>().color = Color.gray;
             //st.Find("Melee 1").gameObject.SetActive(true);
             //SaveGame.current.choices[1, 0] = true;
         }
@@ -240,7 +246,7 @@ public class SkillTreeScript : MonoBehaviour
     }
     public void Melee3()
     {
-        Debug.Log("oh yeayuh");
+        //Debug.Log("oh yeayuh");
         Vector2Int v = new Vector2Int(4, 0);
         if (possible(v))
         {
@@ -262,6 +268,8 @@ public class SkillTreeScript : MonoBehaviour
             
             PermVar.current.choices[0, 0] = false;
             PermVar.current.choices[0, 2] = false;
+            transform.Find("Melee Ability").GetComponent<Image>().color = Color.gray;
+            transform.Find("Mana Ability").GetComponent<Image>().color = Color.gray;
             //st.Find("Speed Ability").Find("Speed 1").gameObject.SetActive(true);
             PermVar.current.choices[1, 1] = true;
             //pc.haveAbility = true;
@@ -329,7 +337,8 @@ public class SkillTreeScript : MonoBehaviour
         if (possible(v))
         {
             updateColors(transform.Find("Mana Ability"), transform.Find("Mana 1"));
-
+            transform.Find("Speed Ability").GetComponent<Image>().color = Color.gray;
+            transform.Find("Melee Ability").GetComponent<Image>().color = Color.gray;
             PermVar.current.choices[0, 0] = false;
             PermVar.current.choices[0, 1] = false;
             //skill1.Find("Mana Ability").Find("Mana 1").gameObject.SetActive(true);

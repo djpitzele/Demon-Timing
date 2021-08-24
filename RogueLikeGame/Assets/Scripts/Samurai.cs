@@ -102,6 +102,7 @@ public class Samurai : MonoBehaviour, RangedClass
 
         if (!(dashing) && dashCooldown <= 0)
         {
+            //Debug.Log("samurai attack");
             dashing = true;
             //Debug.Log("asdf");
             dashCooldown = 0.5f;
@@ -125,6 +126,10 @@ public class Samurai : MonoBehaviour, RangedClass
             if(rb.velocity.magnitude != 0)
             {
                 yield return new WaitForSeconds(((formerPos - transform.position).magnitude) / rb.velocity.magnitude);
+            }
+            else
+            {
+                yield return new WaitForFixedUpdate();
             }
             dashing = false;
             transform.rotation = Quaternion.identity;

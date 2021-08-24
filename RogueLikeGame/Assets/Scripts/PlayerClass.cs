@@ -13,7 +13,12 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public bool copy;
     public float curMana2;
     public float maxMana;
-    public float maxHP;
+    public float maxHP2;
+    public float maxHP
+    {
+        get { return maxHP2; }
+        set { maxHP2 = value; Debug.Log("maxHP changed to " + value); }
+    }
     public float curHP2;
     public float dmg;
     public int gold2;
@@ -33,7 +38,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public MovementScript ms;
     public int firstNormalIndex = 6;
     public int lastNormalIndex = 16;//does not include hard rooms
-    public int[] bossSceneIndex = { 3, 2, 3 }; // put boss room scene indicies in here
+    private int[] bossSceneIndex = { 3, 2, 3 }; // put boss room scene indicies in here
     public delegate IEnumerator ability();
     public ability playerAbility;
     public bool haveAbility = false;
@@ -173,7 +178,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
             Debug.Log("deez");
 
             main = this;
-            PlayerClass.applyEffects(PermVar.current.choices, SkillTreeScript.sts.effects);
+            //PlayerClass.applyEffects(PermVar.current.choices, SkillTreeScript.sts.effects);
             //curHP = maxHP;
             if (curHP <= 0)
             {
@@ -263,6 +268,12 @@ public class PlayerClass : MonoBehaviour, EntityClass
             DontDestroyOnLoad(transform.gameObject);
             DontDestroyOnLoad(theCanvas);
             SceneManager.LoadScene(curSceneIndex);
+            string s = "";
+            foreach(int i in orderScenes)
+            {
+                s += (i + " ");
+            }
+            //Debug.Log(s);
             Debug.Log("deez2");
             //Debug.Log(theCanvas.GetComponentsInChildren<ShadeScript>()[0] == null);
             theCanvas.GetComponentsInChildren<ShadeScript>()[0].updateShadeLobby();
@@ -288,20 +299,29 @@ public class PlayerClass : MonoBehaviour, EntityClass
     }
     public static void applyEffects(bool[,] bs, UnityEngine.Events.UnityAction[,] uas)
     {
+        bool haveDoneSkill1 = false;
         for(int i = 0; i < 5; i++)
         {
             for(int j = 0; j < 3; j++)
             {
                 if(bs[i, j])
                 {
-                    uas[i, j].Invoke();
+                    if (i == 0 && !(haveDoneSkill1))
+                    {
+                        uas[i, j].Invoke();
+                        haveDoneSkill1 = true;
+                    }
+                    else if (i != 0)
+                    {
+                        uas[i, j].Invoke();
+                    }
                 }
             }
         }
     }
     public int npcRoom()
     {
-        return r.Next(3, 5);//add npc rooms
+        return r.Next(4, 6);//add npc rooms
     }
     // Update is called once per frame
     void Update()

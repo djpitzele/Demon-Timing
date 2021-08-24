@@ -12,6 +12,7 @@ public class Arachnus : MonoBehaviour, MeleeClass
     private float tilAttack = 0;
     private GameObject player;
     public bool stunned;
+    public float speed;
     /*public SoldierCommander(int theMaxMana, float theMaxHP)
     {
         maxMana = theMaxMana;
@@ -30,6 +31,7 @@ public class Arachnus : MonoBehaviour, MeleeClass
     }
     void Start()
     {
+        speed = GetComponent<MeleeAttacker>().meleeSpeed;
         Rigidbody2D r = this.gameObject.GetComponent<Rigidbody2D>();
         //r.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         dmg = 5;
@@ -87,13 +89,12 @@ public class Arachnus : MonoBehaviour, MeleeClass
     }
     private IEnumerator ResetColor(SpriteRenderer sr, float dm)
     {
-        float n = GetComponent<MeleeAttacker>().meleeSpeed;
         stunned = true;
         GetComponent<MeleeAttacker>().meleeSpeed = 0;
         sr.color = new Color(1, .5f, .5f, 1);
         yield return new WaitForSeconds(dm/10f);
         sr.color = Color.white;
         stunned = false;
-        GetComponent<MeleeAttacker>().meleeSpeed = n;
+        GetComponent<MeleeAttacker>().meleeSpeed = speed;
     }
 }

@@ -36,6 +36,7 @@ public class QuitScript : MonoBehaviour
 
     public void doClickSave()
     {
+        player = PlayerClass.main;
         SaveGame.current = player.makeSaveGame();
         SaveLoad.Save();
         Application.Quit();

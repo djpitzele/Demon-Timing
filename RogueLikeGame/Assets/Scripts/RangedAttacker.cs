@@ -226,11 +226,11 @@ public class RangedAttacker : MonoBehaviour
         {
             return false;
         }
-        RaycastHit2D hit = Physics2D.Raycast(v, (Vector2)myPlayer.transform.position - v, shotDistance, LayerMask.GetMask("Pillars"));
+        RaycastHit2D hit = Physics2D.Raycast(v, (Vector2)myPlayer.transform.position - v, Math.Min(shotDistance, Vector2.Distance(myPlayer.transform.position, v)), LayerMask.GetMask("Pillars"));
         //Debug.Log((Vector2)myPlayer.transform.position - v + offset);
         if(hit.collider != null)
         {
-            //Debug.Log(hit.collider.gameObject.name);
+            Debug.Log(hit.collider.gameObject.name);
         }
         return hit.collider == null;
     }
