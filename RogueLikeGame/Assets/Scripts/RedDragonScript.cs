@@ -33,7 +33,7 @@ public class RedDragonScript : MonoBehaviour
         if (pipes.Count == 0 || floorScript.waves <= 0)
         {
             //WE WON, DO SOMETHING COOL
-            Debug.Log("hello");
+            //Debug.Log("hello");
             floorScript.waves = -1;
             GameObject[] gms = (GameObject[])FindObjectsOfType(typeof(GameObject));
             pipes.Clear();

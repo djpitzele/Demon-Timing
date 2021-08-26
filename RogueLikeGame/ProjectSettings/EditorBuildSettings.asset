@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Pillar Boss.unity
     guid: 674257bc06ebf9b46a2c37b0be061c13
   - enabled: 1
+    path: Assets/Comet.unity
+    guid: 9dec288fe0a1f064aaed1dc36ce9eb69
+  - enabled: 1
     path: Assets/Scenes/Specialty Rooms/Spell Shop.unity
     guid: 766c5925b1fcd674999dfe85f0bf6816
   - enabled: 1

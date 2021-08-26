@@ -36,9 +36,9 @@ public class PlayerClass : MonoBehaviour, EntityClass
     public int[] spells2 = new int[3];
     public bool menuOn = false;
     public MovementScript ms;
-    public int firstNormalIndex = 6;
-    public int lastNormalIndex = 16;//does not include hard rooms
-    private int[] bossSceneIndex = { 3, 2, 3 }; // put boss room scene indicies in here
+    public int firstNormalIndex = 7;
+    public int lastNormalIndex = 17;//does not include hard rooms
+    private int[] bossSceneIndex = { 3, 2, 4 }; // put boss room scene indicies in here
     public delegate IEnumerator ability();
     public ability playerAbility;
     public bool haveAbility = false;
@@ -321,7 +321,7 @@ public class PlayerClass : MonoBehaviour, EntityClass
     }
     public int npcRoom()
     {
-        return r.Next(4, 6);//add npc rooms
+        return r.Next(5, 7);//add npc rooms
     }
     // Update is called once per frame
     void Update()

@@ -22,7 +22,7 @@ public class PillarBoss : MonoBehaviour
     void Start()
     {
         pc = PlayerClass.main;
-        door = DoorOut.main.gameObject;
+        //door = DoorOut.main.gameObject;
         door.GetComponent<SpriteRenderer>().enabled = false;
     }
 

@@ -54,6 +54,7 @@ MonoBehaviour:
   player: {fileID: 0}
   inside: []
   stunned: 0
+  attacking: 0
 --- !u!212 &6690261486796932312
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -217,7 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chance:
   - 0.5
-  - 0.3
+  - 0.1
   spawned:
   - {fileID: 2300270610071229138, guid: e4cd774aeabf98740b8e0e1ca55b04c2, type: 3}
   - {fileID: 2169882276682997496, guid: ba6834f75e6f23f42be03bc343c097f9, type: 3}

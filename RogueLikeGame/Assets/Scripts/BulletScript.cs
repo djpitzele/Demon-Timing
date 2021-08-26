@@ -35,7 +35,7 @@ public class BulletScript : MonoBehaviour, EntityClass
             ec.getHit(dmg * checkPlayer(collision), "projectile");
             die();
         }
-        else if(collision.transform != transform.parent)
+        else if(collision.attachedRigidbody.bodyType == RigidbodyType2D.Static)
         {
             //Debug.Log("hitwall" + collision.gameObject.name);
             die();

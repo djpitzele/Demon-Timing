@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -5165148046655060228}
   - component: {fileID: 2750696410939100312}
   - component: {fileID: 7590952036682166285}
+  - component: {fileID: 1563391416523979027}
   m_Layer: 8
   m_Name: RangedCommander
   m_TagString: Untagged
@@ -201,3 +202,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1563391416523979027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6309820748959245513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 896d8eed48f19584cbf251aff5cfc16a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chance:
+  - 0.1
+  spawned:
+  - {fileID: 2169882276682997496, guid: ba6834f75e6f23f42be03bc343c097f9, type: 3}
+  min: 14000000
+  max: 14000000
