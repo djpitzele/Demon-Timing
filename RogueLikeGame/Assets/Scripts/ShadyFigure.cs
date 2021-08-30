@@ -13,12 +13,15 @@ public class ShadyFigure : MonoBehaviour, NPClass
     // Start is called before the first frame update
     void Start()
     {
-        ShadeScript.sh.updateTempShade();
         bms = GameObject.Find("Canvas").transform.Find("BuyMenu").gameObject.GetComponent<BuyMenuScript>();
         PlayerClass.main.bms = bms;
         bms.gameObject.SetActive(false);
+        Invoke("updateIt", 0.1f);
     }
- 
+    private void updateIt()
+    {
+        ShadeScript.sh.updateTempShade();
+    }
     // Update is called once per frame
     void Update()
     {

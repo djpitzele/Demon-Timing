@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ShadeScript : MonoBehaviour
 {
@@ -35,8 +36,15 @@ public class ShadeScript : MonoBehaviour
     }
     public void updateTempShade()
     {
-        tempShade.GetComponent<Text>().enabled = true;
-        tempShade.GetComponent<Text>().text = "Temp Shade: " + (SkillTreeScript.sts.tempShade - SkillTreeScript.sts.spentShade - PlayerClass.main.spentShadeSpell);
+        try
+        {
+            tempShade.GetComponent<Text>().enabled = true;
+            tempShade.GetComponent<Text>().text = "Temp Shade: " + (SkillTreeScript.sts.tempShade - SkillTreeScript.sts.spentShade - PlayerClass.main.spentShadeSpell);
+        }
+        catch(NullReferenceException n)
+        {
+
+        }
     }
     // Update is called once per frame
     void Update()

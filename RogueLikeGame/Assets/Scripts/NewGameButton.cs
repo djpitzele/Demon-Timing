@@ -79,6 +79,7 @@ public class NewGameButton : MonoBehaviour
             pc.spells = SaveGame.current.spells;
             pc.spentShadeSpell = SaveGame.current.spentShadeSpell;
             pc.copy = false;
+            pc.bms = c.transform.Find("BuyMenu").GetComponent<BuyMenuScript>();
             GameObject p = Instantiate(go);
             PlayerClass.main = p.GetComponent<PlayerClass>();
             // Debug.Log(p == go);

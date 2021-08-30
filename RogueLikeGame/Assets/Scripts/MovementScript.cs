@@ -78,10 +78,10 @@ public class MovementScript : MonoBehaviour
     void FixedUpdate()
     {
         float curMovement = Input.GetAxis("Horizontal");
-        /*if(Input.GetAxis("Fire2") != 0)
+        if(Input.GetAxis("Fire2") != 0)
         {
             GetComponent<PlayerClass>().nextScene();
-        }*/
+        }
         if(Input.GetAxis("Ability") != 0 && pc.abilityCooldown <= 0)
         {
             if(pc.haveAbility)

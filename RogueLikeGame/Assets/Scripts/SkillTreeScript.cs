@@ -19,7 +19,7 @@ public class SkillTreeScript : MonoBehaviour
     public int spentShade
     {
         get { return spentShade2; }
-        set { spentShade2 = value; ShadeScript.sh.updateTempShade(); PermVar.current.spentShade = value; }
+        set { spentShade2 = value; StartCoroutine("doUpdateTempShade"); PermVar.current.spentShade = value; }
     }
     public int[,] prices = new int[5, 3] { { 1 , -1, -1} , { 5, 5, 5 }, { 15, 15, 15 }, { 45, 45, 45 }, { 135, 135, 135 } };
     void Awake()
@@ -76,7 +76,11 @@ public class SkillTreeScript : MonoBehaviour
         resetButton.SetActive(true);
         //Debug.Log("happens" + resetButton == null);
     }
-
+    private IEnumerator doUpdateTempShade()
+    {
+        yield return new WaitForSeconds(0.1f);
+        ShadeScript.sh.updateTempShade();
+    }
     public void setColors(bool[,] choices)
     {
         if(choices[0, 0] || choices[0, 1] || choices[0, 2])

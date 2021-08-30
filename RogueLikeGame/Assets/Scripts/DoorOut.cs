@@ -32,7 +32,7 @@ public class DoorOut : MonoBehaviour, NPClass
         }
             if (floor.waves <= 0)
             {
-               
+            ShadeScript.sh.DisableTempText();
                 pc.nextScene();
             }
                pc.theCanvas.transform.Find("Shade").GetComponent<UnityEngine.UI.Text>().enabled = false;
