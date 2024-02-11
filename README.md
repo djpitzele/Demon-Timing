@@ -8,10 +8,10 @@ Demon Timing is a roguelike game created by Daniel Pitzele and Dhruv Kapadia. At
 3. Run "Demon Timing.exe" and begin play!
 
 ## Basic Controls
-WASD - movement keys
-Left click - basic attack
-Right click - ranged attack
-Enter - advance room (if completed)
+WASD - movement keys  
+Left click - basic attack  
+Right click - ranged attack  
+Enter - advance room (if completed)  
 
 
 We used Unity as the game engine, so GitHub only stores the assets folder from the game, which includes the code and art/graphics, both created by us.
